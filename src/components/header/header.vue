@@ -45,7 +45,7 @@
             <li>
               <a href="#">我可兑的商品
                <i class="icon-rightArrow"></i>
-</a>
+              </a>
             </li>
             <li>
               <a href="#">我的兑换记录<i class="icon-rightArrow"></i></a>
@@ -77,7 +77,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import "header.styl"
+  @import "header.styl";
 
 
 </style>

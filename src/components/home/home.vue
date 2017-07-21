@@ -1,7 +1,7 @@
 <template>
   <div class="home-wrapper">
     <v-banner></v-banner>
-    <v-goods v-for="index in 2" :key="index"></v-goods>
+    <v-goods></v-goods>
   </div>
 
 </template>

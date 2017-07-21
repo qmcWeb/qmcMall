@@ -19,6 +19,6 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "./common/css/reset.css"
-  @import "./common/stylus/icon.styl"
+  @import "./common/css/reset.css";
+  @import "./common/stylus/icon.styl";
 </style>
