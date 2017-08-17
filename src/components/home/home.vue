@@ -1,18 +1,114 @@
 <template>
   <div class="home-wrapper">
     <v-banner></v-banner>
-    <v-goods></v-goods>
+    <v-goodsHome :list="list"></v-goodsHome>
   </div>
 
 </template>
 
 <script>
   import  banner from  '@/components/banner/banner'
-  import  goods from  '@/components/goods/goods'
+  import  goodsHome from  '@/components/goodsHome/goodsHome'
   export default {
+    data (){
+      return {
+        "list": [
+        {
+          "id": "1",
+          "sell_id": "2",
+          "product_price": "5",
+          "selling_price": 1.0,
+          "product_name": "1"
+        },
+        {
+          "id": "10",
+          "sell_id": "3",
+          "product_price": "565",
+          "selling_price": 1.0,
+          "product_name": "1"
+        },
+        {
+          "id": "11",
+          "sell_id": "1",
+          "product_price": "3",
+          "selling_price": 1.0,
+          "product_name": "1"
+        },
+        {
+          "id": "12",
+          "sell_id": "1",
+          "product_price": "3",
+          "selling_price": 1.0,
+          "product_name": "1"
+        },
+        {
+          "id": "2",
+          "sell_id": "3",
+          "product_price": "66",
+          "selling_price": 1.0,
+          "product_name": "1"
+        },
+        {
+          "id": "23",
+          "product_price": "5",
+          "selling_price": 1.0,
+          "product_name": "iPhone八"
+        },
+        {
+          "id": "3",
+          "sell_id": "3",
+          "product_price": "44",
+          "selling_price": 1.0,
+          "product_name": "未人"
+        },
+        {
+          "id": "4",
+          "sell_id": "2",
+          "product_price": "33",
+          "selling_price": 1.0,
+          "product_name": "裤子"
+        },
+        {
+          "id": "5",
+          "sell_id": "3",
+          "product_price": "6555",
+          "selling_price": 1.0,
+          "product_name": "速度发顺丰"
+        },
+        {
+          "id": "6",
+          "sell_id": "2",
+          "product_price": "343",
+          "selling_price": 1.0,
+          "product_name": "1"
+        },
+        {
+          "id": "7",
+          "sell_id": "1",
+          "product_price": "34",
+          "selling_price": 1.0,
+          "product_name": "1"
+        },
+        {
+          "id": "8",
+          "sell_id": "2",
+          "product_price": "655",
+          "selling_price": 1.0,
+          "product_name": "1"
+        },
+        {
+          "id": "9",
+          "sell_id": "1",
+          "product_price": "5",
+          "selling_price": 1.0,
+          "product_name": "iPhone八"
+        }
+      ]
+      }
+    },
     components:{
         'v-banner':banner,
-        'v-goods':goods
+        'v-goodsHome':goodsHome
     }
   }
 </script>

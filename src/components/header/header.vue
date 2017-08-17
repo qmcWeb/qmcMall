@@ -10,11 +10,18 @@
       </div>
       <ul class="nav">
         <li>
-          <a href="#">商城首页</a>
+          <router-link :to="{ path: '/' }">
+            商城首页
+
+          </router-link>
           <i class="arrow"></i>
         </li>
         <li class="goods">
-          <a href="#">全部商品</a>
+          <router-link :to="{ path: 'goodsList' }">
+            全部商品
+
+          </router-link>
+          <a href="#"></a>
           <ul class="list-wrapper">
             <li class="list">
               <a href="#">优惠卡券</a>
@@ -29,7 +36,7 @@
           <i class="arrow"></i>
         </li>
         <li>
-          <a href="#">返回官方首页</a>
+          <a href="https://www.qianmancang.com">返回官方首页</a>
           <i class="arrow"></i>
         </li>
       </ul>
