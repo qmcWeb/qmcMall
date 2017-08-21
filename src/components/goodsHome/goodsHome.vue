@@ -7,7 +7,7 @@
             <img src="./Avatar.png" alt="小图标" width="32" height="44">
             <span>1F</span>
           </div>
-          <p class="product">热兑商品<span>Popular</span></p>
+          <p class="product">热  兑商品<span>Popular</span></p>
           <a class="goods-more" href="">更多></a>
         </div>
         <ul class="goods">
