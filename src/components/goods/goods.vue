@@ -20,6 +20,7 @@
               <p class="goods-name">
                 <router-link :to="{path:`/detail/${index}`}">
                   飞利浦智能充电式剃须刀
+
                 </router-link>
               </p>
               <div class="goods-price">

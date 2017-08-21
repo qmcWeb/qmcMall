@@ -1,6 +1,7 @@
 <template>
   <div class="detail-wrapper">
     我是详情{{ $route.params.id }}
+
     <div class="product-intro">
       <div class="preview-top">
         <div class="preview-img left">
@@ -80,14 +81,14 @@
     },
     methods: {
       reduceNum() {
-        if(this.result <= 1){
-            return false;
+        if (this.result <= 1) {
+          return false;
         }
         this.result--;
         this.$emit('input', {res: this.result, other: '--'})
       },
       addNum() {
-        if(this.result >= 5){
+        if (this.result >= 5) {
           return false;
         }
         this.result++;
