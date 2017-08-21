@@ -9,10 +9,10 @@
 </template>
 
 <script>
-  import  selector from  '@/components/selector/selector'
-  import  paging from  '@/components/paging/paging'
-  import  goodsHome from  '@/components/goodsHome/goodsHome'
-  import  crumbsBar from  '@/components/crumbsBar/crumbsBar'
+  import  selector from  '@/components/selector/selector';
+  import  paging from  '@/components/paging/paging';
+  import  goodsHome from  '@/components/goodsHome/goodsHome';
+  import  crumbsBar from  '@/components/crumbsBar/crumbsBar';
   export default {
     components:{
       'v-crumbsBar':crumbsBar,
