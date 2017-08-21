@@ -36,6 +36,7 @@ footer, header, menu, nav, section {
 
 body {
     line-height: 1;
+  background: #EEEEEE;
 }
 
 blockquote, q {

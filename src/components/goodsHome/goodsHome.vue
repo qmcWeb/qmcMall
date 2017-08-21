@@ -4,7 +4,7 @@
       <li class="goods-item" v-for="index in 4">
         <div class="title-wrapper">
           <div class="title-icon">
-            <img src="./Avatar.png" alt="小图标" width="32" height="44">
+            <img src="./Avatar.png" alt="小图标" width="50" height="50">
             <span>1F</span>
           </div>
           <p class="product">热兑商品<span>Popular</span></p>
@@ -30,7 +30,7 @@
       return {}
     },
     components:{
-        'v-good':'good'
+      'v-good': good
     }
   }
 </script>
