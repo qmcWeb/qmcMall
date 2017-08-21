@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import  good from  '../goods/goods';
+  import  good from  '@/components/good/good';
   export default {
     props: {
       list: Array
