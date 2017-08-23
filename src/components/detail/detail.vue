@@ -1,7 +1,6 @@
 <template>
   <div class="detail-wrapper">
     我是详情{{ $route.params.id }}
-
     <div class="product-intro">
       <div class="preview-top">
         <div class="preview-img left">

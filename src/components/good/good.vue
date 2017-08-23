@@ -6,7 +6,7 @@
        <div class="good-introduce">
          <p class="goods-name">
            {{item.product_name}}
-                </p>
+         </p>
          <div class="goods-price">
            <p class="cang-beans">{{item.product_price}}<span>仓豆</span></p>
            <p class="market-price">市场价：{{item.selling_price}}元</p>
