@@ -1,18 +1,16 @@
 <template>
   <div class="detail-wrapper">
-    我是详情{{ $route.params.id }}
-
     <div class="product-intro">
       <div class="preview-top">
         <div class="preview-img left">
           <img src="" alt="">
         </div>
         <div class="preview-des right">
-          <div class="goods-title">Philips/飞利浦智能充电式剃须刀</div>
-          <div class="goods-summary">荷兰进口刀头，性贴面设计，舒适切剃，剃须静音更舒心！</div>
+          <div class="goods-title">{{name}}</div>
+          <div class="goods-summary">{{desc}}</div>
           <div class="goods-features"></div>
           <div class="goods-price">
-            售价：<span class="goods-cangdou">5999</span>仓豆<span>市场价：360元</span>
+            售价：<span class="goods-cangdou">{{beans}}</span>仓豆<span>市场价：{{price}}元</span>
           </div>
           <div class="goods-number">
             数量：<span class="goods-amount icon-reduce" @click="reduceNum()"></span>
@@ -76,8 +74,18 @@
   export default {
     data() {
       return {
-        result: 1,
+        result: 1
+
       }
+    },
+    created() {
+      let good = this;
+      good.goodInfoData = JSON.parse(sessionStorage.goodInfoData);
+      console.log(good.goodInfoData);
+      good.name = good.goodInfoData.product_name;
+      good.desc = '荷兰进口刀头，性贴面设计，舒适切剃，剃须静音更舒心！';
+      good.beans = good.goodInfoData.product_price;
+      good.price = good.goodInfoData.selling_price;
     },
     methods: {
       reduceNum() {
@@ -94,7 +102,9 @@
         this.result++;
         this.$emit('input', {res: this.result, other: '++'})
       }
+
     }
+
   }
 </script>
 

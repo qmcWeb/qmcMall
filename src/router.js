@@ -11,7 +11,7 @@ export default [
     component: home
   },
   {
-    path:'/detail/:id',
+    path: '/detail',
     name:'detail',
     component: detail
   },

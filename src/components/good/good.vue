@@ -1,6 +1,6 @@
 <template>
    <div class="good-wrap">
-     <router-link :to="{path:`/detail/${item.id}`}" class="introduce-img">
+     <a href="javascript:;" class="introduce-img" @click="routerLink">
        <img src="./Avatar.png" alt="" width="285" height="231">
        <!--<p class="introduce-sellout" v-if="">已售罄</p>-->
        <div class="good-introduce">
@@ -12,13 +12,20 @@
            <p class="market-price">市场价：{{item.selling_price}}元</p>
          </div>
        </div>
-     </router-link>
+     </a>
    </div>
 </template>
 
 <script>
   export default{
-    props:['item']
+    props: ['item'],
+    methods: {
+      routerLink (){
+        var data = JSON.stringify(this.item)
+        sessionStorage.setItem('goodInfoData', data);
+        this.$router.push({path: '/detail', query: {goodId: this.item.id}})
+      }
+    }
   }
 </script>
 
