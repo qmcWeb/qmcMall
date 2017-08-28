@@ -2,6 +2,7 @@
  * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
  * http://cssreset.com
  */
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -18,10 +19,9 @@ time, mark, audio, video, input {
     margin: 0;
     padding: 0;
     border: 0;
+  font-size: 14px;
     font-weight: normal;
     vertical-align: baseline;
-  font-size: 14px;
-  font-style: normal;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -32,7 +32,7 @@ footer, header, menu, nav, section {
 
 body {
     line-height: 1;
-  background: #F4F4F4;
+  background: #EEEEEE;
 }
 
 blockquote, q {
@@ -51,6 +51,7 @@ table {
 
 /* custom */
 a {
+  color: #7e8c8d;
     text-decoration: none;
     -webkit-backface-visibility: hidden;
 }
@@ -83,10 +84,13 @@ li {
 
 html, body {
     width: 100%;
-  font-family: "Microsoft Yahei";
 }
 
 body {
     -webkit-text-size-adjust: none;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.orange {
+  color: #DA5140
 }
