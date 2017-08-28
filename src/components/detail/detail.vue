@@ -14,12 +14,12 @@
           </div>
           <div class="goods-number">
             数量：<span class="goods-amount icon-reduce" @click="reduceNum()"></span>
-            {{ result }}
+            {{ count }}
             <span class="goods-amount icon-add" @click="addNum()"></span>
             <span>库存<b>485</b>件</span>
           </div>
           <div class="goods-btn">
-            <a href="javascript:;">立即兑换</a>
+            <a href="javascript:;" @click="exchange">立即兑换</a>
           </div>
           <div class="goods-tips">该商品由京东自营负责发货，并提供售后服务。</div>
         </div>
@@ -74,8 +74,7 @@
   export default {
     data() {
       return {
-        result: 1
-
+        count: 1
       }
     },
     created() {
@@ -92,15 +91,22 @@
         if (this.result <= 1) {
           return false;
         }
-        this.result--;
+        this.count--;
         this.$emit('input', {res: this.result, other: '--'})
       },
       addNum() {
         if (this.result >= 5) {
           return false;
         }
-        this.result++;
+        this.count++;
         this.$emit('input', {res: this.result, other: '++'})
+      },
+      exchange() {
+        let good = this;
+        good.goodInfoData.goodCount = good.count;
+        var data = JSON.stringify(good.goodInfoData)
+        sessionStorage.setItem('goodInfoData', data);
+        this.$router.push({path: '/order', query: {goodId: good.goodInfoData.id}})
       }
 
     }
