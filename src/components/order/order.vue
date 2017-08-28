@@ -2,7 +2,6 @@
   <div>
     <v-crumbsBar></v-crumbsBar>
     <div class="order-wrap">
-      <v-crumbsBar></v-crumbsBar>
       <!--新地址浮层-->
       <div class="newAddress-layer" v-show="newAddressLayer">
         <div class="fill-wrap">
@@ -75,12 +74,9 @@
             <div class="attention">
               1.请您仔细核实商品订单信息，兑换成功后，除商品在运输途中发生损坏或本身存在残次问题外，恕不允许退货或换货。<br>
               2.兑换成功后，您的商品将在3个工作日内寄出，您可在 我的账户-仓豆商城账户-兑换记录中点击订单详情查询配送信息。
-
-
-
             </div>
             <div class="lastOperation">
-              <a class="last-sure" href="javascript:;">确认支付</a>
+              <a class="last-sure" href="javascript:;" @click="confirmOrder">确认支付</a>
               <a class="last-cancel" href="javascript:;" @click="closeOrderLayer">放弃兑换</a>
             </div>
           </div>
@@ -144,10 +140,6 @@
         </div>
         <div class="totalBeans-wrap">
           需支付：<span class="orange">{{totalBeans}}</span>仓豆
-
-
-
-
         </div>
         <div class="order-sub-widget">
           <a href="javascript:;" class="cancel" @click="back">取消</a>
@@ -316,6 +308,9 @@
       },
       openOrderPop() {
         this.orderLayerShow = !this.orderLayerShow
+      },
+      confirmOrder() {
+        this.$router.push({path: '/success', query: {goodId: this.goodInfoData.id}})
       }
     },
     components: {
