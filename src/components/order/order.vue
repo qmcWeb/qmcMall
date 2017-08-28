@@ -1,146 +1,158 @@
 <template>
-  <div class="order-wrap">
-    <!--新地址浮层-->
-    <div class="newAddress-layer" v-show="newAddressLayer">
-      <div class="fill-wrap">
-        <i class="close" @click="closeSiteLayer">×</i>
-        <h3>{{siteLayerTitle}}</h3>
-        <div class="fill-content">
-          <div class="s-title">寄送地址</div>
-          <div class="name-phone-widget">
-            <div>收件人</div>
-            <input type="text" name="name" class="name" v-model="userName">
-            <div>手机号码</div>
-            <input type="tel" name="phone" class="phone" maxlength="11" v-model="userPhone">
-          </div>
-          <div class="select-widget">
-            <div>收获地址</div>
-            <v-distpicker @province="selectProvince" @city="selectCity" @area="selectArea"
-                          :province="select.province.value" :city="select.city.value"
-                          :area="select.area.value"></v-distpicker>
-          </div>
-          <textarea name="area" id="" cols="30" rows="10" placeholder="请输入您的具体地址" v-model="userSite"></textarea>
-          <div class="errorTips">
-            {{errorTips}}
+  <div>
+    <v-crumbsBar></v-crumbsBar>
+    <div class="order-wrap">
+      <v-crumbsBar></v-crumbsBar>
+      <!--新地址浮层-->
+      <div class="newAddress-layer" v-show="newAddressLayer">
+        <div class="fill-wrap">
+          <i class="close" @click="closeSiteLayer">×</i>
+          <h3>{{siteLayerTitle}}</h3>
+          <div class="fill-content">
+            <div class="s-title">寄送地址</div>
+            <div class="name-phone-widget">
+              <div>收件人</div>
+              <input type="text" name="name" class="name" v-model="userName">
+              <div>手机号码</div>
+              <input type="tel" name="phone" class="phone" maxlength="11" v-model="userPhone">
+            </div>
+            <div class="select-widget">
+              <div>收获地址</div>
+              <v-distpicker @province="selectProvince" @city="selectCity" @area="selectArea"
+                            :province="select.province.value" :city="select.city.value"
+                            :area="select.area.value"></v-distpicker>
+            </div>
+            <textarea name="area" id="" cols="30" rows="10" placeholder="请输入您的具体地址" v-model="userSite"></textarea>
+            <div class="errorTips">
+              {{errorTips}}
 
-          </div>
-          <div class="operate-btn-wrap">
-            <a class="save" href="javascript:;" @click="saveAddress">保存</a>
-            <a class="cancel" href="javascript:;" @click="closeSiteLayer">取消</a>
+
+
+            </div>
+            <div class="operate-btn-wrap">
+              <a class="save" href="javascript:;" @click="saveAddress">保存</a>
+              <a class="cancel" href="javascript:;" @click="closeSiteLayer">取消</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!--订单确认浮层-->
-    <div class="orderSure-layer" v-show="orderLayerShow">
-      <div class="orderSure-wrap">
-        <i class="close" @click="closeOrderLayer">×</i>
-        <h3>订单信息</h3>
-        <div class="orderSure-content">
-          <div class="s-title">订单信息</div>
-          <div class="info-box">
-            <div class="top">
-              <dl>
-                <dt class="justify">商品名称：</dt>
-                <dd>{{name}}</dd>
-              </dl>
-              <dl>
-                <dt>交易数量：</dt>
-                <dd>{{count}}</dd>
-              </dl>
-              <dl>
-                <dt>订单总价：</dt>
-                <dd>{{totalBeans}}仓豆</dd>
-              </dl>
+      <!--订单确认浮层-->
+      <div class="orderSure-layer" v-show="orderLayerShow">
+        <div class="orderSure-wrap">
+          <i class="close" @click="closeOrderLayer">×</i>
+          <h3>订单信息</h3>
+          <div class="orderSure-content">
+            <div class="s-title">订单信息</div>
+            <div class="info-box">
+              <div class="top">
+                <dl>
+                  <dt class="justify">商品名称：</dt>
+                  <dd>{{name}}</dd>
+                </dl>
+                <dl>
+                  <dt>交易数量：</dt>
+                  <dd>{{count}}</dd>
+                </dl>
+                <dl>
+                  <dt>订单总价：</dt>
+                  <dd>{{totalBeans}}仓豆</dd>
+                </dl>
+              </div>
+              <div class="mid">
+                <dl>
+                  <dt class="justify">配&nbsp&nbsp送&nbsp&nbsp至：</dt>
+                  <dd>北京市东城区安德里北街22号恒通伟业大厦9层      松松      13500000000</dd>
+                </dl>
+              </div>
+              <div class="bot">
+                <dl>
+                  <dt class="justify">留&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp言：</dt>
+                  <dd>{{requirement}}</dd>
+                </dl>
+              </div>
             </div>
-            <div class="mid">
-              <dl>
-                <dt class="justify">配&nbsp&nbsp送&nbsp&nbsp至：</dt>
-                <dd>北京市东城区安德里北街22号恒通伟业大厦9层      松松      13500000000</dd>
-              </dl>
-            </div>
-            <div class="bot">
-              <dl>
-                <dt class="justify">留&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp言：</dt>
-                <dd>{{requirement}}</dd>
-              </dl>
-            </div>
-          </div>
-          <div class="s-title margin-46">注意事项</div>
-          <div class="attention">
-            1.请您仔细核实商品订单信息，兑换成功后，除商品在运输途中发生损坏或本身存在残次问题外，恕不允许退货或换货。<br>
-            2.兑换成功后，您的商品将在3个工作日内寄出，您可在 我的账户-仓豆商城账户-兑换记录中点击订单详情查询配送信息。
+            <div class="s-title margin-46">注意事项</div>
+            <div class="attention">
+              1.请您仔细核实商品订单信息，兑换成功后，除商品在运输途中发生损坏或本身存在残次问题外，恕不允许退货或换货。<br>
+              2.兑换成功后，您的商品将在3个工作日内寄出，您可在 我的账户-仓豆商城账户-兑换记录中点击订单详情查询配送信息。
 
-          </div>
-          <div class="lastOperation">
-            <a class="last-sure" href="javascript:;">确认支付</a>
-            <a class="last-cancel" href="javascript:;" @click="closeOrderLayer">放弃兑换</a>
+
+
+            </div>
+            <div class="lastOperation">
+              <a class="last-sure" href="javascript:;">确认支付</a>
+              <a class="last-cancel" href="javascript:;" @click="closeOrderLayer">放弃兑换</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="address-wrap">
-      <h3 class="title">寄送地址</h3>
-      <ul class="address-list">
-        <li v-for="(item, index) in addressList" class="item">
-          <div class="userName">{{item.userName}}</div>
-          <div class="userPhone">{{item.userPhone}}</div>
-          <div class="userSite">{{item.userSite}}</div>
-          <div class="modify" @click="modifySite(index)">修改</div>
-          <div class="default-operation Default" v-if="item.defaultWhether">默认地址</div>
-          <div class="default-operation" v-else @click="setDefault(index)">
-            设为默认
+      <div class="address-wrap">
+        <h3 class="title">寄送地址</h3>
+        <ul class="address-list">
+          <li v-for="(item, index) in addressList" class="item">
+            <div class="userName">{{item.userName}}</div>
+            <div class="userPhone">{{item.userPhone}}</div>
+            <div class="userSite">{{item.userSite}}</div>
+            <div class="modify" @click="modifySite(index)">修改</div>
+            <div class="default-operation Default" v-if="item.defaultWhether">默认地址</div>
+            <div class="default-operation" v-else @click="setDefault(index)">
+              设为默认
 
-          </div>
-        </li>
-        <li class="item addNew" @click="addSite" v-if="addressList.length<3">
-          <i class="icon-add"></i>
-          <p>添加新地址</p>
-        </li>
-      </ul>
-    </div>
-    <div class="orderInfo-wrap">
-      <h3 class="title">兑换商品</h3>
-      <div class="orderInfo-content">
-        <ul class="tits">
-          <li></li>
-          <li>商品名称</li>
-          <li>商品属性</li>
-          <li>兑换数量</li>
-          <li>库存数量</li>
-          <li>单价</li>
-        </ul>
-        <ul class="infos">
-          <li class="good-img-s"><img src="./fx.png" alt=""></li>
-          <li>{{name}}</li>
-          <li>实体商品</li>
-          <li class="count-widget"><span class="countIcon icon-reduce" @click="reduceNum()"></span>
-            <span class="number">{{ count }}</span>
-            <span class="countIcon icon-add" @click="addNum()"></span></li>
-          <li>{{stockNum}}</li>
-          <li><span class="orange">{{beans}}</span>仓豆</li>
+
+
+            </div>
+          </li>
+          <li class="item addNew" @click="addSite" v-if="addressList.length<3">
+            <i class="icon-add"></i>
+            <p>添加新地址</p>
+          </li>
         </ul>
       </div>
-      <div class="requireFill">
-        <transition name="addMessBtn">
-          <div class="addMessBtn" v-if="addMessBtnShow"
-               @click="addMessBtnShow=!addMessBtnShow;addMessInputShow=!addMessInputShow">添加留言
+      <div class="orderInfo-wrap">
+        <h3 class="title">兑换商品</h3>
+        <div class="orderInfo-content">
+          <ul class="tits">
+            <li></li>
+            <li>商品名称</li>
+            <li>商品属性</li>
+            <li>兑换数量</li>
+            <li>库存数量</li>
+            <li>单价</li>
+          </ul>
+          <ul class="infos">
+            <li class="good-img-s"><img src="./fx.png" alt=""></li>
+            <li>{{name}}</li>
+            <li>实体商品</li>
+            <li class="count-widget"><span class="countIcon icon-reduce" @click="reduceNum()"></span>
+              <span class="number">{{ count }}</span>
+              <span class="countIcon icon-add" @click="addNum()"></span></li>
+            <li>{{stockNum}}</li>
+            <li><span class="orange">{{beans}}</span>仓豆</li>
+          </ul>
+        </div>
+        <div class="requireFill">
+          <transition name="addMessBtn" leave-active-class="animated fadeOutLeft">
+            <div class="addMessBtn" v-if="addMessBtnShow"
+                 @click="addMessBtnShow=!addMessBtnShow;addMessInputShow=!addMessInputShow">添加留言
 
-          </div>
-        </transition>
-        <transition name="addMessInput">
-          <input type="text" v-model="requirement" v-if="addMessInputShow" placeholder="请您简要描述您的需求（限50字，非必填）"
-                 class="addMessInput">
-        </transition>
-      </div>
-      <div class="totalBeans-wrap">
-        需支付：<span class="orange">{{totalBeans}}</span>仓豆
+            </div>
+          </transition>
+          <transition name="addMessInput" enter-active-class="animated shake">
+            <input type="text" v-model="requirement" v-if="addMessInputShow" placeholder="请您简要描述您的需求（限50字，非必填）"
+                   class="addMessInput">
+          </transition>
+        </div>
+        <div class="totalBeans-wrap">
+          需支付：<span class="orange">{{totalBeans}}</span>仓豆
 
 
-      </div>
-      <div class="order-sub-widget">
-        <a href="javascript:;" class="cancel" @click="back">取消</a>
-        <a href="javascript:;" class="open-pop" @click="openOrderPop">确认兑换</a>
+
+
+        </div>
+        <div class="order-sub-widget">
+          <a href="javascript:;" class="cancel" @click="back">取消</a>
+          <a href="javascript:;" class="open-pop" @click="openOrderPop">确认兑换</a>
+        </div>
       </div>
     </div>
   </div>
@@ -148,6 +160,7 @@
 
 <script>
   import VDistpicker from 'v-distpicker';
+  import  crumbsBar from  '@/components/crumbsBar/crumbsBar'
   export default {
     data() {
       return {
@@ -210,7 +223,8 @@
 
       },
       closeSiteLayer() {
-        this.newAddressLayer = false
+        this.newAddressLayer = false;
+        this.errorTips = '';
       },
       closeOrderLayer() {
         this.orderLayerShow = false
@@ -305,7 +319,8 @@
       }
     },
     components: {
-      VDistpicker
+      'v-distpicker': VDistpicker,
+      'v-crumbsBar': crumbsBar
     },
     watch: {
       addressList: function () {
