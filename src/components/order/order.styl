@@ -239,6 +239,8 @@
               margin: 0 17px;
     .requireFill
       margin-top: 26px;
+      height: 40px
+      position: relative
       .addMessInput
         display: block
         -webkit-box-sizing: border-box
@@ -249,20 +251,20 @@
         border-radius: 100px;
         height: 40px;
         background: #F9F9F9;
-        outline none
+        outline none;
+        position: absolute
+        left: 0;
+        top: 0;
+        width: 100%;
         padding-left 100px
         color: #979CA0;
         opacity: 1
-        &-enter-active, &-leave-active {
-          transition: opacity .3s
-        }
-        &-enter, &-leave-to /* .fade-leave-active in below version 2.1.8 */
-        {
-          opacity: 0
-        }
+
       .addMessBtn
         line-height 40px;
-        text-align right
+        position: absolute
+        right: 0;
+        top: 0;
         color: #979CA0;
         cursor: pointer;
         opacity 1

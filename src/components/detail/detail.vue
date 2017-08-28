@@ -1,5 +1,6 @@
 <template>
   <div class="detail-wrapper">
+    <v-crumbsBar></v-crumbsBar>
     <div class="product-intro">
       <div class="preview-top">
         <div class="preview-img left">
@@ -71,6 +72,7 @@
 </template>
 
 <script>
+  import  crumbsBar from  '@/components/crumbsBar/crumbsBar'
   export default {
     data() {
       return {
@@ -109,6 +111,9 @@
         this.$router.push({path: '/order', query: {goodId: good.goodInfoData.id}})
       }
 
+    },
+    components: {
+      'v-crumbsBar': crumbsBar,
     }
 
   }
