@@ -12,14 +12,12 @@
         <li>
           <router-link :to="{ path: '/' }">
             商城首页
-
           </router-link>
           <i class="arrow"></i>
         </li>
         <li class="goods">
-          <router-link :to="{ path: 'goodsList' }">
+          <router-link :to="{ path: '/goodsList' }">
             全部商品
-
           </router-link>
           <a href="#"></a>
           <ul class="list-wrapper">
