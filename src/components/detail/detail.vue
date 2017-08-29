@@ -1,6 +1,7 @@
 <template>
   <div class="detail-wrapper">
     <v-crumbsBar></v-crumbsBar>
+    <v-errorLayer :errorCon="errorCon" :errorType="errorType" :errorlayerSHow="errorlayerSHow"></v-errorLayer>
     <div class="product-intro">
       <div class="preview-top">
         <div class="preview-img left">
@@ -73,10 +74,14 @@
 
 <script>
   import  crumbsBar from  '@/components/crumbsBar/crumbsBar'
+  import  errorLayer from  '@/components/errorLayer/errorLayer'
   export default {
     data() {
       return {
-        count: 1
+        count: 1,
+        errorCon: 'Vx级以上会员才能兑换该商品哦，<a href="baidu">快去看看如何升级吧</a>',
+        errorType: 'lessBeans',
+        errorlayerSHow: false
       }
     },
     created() {
@@ -114,6 +119,7 @@
     },
     components: {
       'v-crumbsBar': crumbsBar,
+      'v-errorLayer': errorLayer,
     }
 
   }
