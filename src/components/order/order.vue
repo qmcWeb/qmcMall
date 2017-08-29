@@ -20,14 +20,12 @@
               <div>收获地址</div>
               <v-distpicker @province="selectProvince" @city="selectCity" @area="selectArea"
                             :province="select.province.value" :city="select.city.value"
-                            :area="select.area.value"></v-distpicker>
+                            :area="select.area.value">
+              </v-distpicker>
             </div>
             <textarea name="area" id="" cols="30" rows="10" placeholder="请输入您的具体地址" v-model="userSite"></textarea>
             <div class="errorTips">
               {{errorTips}}
-
-
-
             </div>
             <div class="operate-btn-wrap">
               <a class="save" href="javascript:;" @click="saveAddress">保存</a>
@@ -221,18 +219,18 @@
         this.errorTips = '';
       },
       closeOrderLayer() {
-        this.orderLayerShow = false
+        this.orderLayerShow = false;
       },
       selectProvince(value) {
-        this.select.province = value
+        this.select.province = value;
         console.log(value);
       },
       selectCity(value) {
-        this.select.city = value
+        this.select.city = value;
         console.log(value);
       },
       selectArea(value) {
-        this.select.area = value
+        this.select.area = value;
         console.log(value);
       },
       saveAddress() {

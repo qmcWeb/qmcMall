@@ -23,7 +23,7 @@
       routerLink (){
         var data = JSON.stringify(this.item);
         sessionStorage.setItem('goodInfoData', data);
-        this.$router.push({path: '/detail', query: {goodId: this.item.id}})
+        this.$router.push({path: '/detail', query: {goodId: this.item.id}});
       }
     }
   }

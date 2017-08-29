@@ -5,10 +5,10 @@ import App from './App'
 import VueRouter from 'vue-router'
 import routerMap from './router'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 // 并且配置路由规则
 const router = new VueRouter({
   routes: routerMap

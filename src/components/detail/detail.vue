@@ -87,7 +87,6 @@
     created() {
       let good = this;
       good.goodInfoData = JSON.parse(sessionStorage.goodInfoData);
-      console.log(good.goodInfoData);
       good.name = good.goodInfoData.product_name;
       good.desc = '荷兰进口刀头，性贴面设计，舒适切剃，剃须静音更舒心！';
       good.beans = good.goodInfoData.product_price;
