@@ -1,7 +1,7 @@
 <template>
   <div class="list-wrapper">
     <v-crumbsBar></v-crumbsBar>
-    <v-selector></v-selector>
+    <v-selector @listenChild="fromChildMes"></v-selector>
     <ul class="goodList-wrap">
       <li v-for="item in list">
         <v-good :item="item"></v-good>
@@ -119,6 +119,12 @@
       'v-selector':selector,
       'v-paging':paging,
       'v-good': good
+    },
+    methods: {
+      fromChildMes(data) {
+        console.log(data)
+        //收到子组件的data，ajax请求回调改版items，从而改变用户选择的列表
+      }
     }
   }
 </script>
