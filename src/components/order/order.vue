@@ -1,10 +1,11 @@
 <template>
   <div>
     <v-crumbsBar></v-crumbsBar>
+    <v-errorLayer :errorCon="errorCon" :errorType="errorType" :errorlayerSHow="errorlayerSHow"></v-errorLayer>
     <div class="order-wrap">
       <!--新地址浮层-->
-      <div class="newAddress-layer" v-show="newAddressLayer">
-        <div class="fill-wrap">
+      <div class="newAddress-layer blackFixed" v-show="newAddressLayer">
+        <div class="fill-wrap midWrap">
           <i class="close" @click="closeSiteLayer">×</i>
           <h3>{{siteLayerTitle}}</h3>
           <div class="fill-content">
@@ -36,8 +37,8 @@
         </div>
       </div>
       <!--订单确认浮层-->
-      <div class="orderSure-layer" v-show="orderLayerShow">
-        <div class="orderSure-wrap">
+      <div class="orderSure-layer blackFixed" v-show="orderLayerShow">
+        <div class="orderSure-wrap midWrap">
           <i class="close" @click="closeOrderLayer">×</i>
           <h3>订单信息</h3>
           <div class="orderSure-content">
@@ -93,9 +94,6 @@
             <div class="default-operation Default" v-if="item.defaultWhether">默认地址</div>
             <div class="default-operation" v-else @click="setDefault(index)">
               设为默认
-
-
-
             </div>
           </li>
           <li class="item addNew" @click="addSite" v-if="addressList.length<3">
@@ -153,6 +151,7 @@
 <script>
   import VDistpicker from 'v-distpicker';
   import  crumbsBar from  '@/components/crumbsBar/crumbsBar'
+  import  errorLayer from  '@/components/errorLayer/errorLayer'
   export default {
     data() {
       return {
@@ -173,7 +172,10 @@
         errorTips: '',
         addMessBtnShow: true,
         addMessInputShow: false,
-        orderLayerShow: false
+        orderLayerShow: false,
+        errorCon: 'Vx级以上会员才能兑换该商品哦，<a href="baidu">快去看看如何升级吧</a>',
+        errorType: 'lessBeans',
+        errorlayerSHow: false
       }
     },
     created() {
@@ -315,7 +317,8 @@
     },
     components: {
       'v-distpicker': VDistpicker,
-      'v-crumbsBar': crumbsBar
+      'v-crumbsBar': crumbsBar,
+      'v-errorLayer': errorLayer,
     },
     watch: {
       addressList: function () {
