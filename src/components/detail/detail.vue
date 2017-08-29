@@ -110,7 +110,6 @@
         sessionStorage.setItem('goodInfoData', data);
         this.$router.push({path: '/order', query: {goodId: good.goodInfoData.id}})
       }
-
     },
     components: {
       'v-crumbsBar': crumbsBar,
