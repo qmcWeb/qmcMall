@@ -21,7 +21,7 @@
     props: ['item'],
     methods: {
       routerLink (){
-        var data = JSON.stringify(this.item)
+        var data = JSON.stringify(this.item);
         sessionStorage.setItem('goodInfoData', data);
         this.$router.push({path: '/detail', query: {goodId: this.item.id}})
       }
