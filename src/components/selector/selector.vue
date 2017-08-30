@@ -66,9 +66,9 @@
       router(call, selected, index){
         //组件内传值
         for (let i = 0; i < this[selected].length; i++) {
-          this[selected][i].select = false
+          this[selected][i].select = false;
         }
-        this[selected][index].select = true
+        this[selected][index].select = true;
         this.select[selected] = call;
         this.$router.push({path: '/goodsList',
           query: {
@@ -78,9 +78,9 @@
             priceMin: this.select.priceMin,
             priceMax: this.select.priceMax
           }
-        })
+        });
         //子组件给父组件传值
-        this.$emit('listenChild', this.select)
+        this.$emit('listenChild', this.select);
       },
       priceQuery(){
         this.$router.push({path: '/goodsList',
@@ -91,9 +91,9 @@
             priceMin: this.select.priceMin,
             priceMax: this.select.priceMax
           }
-        })
+        });
         //子组件给父组件传值
-        this.$emit('listenChild', this.select)
+        this.$emit('listenChild', this.select);
       }
     }
   }
