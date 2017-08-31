@@ -37,7 +37,6 @@
     </div>
   </div>
 </template>
-
 <script>
   export default{
     data (){
@@ -58,17 +57,26 @@
           {con: '热门', select: false, call: 'hot'},
           {con: '价格', select: false, call: 'price'},
         ],
+        priceMin: [],
+        priceMax: [],
         select: {type: 'all', price: 'all', sort: 'default', priceMin: 0, priceMax: 100000}
       }
 
     },
+    watch: {
+      // 如果路由有变化，会再次执行该方法
+      '$route': 'fetchData'
+    },
+    created() {
+      this.fetchData()
+    },
     methods: {
       router(call, selected, index){
         //组件内传值
-        for (let i = 0; i < this[selected].length; i++) {
-          this[selected][i].select = false
-        }
-        this[selected][index].select = true
+//        for (let i = 0; i < this[selected].length; i++) {
+//          this[selected][i].select = false
+//        }
+//        this[selected][index].select = true
         this.select[selected] = call;
         this.$router.push({path: '/goodsList',
           query: {
@@ -94,6 +102,24 @@
         })
         //子组件给父组件传值
         this.$emit('listenChild', this.select)
+      },
+      handle(arr) {
+        for (let i = 0; i < arr.length; i++) {
+
+        }
+      },
+      fetchData() {
+        let route = this.$route.query
+        for (let i in route) {
+          this.select[i] = route[i]
+          for (let n = 0; n < this[i].length; n++) {
+            if (this[i][n]['call'] === route[i]) {
+              this[i][n]['select'] = true
+            } else {
+              this[i][n]['select'] = false
+            }
+          }
+        }
       }
     }
   }

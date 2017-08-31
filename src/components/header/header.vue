@@ -16,19 +16,12 @@
           <i class="arrow"></i>
         </li>
         <li class="goods">
-          <router-link :to="{ path: '/goodsList' }">
+          <a href="javascript:;" @click="router('all')">
             全部商品
-          </router-link>
-          <a href="#"></a>
+          </a>
           <ul class="list-wrapper">
-            <li class="list">
-              <a href="#">优惠卡券</a>
-            </li>
-            <li class="list">
-              <a href="#">健康美食</a>
-            </li>
-            <li class="list">
-              <a href="#">时尚美妆</a>
+            <li class="list" v-for="item in listArr">
+              <a href="javascript:;" @click="router(item.call)">{{item.con}}</a>
             </li>
           </ul>
           <i class="arrow"></i>
@@ -78,7 +71,33 @@
 </template>
 
 <script>
-  export default{}
+  export default{
+    data(){
+      return {
+        listArr: [
+          {con: '优惠卡券', call: 'card'},
+          {con: '健康美食', call: 'food'},
+          {con: '时尚美妆', call: 'fashion'}
+        ],
+        selectPrice: 'all',
+        slecetSort: 'default'
+      }
+    },
+    methods: {
+      router(typep){
+        this.$router.push({
+          path: '/goodsList',
+          query: {
+            type: typep,
+            price: 'all',
+            sort: 'default',
+            priceMin: 0,
+            priceMax: 100000
+          }
+        })
+      }
+    }
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
