@@ -85,6 +85,8 @@
     },
     methods: {
       router(typep){
+        let paramsMsg = JSON.stringify({type: typep, price: 'all', sort: 'default', priceMin: 0, priceMax: 100000})
+        sessionStorage.setItem('paramsMsg', paramsMsg);
         this.$router.push({
           path: '/goodsList',
           query: {

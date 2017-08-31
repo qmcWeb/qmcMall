@@ -1,7 +1,7 @@
 <template>
   <div class="list-wrapper">
     <v-crumbsBar></v-crumbsBar>
-    <v-selector @listenChild="fromChildMes"></v-selector>
+    <v-selector :paramsSession="paramsSession"></v-selector>
     <ul class="goodList-wrap">
       <li v-for="item in list">
         <v-good :item="item"></v-good>
@@ -21,17 +21,15 @@
   export default {
     data (){
       return {
-        list: []
+        list: [],
+        paramsSession: {}
       }
     },
     created() {
-      this.$http.get('/api/commodity/screenOrderCommodityList.do').then(response => {
-        // get body data
-        console.log(response.body)
+      //进来获取session
+      this.paramsSession = JSON.parse(sessionStorage.paramsMsg);
+      this.$http.get('/api/commodity/screenOrderCommodityList.do', {params: this.paramsSession}).then(response => {
         this.list = response.body.list
-      }, response => {
-        // error callback
-        console.log(response)
       });
     },
     components:{
@@ -40,10 +38,23 @@
       'v-paging':paging,
       'v-good': good
     },
+    watch: {
+      // 如果路由有变化，会再次执行该方法
+      paramsSession: function (val, oldVal) {
+        this.getMsg(this.paramsSession)
+      },
+      '$route': 'routeChange'
+    },
     methods: {
-      fromChildMes(data) {
-        console.log(data)
+      getMsg(msg) {
         //收到子组件的data，ajax请求回调改版items，从而改变用户选择的列表
+        let data = msg
+        this.$http.get('/api/commodity/screenOrderCommodityList.do', {params: data}).then(response => {
+          this.list = response.body.list
+        });
+      },
+      routeChange(){
+        this.paramsSession = JSON.parse(sessionStorage.paramsMsg);
       }
     }
   }
