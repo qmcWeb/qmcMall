@@ -16,12 +16,12 @@
           <i class="arrow"></i>
         </li>
         <li class="goods">
-          <router-link :to="{ path: '/goodsList',query : {type:'all',price:'all',sort:'default',priceMin:0,priceMax:100000} }" @click="router(item.call,'type',index)">
+          <a href="javascript:;" @click="router('all')">
             全部商品
-          </router-link>
+          </a>
           <ul class="list-wrapper">
-            <li class="list" v-for="(item,index) in type">
-              <a href="javascript:;" @click="router(item.call,'type',index)">{{item.con}}</a>
+            <li class="list" v-for="item in listArr">
+              <a href="javascript:;" @click="router(item.call)">{{item.con}}</a>
             </li>
           </ul>
           <i class="arrow"></i>
@@ -42,7 +42,7 @@
           <ul class="sidebar">
             <li>
               <a href="#">我可兑的商品
-               <i class="icon-rightArrow"></i>
+                <i class="icon-rightArrow"></i>
               </a>
             </li>
             <li>
@@ -72,44 +72,31 @@
 
 <script>
   export default{
-      data() {
-        return {
-          type: [
-            {con: '优惠卡券', select: false, call: 'card'},
-            {con: '健康美食', select: false, call: 'food'},
-            {con: '时尚美妆', select: false, call: 'fashion'}
-          ],
-          select: {type: '优惠卡券', price: 'all', sort: 'default', priceMin: 0, priceMax: 100000}
-        }
-      },
-      created () {
-        this.fetchData()
-      },
-      watch: {
-        '$route': 'fetchData'
-      },
-      methods: {
-        router(call,selected,index){
-          for (let i = 0; i < this[selected].length; i++) {
-            this[selected][i].select = false;
-          }
-          this[selected][index].select = true;
-          this.select[selected] = call;
-          this.$router.push({path: '/goodsList',
-            query: {
-              type: this.select.type,
-              price: this.select.price,
-              sort: this.select.sort,
-              priceMin: this.select.priceMin,
-              priceMax: this.select.priceMax
-            }
-          });
-        },
-        fetchData() {
-          let route = this.$route.query;
-          sessionStorage.setItem('listRoute', route);
-        }
+    data(){
+      return {
+        listArr: [
+          {con: '优惠卡券', call: 'card'},
+          {con: '健康美食', call: 'food'},
+          {con: '时尚美妆', call: 'fashion'}
+        ],
+        selectPrice: 'all',
+        slecetSort: 'default'
       }
+    },
+    methods: {
+      router(typep){
+        this.$router.push({
+          path: '/goodsList',
+          query: {
+            type: typep,
+            price: 'all',
+            sort: 'default',
+            priceMin: 0,
+            priceMax: 100000
+          }
+        })
+      }
+    }
   }
 </script>
 
