@@ -82,8 +82,18 @@
           select: {type: '优惠卡券', price: 'all', sort: 'default', priceMin: 0, priceMax: 100000}
         }
       },
+      created () {
+        this.fetchData()
+      },
+      watch: {
+        '$route': 'fetchData'
+      },
       methods: {
         router(call,selected,index){
+          for (let i = 0; i < this[selected].length; i++) {
+            this[selected][i].select = false;
+          }
+          this[selected][index].select = true;
           this.select[selected] = call;
           this.$router.push({path: '/goodsList',
             query: {
@@ -94,6 +104,10 @@
               priceMax: this.select.priceMax
             }
           });
+        },
+        fetchData() {
+          let route = this.$route.query;
+          sessionStorage.setItem('listRoute', route);
         }
       }
   }
