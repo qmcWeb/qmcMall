@@ -7,13 +7,13 @@
             商品类别：
           </div>
           <a href="javascript:;" v-for="(item,index) in type" :class="{active:item.select}"
-             @click="routerType(item.call,'type',index)">{{item.con}}</a>
+             @click="router(item.call,'type',index)">{{item.con}}</a>
         </div>
         <div class="byPrice">
           <div class="title">
             商品价格：
           </div>
-          <a href="javascript:;" v-for="(item,index) in price" @click="routerPrice(item.call,'price',index)"
+          <a href="javascript:;" v-for="(item,index) in price" @click="router(item.call,'price',index)"
              :class="[{active:item.select},{'marginR-10':item.call==='convertible'}]">{{item.con}}</a>
           <div class="widget">
             <i>￥</i>
@@ -32,12 +32,11 @@
           排序：
         </div>
         <a href="javascript:;" v-for="(item,index) in sort" :class="{active:item.select}"
-           @click="routerSort(item.call,'sort',index)">{{item.con}}</a>
+           @click="router(item.call,'sort',index)">{{item.con}}</a>
       </div>
     </div>
   </div>
 </template>
-
 <script>
   export default{
     data (){
@@ -58,82 +57,69 @@
           {con: '热门', select: false, call: 'hot'},
           {con: '价格', select: false, call: 'price'},
         ],
-        priceMin: [{priceMin:0}],
-        priceMax: [{priceMax:0}],
+        priceMin: [],
+        priceMax: [],
         select: {type: 'all', price: 'all', sort: 'default', priceMin: 0, priceMax: 100000}
       }
-    },
-    created () {
-      this.fetchData()
+
     },
     watch: {
+      // 如果路由有变化，会再次执行该方法
       '$route': 'fetchData'
     },
+    created() {
+      this.fetchData()
+    },
     methods: {
-      routerType(call, selected, index){
+      router(call, selected, index){
+        //组件内传值
+//        for (let i = 0; i < this[selected].length; i++) {
+//          this[selected][i].select = false
+//        }
+//        this[selected][index].select = true
         this.select[selected] = call;
-        let route = this.$route.query;
         this.$router.push({path: '/goodsList',
           query: {
             type: this.select.type,
-            price: route.price,
-            sort: route.sort,
-            priceMin: route.priceMin,
-            priceMax: route.priceMax
-          }
-        });
-      },
-      routerPrice(call, selected, index){
-        this.select[selected] = call;
-        let route = this.$route.query;
-        this.$router.push({path: '/goodsList',
-          query: {
-            type: route.type,
             price: this.select.price,
-            sort: route.sort,
-            priceMin: route.priceMin,
-            priceMax: route.priceMax
-          }
-        });
-      },
-      routerSort(call, selected, index){
-        this.select[selected] = call;
-        let route = this.$route.query;
-        this.$router.push({path: '/goodsList',
-          query: {
-            type: route.type,
-            price: route.price,
             sort: this.select.sort,
-            priceMin: route.priceMin,
-            priceMax: route.priceMax
-          }
-        });
-      },
-      priceQuery(){
-        let route = this.$route.query;
-        this.$router.push({path: '/goodsList',
-          query: {
-            type: route.type,
-            price: route.price,
-            sort: route.sort,
             priceMin: this.select.priceMin,
             priceMax: this.select.priceMax
           }
-        });
+        })
+        //子组件给父组件传值
+        this.$emit('listenChild', this.select)
+      },
+      priceQuery(){
+        this.$router.push({path: '/goodsList',
+          query: {
+            type: this.select.type,
+            price: this.select.price,
+            sort: this.select.sort,
+            priceMin: this.select.priceMin,
+            priceMax: this.select.priceMax
+          }
+        })
+        //子组件给父组件传值
+        this.$emit('listenChild', this.select)
+      },
+      handle(arr) {
+        for (let i = 0; i < arr.length; i++) {
+
+        }
       },
       fetchData() {
-        let route = this.$route.query;
-        for (let i in route){
-          for(let n = 0; n < this[i].length; n++){
-            if(this[i][n].call === route[i]){
-              this[i][n].select = true;
-            }else{
-              this[i][n].select = false;
+        let route = this.$route.query
+        for (let i in route) {
+          this.select[i] = route[i]
+          for (let n = 0; n < this[i].length; n++) {
+            if (this[i][n]['call'] === route[i]) {
+              this[i][n]['select'] = true
+            } else {
+              this[i][n]['select'] = false
             }
           }
         }
-        //子组件给父组件传值
-        this.$emit('listenChild', route);
       }
     }
   }
