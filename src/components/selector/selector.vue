@@ -17,12 +17,12 @@
              :class="[{active:item.select},{'marginR-10':item.call==='convertible'}]">{{item.con}}</a>
           <div class="widget">
             <i>￥</i>
-            <input type="number" v-model="select.priceMin">
+            <input type="number" v-model="paramsSession.priceMin">
           </div>
           <i class="to">-</i>
           <div class="widget">
             <i>￥</i>
-            <input type="number" v-model="select.priceMax">
+            <input type="number" v-model="paramsSession.priceMax">
           </div>
           <a href="javascript:;" class="sure" @click="priceQuery">确定</a>
         </div>
@@ -39,6 +39,7 @@
 </template>
 <script>
   export default{
+    props: ['paramsSession'],
     data (){
       return {
         type: [
@@ -55,82 +56,62 @@
           {con: '默认', select: true, call: 'default'},
           {con: '最新', select: false, call: 'newest'},
           {con: '热门', select: false, call: 'hot'},
-          {con: '价格', select: false, call: 'price'},
+          {con: '价格', select: false, call: 'priceUp'},
         ],
         priceMin: [],
         priceMax: [],
-        select: {type: 'all', price: 'all', sort: 'default', priceMin: 0, priceMax: 100000}
       }
 
     },
     watch: {
       // 如果路由有变化，会再次执行该方法
-      '$route': 'fetchData'
+      paramsSession: function () {
+        this.RefreshDom()
+      }
     },
     created() {
-      this.fetchData()
+      this.RefreshDom()
     },
     methods: {
       router(call, selected, index){
-        //组件内传值
-//        for (let i = 0; i < this[selected].length; i++) {
-//          this[selected][i].select = false
-//        }
-//        this[selected][index].select = true
-        this.select[selected] = call;
-        this.$router.push({path: '/goodsList',
-          query: {
-            type: this.select.type,
-            price: this.select.price,
-            sort: this.select.sort,
-            priceMin: this.select.priceMin,
-            priceMax: this.select.priceMax
-          }
-        });
-        this.$http.post(
-          '/api/commodity/screenOrderCommodityList.do',
-          {
-            query: {
-              type: this.select.type,
-              price: this.select.price,
-              sort: this.select.sort,
-              priceMin: this.select.priceMin,
-              priceMax: this.select.priceMax
-            }
-          }
-        ).then(response => {
-          // get body data
-          this.list = response.body.list;
-          console.log(this.list,1234)
-        }, response => {
-          // error callback
-          console.log(response);
-        });
+        if (call === 'priceUp') {
+          this.sort[3].call = 'priceDown';
+          call = 'priceDown'
+        } else if (call === 'priceDown') {
+          this.sort[3].call = 'priceUp'
+          call = 'priceUp'
+        }
+        this.paramsSession[selected] = call;
+        this.setSession()
         //子组件给父组件传值
-        this.$emit('listenChild', this.select)
+        //this.$emit('listenChild', this.select)
       },
-      priceQuery(){
+      setSession() {
+        let paramsMsg = JSON.stringify(this.paramsSession)
+        sessionStorage.setItem('paramsMsg', paramsMsg);
         this.$router.push({path: '/goodsList',
           query: {
-            type: this.select.type,
-            price: this.select.price,
-            sort: this.select.sort,
-            priceMin: this.select.priceMin,
-            priceMax: this.select.priceMax
+            type: this.paramsSession.type,
+            price: this.paramsSession.price,
+            sort: this.paramsSession.sort,
+            priceMin: this.paramsSession.priceMin,
+            priceMax: this.paramsSession.priceMax
           }
         })
+      },
+      priceQuery(){
+        this.setSession()
         //子组件给父组件传值
-        this.$emit('listenChild', this.select)
+        //this.$emit('listenChild', this.select)
       },
-      handle(arr) {
-        for (let i = 0; i < arr.length; i++) {
-
-        }
-      },
-      fetchData() {
-        let route = this.$route.query
+      RefreshDom() {
+        console.log(this.sort[3].call, 1)
+        let route = this.paramsSession
+        console.log(route)
         for (let i in route) {
-          this.select[i] = route[i]
+          if (route[i].indexOf('price') > -1) {
+            this.sort[3].call = route[i];
+          }
           for (let n = 0; n < this[i].length; n++) {
             if (this[i][n]['call'] === route[i]) {
               this[i][n]['select'] = true
