@@ -23,11 +23,20 @@
 <script>
   import  good from  '@/components/good/good';
   export default {
-    props: {
-      list: Array
+    data (){
+      return {
+        list: []
+      }
     },
-    data() {
-      return {}
+    created() {
+      /*this.$http.get('/api/commodity/screenOrderCommodityList.do').then(response => {
+        // get body data
+        this.list = response.body.list;
+        console.log(this.list,1234)
+      }, response => {
+        // error callback
+        console.log(response);
+      });*/
     },
     components:{
       'v-good': good

@@ -27,11 +27,10 @@
     created() {
       this.$http.get('/api/commodity/screenOrderCommodityList.do').then(response => {
         // get body data
-        console.log(response.body)
-        this.list = response.body.list
+        this.list = response.body.list;
       }, response => {
         // error callback
-        console.log(response)
+        console.log(response);
       });
     },
     components:{

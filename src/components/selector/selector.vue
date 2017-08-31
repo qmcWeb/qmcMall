@@ -86,7 +86,26 @@
             priceMin: this.select.priceMin,
             priceMax: this.select.priceMax
           }
-        })
+        });
+        this.$http.post(
+          '/api/commodity/screenOrderCommodityList.do',
+          {
+            query: {
+              type: this.select.type,
+              price: this.select.price,
+              sort: this.select.sort,
+              priceMin: this.select.priceMin,
+              priceMax: this.select.priceMax
+            }
+          }
+        ).then(response => {
+          // get body data
+          this.list = response.body.list;
+          console.log(this.list,1234)
+        }, response => {
+          // error callback
+          console.log(response);
+        });
         //子组件给父组件传值
         this.$emit('listenChild', this.select)
       },
