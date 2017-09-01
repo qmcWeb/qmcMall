@@ -76,17 +76,13 @@
       router(call, selected, index){
         if (call === 'priceUp') {
           this.sort[3].call = 'priceDown';
-          call = 'priceDown'
+          call = 'priceDown';
         } else if (call === 'priceDown') {
-          this.sort[3].call = 'priceUp'
-          call = 'priceUp'
+          this.sort[3].call = 'priceUp';
+          call = 'priceUp';
         }
         this.paramsSession[selected] = call;
-        this.setSession()
-        //子组件给父组件传值
-        //this.$emit('listenChild', this.select)
-      },
-      setSession() {
+        this.setSession();
         let paramsMsg = JSON.stringify(this.paramsSession);
         sessionStorage.setItem('paramsMsg', paramsMsg);
         this.$router.push({path: '/goodsList',
@@ -98,6 +94,11 @@
             priceMax: this.paramsSession.priceMax
           }
         })
+        //子组件给父组件传值
+        //this.$emit('listenChild', this.select)
+      },
+      setSession() {
+
       },
       priceQuery(){
         this.setSession();
@@ -105,18 +106,18 @@
         //this.$emit('listenChild', this.select)
       },
       RefreshDom() {
-        console.log(this.sort[3].call, 1)
-        let route = this.paramsSession
+        console.log(this.sort[3].call, 1);
+        let route = this.paramsSession;
         console.log(route);
         for (let i in route) {
-          if (route[i].indexOf('price') > -1) {
+          if (String(route[i]).indexOf('price') > -1) {
             this.sort[3].call = route[i];
           }
           for (let n = 0; n < this[i].length; n++) {
             if (this[i][n]['call'] === route[i]) {
-              this[i][n]['select'] = true
+              this[i][n]['select'] = true;
             } else {
-              this[i][n]['select'] = false
+              this[i][n]['select'] = false;
             }
           }
         }
