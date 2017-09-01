@@ -12,7 +12,7 @@
         </div>
         <ul class="goods">
           <li v-for="item in list">
-              <v-good :item="item"></v-good>
+            <v-good :item="item"></v-good>
           </li>
         </ul>
       </li>
@@ -21,22 +21,13 @@
 </template>
 
 <script>
-  import  good from  '@/components/good/good';
+  import  good from  '../goods/goods';
   export default {
-    data (){
-      return {
-        list: []
-      }
+    props: {
+      list: Array
     },
-    created() {
-      /*this.$http.get('/api/commodity/screenOrderCommodityList.do').then(response => {
-        // get body data
-        this.list = response.body.list;
-        console.log(this.list,1234)
-      }, response => {
-        // error callback
-        console.log(response);
-      });*/
+    data() {
+      return {}
     },
     components:{
       'v-good': good
