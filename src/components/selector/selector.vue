@@ -87,7 +87,7 @@
         //this.$emit('listenChild', this.select)
       },
       setSession() {
-        let paramsMsg = JSON.stringify(this.paramsSession)
+        let paramsMsg = JSON.stringify(this.paramsSession);
         sessionStorage.setItem('paramsMsg', paramsMsg);
         this.$router.push({path: '/goodsList',
           query: {
@@ -100,14 +100,14 @@
         })
       },
       priceQuery(){
-        this.setSession()
+        this.setSession();
         //子组件给父组件传值
         //this.$emit('listenChild', this.select)
       },
       RefreshDom() {
         console.log(this.sort[3].call, 1)
         let route = this.paramsSession
-        console.log(route)
+        console.log(route);
         for (let i in route) {
           if (route[i].indexOf('price') > -1) {
             this.sort[3].call = route[i];
