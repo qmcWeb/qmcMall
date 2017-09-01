@@ -83,6 +83,10 @@
         }
         this.paramsSession[selected] = call;
         this.setSession();
+        //子组件给父组件传值
+        //this.$emit('listenChild', this.select)
+      },
+      setSession() {
         let paramsMsg = JSON.stringify(this.paramsSession);
         sessionStorage.setItem('paramsMsg', paramsMsg);
         this.$router.push({path: '/goodsList',
@@ -93,12 +97,7 @@
             priceMin: this.paramsSession.priceMin,
             priceMax: this.paramsSession.priceMax
           }
-        })
-        //子组件给父组件传值
-        //this.$emit('listenChild', this.select)
-      },
-      setSession() {
-
+        });
       },
       priceQuery(){
         this.setSession();
