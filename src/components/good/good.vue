@@ -2,7 +2,8 @@
    <div class="good-wrap">
      <a href="javascript:;" class="introduce-img" @click="routerLink">
        <img src="./Avatar.png" alt="" width="285" height="231">
-       <!--<p class="introduce-sellout" v-if="">已售罄</p>-->
+     </a>
+     <!--<p class="introduce-sellout" v-if="">已售罄</p>-->
        <div class="good-introduce">
          <p class="goods-name">
            {{item.product_name}}
@@ -12,7 +13,6 @@
            <p class="market-price">市场价：{{item.selling_price}}元</p>
          </div>
        </div>
-     </a>
    </div>
 </template>
 

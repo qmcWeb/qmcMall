@@ -20,8 +20,8 @@
             全部商品
           </a>
           <ul class="list-wrapper">
-            <li class="list" v-for="item in listArr">
-              <a href="javascript:;" @click="router(item.call)">{{item.con}}</a>
+            <li class="list" v-for="item in type_Arr">
+              <a href="javascript:;" @click="router(item.id)">{{item.name}}</a>
             </li>
           </ul>
           <i class="arrow"></i>
@@ -71,22 +71,24 @@
 </template>
 
 <script>
+  import LStorage from '@/common/js/LStorage'
   export default{
     data(){
       return {
-        listArr: [
-          {con: '优惠卡券', call: 'card'},
-          {con: '健康美食', call: 'food'},
-          {con: '时尚美妆', call: 'fashion'}
-        ],
+        type_Arr: [],
         selectPrice: 'all',
         slecetSort: 'default'
       }
     },
+    created() {
+      this.$http.get('/api/commodity/queryCommodityType.do').then(response => {
+        this.type_Arr = response.body.list;
+        LStorage.setItem('type_Arr', response.body.list)
+      });
+    },
     methods: {
       router(typep){
-        let paramsMsg = JSON.stringify({type: typep, price: 'all', sort: 'default', priceMin: 0, priceMax: 100000})
-        sessionStorage.setItem('paramsMsg', paramsMsg);
+        LStorage.setItem('paramsMsg', {type: typep, price: 'all', sort: 'default', priceMin: 0, priceMax: 100000})
         this.$router.push({
           path: '/goodsList',
           query: {

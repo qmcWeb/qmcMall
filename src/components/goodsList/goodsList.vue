@@ -18,6 +18,7 @@
   import  paging from  '@/components/paging/paging'
   import  good from  '@/components/good/good'
   import  crumbsBar from  '@/components/crumbsBar/crumbsBar'
+  import LStorage from '@/common/js/LStorage'
   export default {
     data (){
       return {
@@ -26,39 +27,28 @@
       }
     },
     created() {
-      //进来获取session
-      this.paramsSession = JSON.parse(sessionStorage.paramsMsg);
-      this.$http.get('/api/commodity/screenOrderCommodityList.do', {params: this.paramsSession}).then(response => {
-        this.list = response.body.list
-      });
+      //进来获取LStorage
+      this.routeChange()
     },
-    components:{
-      'v-crumbsBar':crumbsBar,
-      'v-selector':selector,
-      'v-paging':paging,
+    components: {
+      'v-crumbsBar': crumbsBar,
+      'v-selector': selector,
+      'v-paging': paging,
       'v-good': good
     },
     watch: {
       // 如果路由有变化，会再次执行该方法
-      paramsSession: function (val, oldVal) {
-        this.getMsg(this.paramsSession)
-      },
       '$route': 'routeChange'
     },
     methods: {
       getMsg(msg) {
-        //收到子组件的data，ajax请求回调改版items，从而改变用户选择的列表
-        let data = msg
-        this.$http.get(
-          '/api/commodity/screenOrderCommodityList.do',
-          {params: data}
-        ).then(response => {
-          this.list = response.body.list;
-          console.log(this.list,'goodList');
+        this.$http.get('/api/commodity/screenOrderCommodityList.do', {params: msg}).then(response => {
+          this.list = response.body.list
         });
       },
       routeChange(){
-        this.paramsSession = JSON.parse(sessionStorage.paramsMsg);
+        this.paramsSession = LStorage.getItem('paramsMsg')
+        this.getMsg(this.paramsSession)
       }
     }
   }

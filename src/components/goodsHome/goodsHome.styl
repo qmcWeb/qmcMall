@@ -13,19 +13,28 @@
     height auto
     padding-bottom 40px
     .goods-item
-      width 100%
-      height 430px
-      overflow hidden
+      &:first-child
+        margin-top: 30px;
       .title-wrapper
         position relative
-        padding 40px 0 12px 0
+        padding 0px 0 12px 0
         width 100%
-        height 96px
         display flex
         .title-icon
           position relative
           width 32px
           height 44px
+          div
+            width: 32px;
+            height: 44px;
+            &.img-wrap-1
+              background: url(./floorNum-1.png)
+            &.img-wrap-2
+              background: url(./floorNum-2.png)
+            &.img-wrap-3
+              background: url(./floorNum-3.png)
+            &.img-wrap-4
+              background: url(./floorNum-4.png)
           span
             position absolute
             left 0
@@ -54,7 +63,12 @@
             text-decoration underline
       .goods
         width 100%
-        display flex
         li
-          flex: 1
-          margin-right: 20px;
+          float: left;
+          margin: 0 15px 30px 0;
+          &:nth-child(4n)
+            margin-right: 0
+          &.clearBoth
+            clear: both;
+            float: none;
+            margin: 0
