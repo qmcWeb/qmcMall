@@ -34,6 +34,13 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         }
+      },
+      '/cjx': {
+        target: 'http://192.168.15.114:8099',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/cjx': ''
+        }
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"

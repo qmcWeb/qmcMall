@@ -38,15 +38,13 @@
   </div>
 </template>
 <script>
+  import LStorage from '@/common/js/LStorage'
   export default{
     props: ['paramsSession'],
     data (){
       return {
         type: [
-          {con: '全部', select: true, call: 'all'},
-          {con: '优惠卡券', select: false, call: 'card'},
-          {con: '健康美食', select: false, call: 'food'},
-          {con: '时尚美妆', select: false, call: 'fashion'},
+          {con: '全部', select: true, call: 'all'}
         ],
         price: [
           {con: '全部', select: true, call: 'all'},
@@ -70,7 +68,12 @@
       }
     },
     created() {
-      this.RefreshDom()
+      let type_Arr_data = LStorage.getItem('type_Arr');
+      for (let i = 0; i < type_Arr_data.length; i++) {
+        this.type.push({con: type_Arr_data[i].name, select: false, call: type_Arr_data[i].id})
+      }
+      this.RefreshDom();
+
     },
     methods: {
       router(call, selected, index){
@@ -83,12 +86,9 @@
         }
         this.paramsSession[selected] = call;
         this.setSession()
-        //子组件给父组件传值
-        //this.$emit('listenChild', this.select)
       },
       setSession() {
-        let paramsMsg = JSON.stringify(this.paramsSession)
-        sessionStorage.setItem('paramsMsg', paramsMsg);
+        LStorage.setItem('paramsMsg', this.paramsSession)
         this.$router.push({path: '/goodsList',
           query: {
             type: this.paramsSession.type,
@@ -101,15 +101,11 @@
       },
       priceQuery(){
         this.setSession()
-        //子组件给父组件传值
-        //this.$emit('listenChild', this.select)
       },
       RefreshDom() {
-        console.log(this.sort[3].call, 1)
         let route = this.paramsSession
-        console.log(route)
         for (let i in route) {
-          if (route[i].indexOf('price') > -1) {
+          if (String(route[i]).indexOf('price') > -1) {
             this.sort[3].call = route[i];
           }
           for (let n = 0; n < this[i].length; n++) {
