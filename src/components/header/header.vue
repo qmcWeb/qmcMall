@@ -42,7 +42,7 @@
           <ul class="sidebar">
             <li>
               <a href="#">我可兑的商品
-               <i class="icon-rightArrow"></i>
+                <i class="icon-rightArrow"></i>
               </a>
             </li>
             <li>
