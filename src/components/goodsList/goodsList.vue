@@ -49,8 +49,12 @@
       getMsg(msg) {
         //收到子组件的data，ajax请求回调改版items，从而改变用户选择的列表
         let data = msg
-        this.$http.get('/api/commodity/screenOrderCommodityList.do', {params: data}).then(response => {
-          this.list = response.body.list
+        this.$http.get(
+          '/api/commodity/screenOrderCommodityList.do',
+          {params: data}
+        ).then(response => {
+          this.list = response.body.list;
+          console.log(this.list,'goodList');
         });
       },
       routeChange(){
