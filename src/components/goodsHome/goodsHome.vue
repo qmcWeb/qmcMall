@@ -1,18 +1,25 @@
 <template>
   <div class="goods-wrapper">
     <ul class="content-wrapper">
-      <li class="goods-item" v-for="(type,index) in type_Arr">
+      <li class="goods-item" v-for="(value, key, index) in new_list" v-if="value.length>0">
         <div class="title-wrapper">
           <div class="title-icon">
             <img :src="imgNum[index]" alt="floorNum" width="32" height="44">
             <span>{{index + 1}}F</span>
           </div>
-          <p class="product">{{type.name}}<span>{{type.engname}}</span></p>
-          <a class="goods-more" href="javascript:;" @click="router(type.id)">更多></a>
+          <p class="product" v-if="type_Arr.length">{{type_Arr[index].name}}<span>{{type_Arr[index].engname}}</span></p>
+          <a class="goods-more" href="javascript:;" @click="router(type_Arr[index].id)">更多></a>
         </div>
         <ul class="goods">
-          <li v-for="item in list_Arr" v-if="type.name===item.type">
-              <v-good :item="item"></v-good>
+          <li v-for="item in value">
+            <v-good :item="item"></v-good>
+          </li>
+          <li v-if="value.length<3">
+            <div class="waitInfo">
+              更多商品敬请期待...
+
+
+            </div>
           </li>
           <li class="clearBoth"></li>
         </ul>
@@ -33,8 +40,26 @@
           '../../../static/img/floorNum-2.png',
           '../../../static/img/floorNum-3.png',
           '../../../static/img/floorNum-4.png',
-        ]
+          '../../../static/img/floorNum-5.png',
+        ],
+        new_list: {}
       }
+    },
+    watch: {
+      list_Arr: function (val1, val2) {
+        var listData = this.list_Arr
+        for (let i = 0; i < listData.length; i++) {
+          if (!this.new_list[listData[i].type]) {
+            this.$set(this.new_list, listData[i].type, [])
+          }
+        }
+        for (let i = 0; i < this.list_Arr.length; i++) {
+          this.new_list[this.list_Arr[i].type].push(this.list_Arr[i])
+        }
+      }
+//      type_Arr:function () {
+//          this.new_type_Arr=this.type_Arr
+//      }
     },
     methods: {
       router(typep){
@@ -51,7 +76,7 @@
         })
       }
     },
-    components:{
+    components: {
       'v-good': good
     }
   }
