@@ -89,7 +89,8 @@
       },
       setSession() {
         LStorage.setItem('paramsMsg', this.paramsSession)
-        this.$router.push({path: '/goodsList',
+        this.$router.push({
+          path: '/goodsList',
           query: {
             type: this.paramsSession.type,
             price: this.paramsSession.price,

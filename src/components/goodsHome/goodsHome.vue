@@ -33,6 +33,7 @@
           '../../../static/img/floorNum-2.png',
           '../../../static/img/floorNum-3.png',
           '../../../static/img/floorNum-4.png',
+          '../../../static/img/floorNum-4.png',
         ]
       }
     },
