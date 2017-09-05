@@ -17,8 +17,6 @@
           <li v-if="value.length<3">
             <div class="waitInfo">
               更多商品敬请期待...
-
-
             </div>
           </li>
           <li class="clearBoth"></li>

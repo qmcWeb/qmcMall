@@ -32,12 +32,12 @@
         </li>
       </ul>
       <div class="user">
-        <div class="logged">
+        <div class="logged" v-if="Object.keys(userInfo).length">
           <i class="arrow"></i>
           <img src="./Avatar.png" alt="" width="50" height="50" class="avatar">
           <div class="info">
-            <div class="name">王玲文先生</div>
-            <div class="count"><span>999999</span>仓豆</div>
+            <div class="name">{{userInfo.username}}</div>
+            <div class="count"><span>{{userInfo.cd_money}}</span>仓豆</div>
           </div>
           <ul class="sidebar">
             <li>
@@ -59,7 +59,7 @@
             </li>
           </ul>
         </div>
-        <div class="login">
+        <div class="login" v-else>
           <img src="./Avatar.png" alt="" width="50" height="50">
           <a href="https://www.qianmancang.com/memberLoginPage" class="log">登录</a>
           <i class="seg"></i>
@@ -69,21 +69,26 @@
     </div>
   </div>
 </template>
-
 <script>
   import LStorage from '@/common/js/LStorage'
   export default{
     data(){
       return {
         type_Arr: [],
-        selectPrice: 'all',
-        slecetSort: 'default'
+        userInfo: {}
       }
     },
     created() {
+      //商品种类 请求
       this.$http.get('/api/commodity/queryCommodityType.do').then(response => {
         this.type_Arr = response.body.list;
         LStorage.setItem('type_Arr', response.body.list)
+      });
+      //用户信息 请求
+      this.$http.get('/api/associatorUser/getUser.do', {params: {user_id: 'admin'}}).then(response => {
+        this.userInfo = response.body;
+        //LStorage.setItem('type_Arr', response.body.list)
+        console.log(response.body)
       });
     },
     methods: {
