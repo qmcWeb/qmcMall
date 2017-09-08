@@ -11,9 +11,9 @@
   import  footer from  './components/footer/footer'
   export default {
     name: 'app',
-    components:{
-        'v-header':header,
-        'v-footer':footer,
+    components: {
+      'v-header': header,
+      'v-footer': footer,
     }
   }
 </script>

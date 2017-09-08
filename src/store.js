@@ -2,7 +2,6 @@
  * Created by sks on 2017/9/6.
  */
 import Vue from 'vue'
-import LStorage from '@/common/js/LStorage'
 export default {
   state: {
     userInfo: '',
@@ -10,7 +9,8 @@ export default {
     listData: '',
     detailData: '',
     goodTypeData: '',
-    listParamsData: ''
+    listParamsData: '',
+    loginShow: true
   },
   actions: {
     //请求商品种类
@@ -47,6 +47,7 @@ export default {
       commit('set_goodDetail', {data: params});
       console.log('存储列表查询参数')
     },
+
   },
   getters: {
     new_index_data: state => {
@@ -96,6 +97,9 @@ export default {
     },
     set_goodDetail: (state, {data}) => {
       state.detailData = data
+    },
+    increment (state) {
+      state.loginShow = !state.loginShow;
     }
   }
 }

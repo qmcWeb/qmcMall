@@ -5,12 +5,15 @@ import App from './App';
 import VueRouter from 'vue-router';
 import routerMap from './router';
 import VueResource from 'vue-resource';
+import Vuex from 'vuex';
 import './common/js/validate.js';
 import './common/js/LStorage.js';
 //在main.js中引入Store实例
 // 使用{}引入store实例，因为store是一个const变量
-import { store } from './common/js/store.js'
 
+import store_vuex from './store'
+Vue.use(Vuex);
+const store = new Vuex.Store(store_vuex);
 Vue.use(VueResource);
 Vue.config.productionTip = false;
 

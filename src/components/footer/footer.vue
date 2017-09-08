@@ -14,7 +14,7 @@
       </div>
       <div class="footer-middle left">
         <div class="item left">
-          <img src="./app-download.png" alt="下载" width="80" height="80" />
+          <img src="./app-download.png" alt="下载" width="80" height="80"/>
           <h2>下载钱满仓APP</h2>
         </div>
         <div class="item right">

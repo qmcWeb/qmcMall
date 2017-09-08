@@ -32,8 +32,8 @@ export default [
     component: goodsList
   },
   {
-    path:'/login',
-    name:'login',
+    path: '/login',
+    name: 'login',
     component: login
   }
 ]

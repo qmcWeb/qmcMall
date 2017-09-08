@@ -71,12 +71,13 @@
 </template>
 
 <script>
-  import LStorage from '@/common/js/LStorage';
-  import {setCookie,getCookie} from '../../common/js/cookie.js';
+  import LStorage from   '@/common/js/LStorage.js';
+  import {setCookie, getCookie} from '../../common/js/cookie.js';
+  import {mapActions} from 'vuex'
+  import {mapState} from 'vuex'
   export default{
     data(){
       return {
-        type_Arr: [],
         selectPrice: 'all',
         slecetSort: 'default'
       }
@@ -86,19 +87,16 @@
       let uname = getCookie('username')
       this.name = uname
       /*如果cookie不存在，则跳转到登录页*/
-      if(uname == ""){
+      if (uname == "") {
         this.$router.push('/')
       }
     },
     created() {
-      this.$http.get('/api/commodity/queryCommodityType.do').then(response => {
-        this.type_Arr = response.body.list;
-        LStorage.setItem('type_Arr', response.body.list)
-      });
+      //商品种类 请求
+      this.req_goodTypeData();
     },
     methods: {
       router(typep){
-        LStorage.setItem('paramsMsg', {type: typep, price: 'all', sort: 'default', priceMin: 0, priceMax: 100000})
         this.$router.push({
           path: '/goodsList',
           query: {
@@ -115,7 +113,8 @@
         this.loginShow = this.$store.state.loginShow;
         /*删除cookie*/
         delCookie('username')
-      }
+      },
+      ...mapActions(['req_goodTypeData', 'req_userInfo', 'req_listData'])
     },
     computed: {
       loginShow: {
@@ -127,7 +126,11 @@
         set: function (newValue) {
           return this.$store.state.loginShow = newValue;
         }
-      }
+      },
+      ...mapState({
+        type_Arr: 'goodTypeData',
+        //userInfo:'userInfo',
+      })
     }
   }
 </script>
