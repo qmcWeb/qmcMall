@@ -1,6 +1,5 @@
 <template>
   <div>
-    <v-crumbsBar></v-crumbsBar>
     <v-errorLayer :errorCon="errorCon" :errorType="errorType" :errorlayerSHow="errorlayerSHow"></v-errorLayer>
     <div class="order-wrap">
       <!--新地址浮层-->
@@ -150,6 +149,7 @@
   import VDistpicker from 'v-distpicker';
   import  crumbsBar from  '@/components/crumbsBar/crumbsBar'
   import  errorLayer from  '@/components/errorLayer/errorLayer'
+  import LStorage from '@/common/js/LStorage'
   export default {
     data() {
       return {
@@ -178,7 +178,7 @@
     },
     created() {
       let good = this;
-      good.goodInfoData = JSON.parse(sessionStorage.goodInfoData);
+      good.goodInfoData = LStorage.getItem('goodInfoData');
       console.log(good.goodInfoData);
       good.name = good.goodInfoData.product_name;
       good.desc = '荷兰进口刀头，性贴面设计，舒适切剃，剃须静音更舒心！';

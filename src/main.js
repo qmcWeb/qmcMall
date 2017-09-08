@@ -5,6 +5,13 @@ import App from './App'
 import VueRouter from 'vue-router'
 import routerMap from './router'
 import VueResource from 'vue-resource';
+import Vuex from 'vuex';
+//import doubleNumber from '@/common/js/doubleNumber'
+import store_vuex from './store'
+Vue.use(Vuex);
+//配置 vuex
+const store = new Vuex.Store(store_vuex);
+//Vue.use(doubleNumber);
 Vue.use(VueResource);
 Vue.config.productionTip = false
 
@@ -18,6 +25,7 @@ const router = new VueRouter({
 // 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
 const app = new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app');
 

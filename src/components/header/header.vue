@@ -70,30 +70,28 @@
   </div>
 </template>
 <script>
-  import LStorage from '@/common/js/LStorage'
+  import LStorage from '@/common/js/LStorage';
+  import {mapActions} from 'vuex'
+  import {mapState} from 'vuex'
   export default{
     data(){
       return {
-        type_Arr: [],
-        userInfo: {}
       }
     },
-    created() {
+    computed: {
+      ...mapState({
+        type_Arr: 'goodTypeData',
+        userInfo: 'userInfo',
+      })
+    },
+    mounted() {
       //商品种类 请求
-      this.$http.get('/api/commodity/queryCommodityType.do').then(response => {
-        this.type_Arr = response.body.list;
-        LStorage.setItem('type_Arr', response.body.list)
-      });
+      this.req_goodTypeData();
       //用户信息 请求
-      this.$http.get('/api/associatorUser/getUser.do', {params: {user_id: 'admin'}}).then(response => {
-        this.userInfo = response.body;
-        //LStorage.setItem('type_Arr', response.body.list)
-        console.log(response.body)
-      });
+      this.req_userInfo();
     },
     methods: {
       router(typep){
-        LStorage.setItem('paramsMsg', {type: typep, price: 'all', sort: 'default', priceMin: 0, priceMax: 100000})
         this.$router.push({
           path: '/goodsList',
           query: {
@@ -104,7 +102,11 @@
             priceMax: 100000
           }
         })
-      }
+      },
+      getPath() {
+        //this.req_listData();
+      },
+      ...mapActions(['req_goodTypeData', 'req_userInfo', 'req_listData'])
     }
   }
 </script>

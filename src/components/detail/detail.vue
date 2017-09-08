@@ -18,7 +18,7 @@
             数量：<span class="goods-amount icon-reduce" @click="reduceNum()"></span>
             {{ count }}
             <span class="goods-amount icon-add" @click="addNum()"></span>
-            <span>库存<b>485</b>件</span>
+            <span>库存<b>{{inventory}}</b>件</span>
           </div>
           <div class="goods-btn">
             <a href="javascript:;" @click="exchange">立即兑换</a>
@@ -75,23 +75,45 @@
 <script>
   import  crumbsBar from  '@/components/crumbsBar/crumbsBar'
   import  errorLayer from  '@/components/errorLayer/errorLayer'
+  import  LStorage from '@/common/js/LStorage'
   export default {
     data() {
       return {
         count: 1,
         errorCon: 'Vx级以上会员才能兑换该商品哦，<a href="baidu">快去看看如何升级吧</a>',
         errorType: 'lessBeans',
-        errorlayerSHow: false
+        errorlayerSHow: false,
+        name: '',
+        desc: '',
+        beans: '',
+        price: '',
+        inventory: '',
+        totalBeans: '',
       }
     },
-    created() {
+    computed: {
+      userInfo() {
+        return this.$store.state.userInfo
+      }
+    },
+    mounted() {
       let good = this;
-      good.goodInfoData = JSON.parse(sessionStorage.goodInfoData);
-      //console.log(good.goodInfoData);
-      good.name = good.goodInfoData.product_name;
-      good.desc = '荷兰进口刀头，性贴面设计，舒适切剃，剃须静音更舒心！';
-      good.beans = good.goodInfoData.product_price;
-      good.price = good.goodInfoData.selling_price;
+      console.log(this.$route.query.product_id)
+      this.$http.get('/api/commodity/productDetails.do', {
+        params: {
+          product_id: this.$route.query.product_id,
+          user_id: 'admin'
+        }
+      }).then(response => {
+        good.goodInfoData = response.body.list;
+        console.log(JSON.stringify(response.body))
+        good.name = good.goodInfoData.product_name;
+        good.desc = good.goodInfoData.synopsis_info;
+        good.beans = good.goodInfoData.product_price;
+        good.price = good.goodInfoData.selling_price;
+        good.inventory = good.goodInfoData.inventory;
+        good.totalBeans = good.beans * good.count
+      });
     },
     methods: {
       reduceNum() {
@@ -110,9 +132,21 @@
       },
       exchange() {
         let good = this;
+        if (good.count > good.inventory) {
+          console.log(1)
+          this.errorCon = '很抱歉，库存数量不足，我们将尽快补货 ^_^',
+            this.errorType = 'normal',
+            this.errorlayerSHow = true
+          return false
+        }
+        if (good.totalBeans > this.userInfo.cd_money) {
+          this.errorCon = '仓豆不够啦 >_<',
+            this.errorType = 'lessBeans',
+            this.errorlayerSHow = true
+          return false
+        }
         good.goodInfoData.goodCount = good.count;
-        var data = JSON.stringify(good.goodInfoData)
-        sessionStorage.setItem('goodInfoData', data);
+        LStorage.setItem('goodInfoData', good.goodInfoData)
         this.$router.push({path: '/order', query: {goodId: good.goodInfoData.id}})
       }
 

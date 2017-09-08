@@ -30,7 +30,6 @@
   import  good from  '@/components/good/good';
   import LStorage from '@/common/js/LStorage'
   export default {
-    props: ['list_Arr', 'type_Arr'],
     data() {
       return {
         imgNum: [
@@ -40,30 +39,20 @@
           '../../../static/img/floorNum-4.png',
           '../../../static/img/floorNum-5.png',
         ],
-        new_list: {}
       }
     },
-    watch: {
-      list_Arr: function (val1, val2) {
-        var listData = this.list_Arr
-        for (let i = 0; i < listData.length; i++) {
-          if (!this.new_list[listData[i].type]) {
-            this.$set(this.new_list, listData[i].type, [])
-          }
-        }
-        for (let i = 0; i < this.list_Arr.length; i++) {
-          this.new_list[this.list_Arr[i].type].push(this.list_Arr[i])
-        }
+    computed: {
+      new_list () {
+        return this.$store.getters.new_index_data
+      },
+      type_Arr(){
+        return this.$store.state.goodTypeData
       }
-//      type_Arr:function () {
-//          this.new_type_Arr=this.type_Arr
-//      }
     },
     methods: {
       router(typep){
-        LStorage.setItem('paramsMsg', {type: typep, price: 'all', sort: 'default', priceMin: 0, priceMax: 100000})
         this.$router.push({
-          path: '/goodsList',
+          path: 'goodsList',
           query: {
             type: typep,
             price: 'all',

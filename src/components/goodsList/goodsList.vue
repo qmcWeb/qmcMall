@@ -1,7 +1,7 @@
 <template>
   <div class="list-wrapper">
     <v-crumbsBar></v-crumbsBar>
-    <v-selector :paramsSession="paramsSession"></v-selector>
+    <v-selector></v-selector>
     <ul class="goodList-wrap">
       <li v-for="item in list">
         <v-good :item="item"></v-good>
@@ -21,14 +21,15 @@
   import LStorage from '@/common/js/LStorage'
   export default {
     data (){
-      return {
-        list: [],
-        paramsSession: {}
+      return {}
+    },
+    computed: {
+      list() {
+        return this.$store.state.listData
       }
     },
     created() {
-      //进来获取LStorage
-      this.routeChange()
+
     },
     components: {
       'v-crumbsBar': crumbsBar,
@@ -38,19 +39,8 @@
     },
     watch: {
       // 如果路由有变化，会再次执行该方法
-      '$route': 'routeChange'
     },
-    methods: {
-      getMsg(msg) {
-        this.$http.get('/api/commodity/screenOrderCommodityList.do', {params: msg}).then(response => {
-          this.list = response.body.list
-        });
-      },
-      routeChange(){
-        this.paramsSession = LStorage.getItem('paramsMsg')
-        this.getMsg(this.paramsSession)
-      }
-    }
+    methods: {}
   }
 </script>
 

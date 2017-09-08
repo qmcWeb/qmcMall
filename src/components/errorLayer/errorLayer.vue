@@ -20,6 +20,19 @@
         ErrorLayerShow: this.errorlayerSHow
       }
     },
+    watch: {
+      'errorCon' (a, b){
+        this.errorCon = a
+        console.log(a)
+      },
+      'errorType' (a, b){
+        this.errorType = a
+      },
+      'errorlayerSHow' (a, b){
+        this.ErrorLayerShow = a
+        console.log(a)
+      },
+    },
     methods: {
       closeErrorLayer() {
         this.ErrorLayerShow = !this.ErrorLayerShow
