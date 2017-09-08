@@ -32,12 +32,12 @@
         </li>
       </ul>
       <div class="user">
-        <div class="logged" v-if="Object.keys(userInfo).length">
+        <div class="logged" v-if="!loginShow">
           <i class="arrow"></i>
           <img src="./Avatar.png" alt="" width="50" height="50" class="avatar">
           <div class="info">
-            <div class="name">{{userInfo.username}}</div>
-            <div class="count"><span>{{userInfo.cd_money}}</span>仓豆</div>
+            <div class="name">王玲文先生</div>
+            <div class="count"><span>999999</span>仓豆</div>
           </div>
           <ul class="sidebar">
             <li>
@@ -55,13 +55,13 @@
               <a href="#">投资挣仓豆<i class="icon-rightArrow"></i></a>
             </li>
             <li>
-              <a href="#">安全退出<i class="icon-exit"></i></a>
+              <a href="JavaScript:;" @click="exit">安全退出<i class="icon-exit"></i></a>
             </li>
           </ul>
         </div>
-        <div class="login" v-else>
+        <div class="login" v-if="loginShow">
           <img src="./Avatar.png" alt="" width="50" height="50">
-          <a href="https://www.qianmancang.com/memberLoginPage" class="log">登录</a>
+          <router-link :to="{ path: '/login' }" class="log">登录</router-link>
           <i class="seg"></i>
           <a href="https://www.qianmancang.com/zhuce" class="reg">注册</a>
         </div>
@@ -69,29 +69,36 @@
     </div>
   </div>
 </template>
+
 <script>
   import LStorage from '@/common/js/LStorage';
-  import {mapActions} from 'vuex'
-  import {mapState} from 'vuex'
+  import {setCookie,getCookie} from '../../common/js/cookie.js';
   export default{
     data(){
       return {
+        type_Arr: [],
+        selectPrice: 'all',
+        slecetSort: 'default'
       }
     },
-    computed: {
-      ...mapState({
-        type_Arr: 'goodTypeData',
-        userInfo: 'userInfo',
-      })
+    mounted(){
+      /*页面挂载获取保存的cookie值，渲染到页面上*/
+      let uname = getCookie('username')
+      this.name = uname
+      /*如果cookie不存在，则跳转到登录页*/
+      if(uname == ""){
+        this.$router.push('/')
+      }
     },
-    mounted() {
-      //商品种类 请求
-      this.req_goodTypeData();
-      //用户信息 请求
-      this.req_userInfo();
+    created() {
+      this.$http.get('/api/commodity/queryCommodityType.do').then(response => {
+        this.type_Arr = response.body.list;
+        LStorage.setItem('type_Arr', response.body.list)
+      });
     },
     methods: {
       router(typep){
+        LStorage.setItem('paramsMsg', {type: typep, price: 'all', sort: 'default', priceMin: 0, priceMax: 100000})
         this.$router.push({
           path: '/goodsList',
           query: {
@@ -103,10 +110,24 @@
           }
         })
       },
-      getPath() {
-        //this.req_listData();
-      },
-      ...mapActions(['req_goodTypeData', 'req_userInfo', 'req_listData'])
+      exit() {
+        this.$store.commit('increment');
+        this.loginShow = this.$store.state.loginShow;
+        /*删除cookie*/
+        delCookie('username')
+      }
+    },
+    computed: {
+      loginShow: {
+        // getter
+        get: function () {
+          return this.$store.state.loginShow;
+        },
+        // setter
+        set: function (newValue) {
+          return this.$store.state.loginShow = newValue;
+        }
+      }
     }
   }
 </script>
