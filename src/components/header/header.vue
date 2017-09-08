@@ -71,13 +71,23 @@
 </template>
 
 <script>
-  import LStorage from '@/common/js/LStorage'
+  import LStorage from '@/common/js/LStorage';
+  import {setCookie,getCookie} from '../../common/js/cookie.js';
   export default{
     data(){
       return {
         type_Arr: [],
         selectPrice: 'all',
         slecetSort: 'default'
+      }
+    },
+    mounted(){
+      /*页面挂载获取保存的cookie值，渲染到页面上*/
+      let uname = getCookie('username')
+      this.name = uname
+      /*如果cookie不存在，则跳转到登录页*/
+      if(uname == ""){
+        this.$router.push('/')
       }
     },
     created() {
@@ -103,6 +113,8 @@
       exit() {
         this.$store.commit('increment');
         this.loginShow = this.$store.state.loginShow;
+        /*删除cookie*/
+        delCookie('username')
       }
     },
     computed: {
