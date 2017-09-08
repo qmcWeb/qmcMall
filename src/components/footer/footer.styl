@@ -4,26 +4,33 @@
   box-sizing border-box
   border none
   font-family MicrosoftYaHei
+.left
+  float left
+.right
+  float right
 .footer-wrapper
   width 100%
-  height 355px
+  height 226px
   background #34404a
   .footer-content
     width 1200px
     height 100%
     margin 0 auto
+    overflow hidden
     h2
       font-size 18px
       color #fff
-      padding 40px 0 20px;
+      padding 37px 0 20px;
     .left
       float left
-      height 275px
+      height 184px
     .footer-left
-      width 50%
-      ul
-        width 25%
+      width 400px
+      padding 0 55px
+      ul.footer-info
+        width 50%
         height 100%
+        text-align center
         li
           width 100%
           height 30px
@@ -35,139 +42,51 @@
             &:hover
               color #fff
     .footer-middle
-      width 25%
-      height 210px
+      width 398px
+      height 104px
       margin-top 40px
-      padding-top -40px
-      border-left 1px solid #3b4d5a
-      border-right 1px solid #3b4d5a
+      border-left 2px solid #3b4d5a
+      border-right 2px solid #3b4d5a
       text-align center
-      h2
-        padding-top 0
+      padding 0 85px
+      overflow hidden
+      .item
+        width 50%
+        height 100%
+        h2
+          margin-top 8px
+          padding 0
+          font-size 14px
+          color #81AAC7
     .footer-right
-      width 25%
-      padding-left 90px
+      width 400px
+      padding 37px 0 0 80px
       h1
-        font-size 30px
-        line-height 32px
-        font-family "Arial"
-        color #89a9c4
+        font-size 34px
+        line-height 48px
+        color #81AAC7
+      p
+        width 124px
+        height 36px
+        line-height 36px
+        border 1px solid #81AAC7
+        border-radius 5px
+        color #81AAC7
+        padding-left 52px
+        background url(./kefu-online1.png) 18px 5px no-repeat
+        &:hover
+          background url(./kefu-online2.png) 18px 5px no-repeat
       h3
         font-size 14px
         line-height 20px
-        margin-top 6px
-        color #89a9c4
-      p
-        position relative
-        display inline-block
-        font-size 0
-        height 55px
-        margin-top 20px
-        padding-top 10px
-        i
-          font-size 28px
-          padding 10px
-          margin-right 18px
-          border-radius 50%
-          background #626d77
-          color #394857
-          transition all 0.3s ease-in-out
-          &:hover
-            background #fff
-            color #3c4855
-          &:hover+img
-            display block
-          &:hover+span
-            display block
-        img
-          position absolute
-          top 50px
-          left -30px
-          display none
-        span
-          position absolute
-          top 60px
-          left -22px
-          width 94px
-          height 40px
-          text-align center
-          line-height 40px
-          background #fff
-          font-size 14px
-          color #31404b
-          font-weight bolder
-          display none
-          &::before
-            display:block
-            position:absolute
-            left:50%;
-            bottom:100%
-            transform:translateX(-50%)
-            content:''
-            width:0
-            height:0
-            border:8px solid transparent
-            border-bottom:8px solid #fff
+        margin-top 11px
+        color #81AAC7
     .footer-bottom
+      clear both
       width 100%
-      height 80px
+      height 40px
+      text-align center
+      line-height 40px
       border-top 1px solid #3b4d5a
-      .left
-        width 50%
-        height 100%
-        padding 20px 0
-      .manage-warn
-        font-size 12px
-        color #89a9c4
-        line-height 20px
-        a
-          color #89a9c4
-          padding-left 10px
-          &:hover
-            color #fff
-          img
-            vertical-align bottom
-      .auth-link-new
-        ul
-          float right
-          width 530px
-          height 100%
-          margin-top 5px
-          li
-            float left
-            height 34px
-            margin-left 10px
-            width 89px
-            cursor pointer
-          .auth-link-new1
-            position relative
-            width 124px
-            .data-encryption
-              opacity 0
-              z-index -1
-              position absolute
-              top -299px
-              left -250px
-              transition:all linear 0.6s;
-              cursor pointer
-          .auth-link-new2
-            background url(./auth-link-new.png) -5px -50px
-            &:hover
-              background url(./auth-link-new.png) -5px -100px
-              transition all 0.3s ease-in-out
-          .auth-link-new3
-            background url(./auth-link-new.png) -105px -50px
-            &:hover
-              background url(./auth-link-new.png) -105px -100px
-              transition all 0.3s ease-in-out
-          .auth-link-new4
-            background url(./auth-link-new.png) -205px -50px
-            &:hover
-              background url(./auth-link-new.png) -205px -100px
-              transition all 0.3s ease-in-out
-          .auth-link-new5
-            background url(./auth-link-new.png) -305px -50px
-            &:hover
-              background url(./auth-link-new.png) -305px -100px
-              transition all 0.3s ease-in-out
-
+      font-size 12px
+      color #5A7488

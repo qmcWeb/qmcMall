@@ -32,7 +32,7 @@
         </li>
       </ul>
       <div class="user">
-        <div class="logged">
+        <div class="logged" v-if="!loginShow">
           <i class="arrow"></i>
           <img src="./Avatar.png" alt="" width="50" height="50" class="avatar">
           <div class="info">
@@ -55,13 +55,13 @@
               <a href="#">投资挣仓豆<i class="icon-rightArrow"></i></a>
             </li>
             <li>
-              <a href="#">安全退出<i class="icon-exit"></i></a>
+              <a href="JavaScript:;" @click="exit">安全退出<i class="icon-exit"></i></a>
             </li>
           </ul>
         </div>
-        <div class="login">
+        <div class="login" v-if="loginShow">
           <img src="./Avatar.png" alt="" width="50" height="50">
-          <a href="https://www.qianmancang.com/memberLoginPage" class="log">登录</a>
+          <router-link :to="{ path: '/login' }" class="log">登录</router-link>
           <i class="seg"></i>
           <a href="https://www.qianmancang.com/zhuce" class="reg">注册</a>
         </div>
@@ -99,6 +99,22 @@
             priceMax: 100000
           }
         })
+      },
+      exit() {
+        this.$store.commit('increment');
+        this.loginShow = this.$store.state.loginShow;
+      }
+    },
+    computed: {
+      loginShow: {
+        // getter
+        get: function () {
+          return this.$store.state.loginShow;
+        },
+        // setter
+        set: function (newValue) {
+          return this.$store.state.loginShow = newValue;
+        }
       }
     }
   }

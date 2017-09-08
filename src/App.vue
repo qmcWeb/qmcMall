@@ -10,12 +10,12 @@
   import  header from  './components/header/header'
   import  footer from  './components/footer/footer'
   export default {
-  name: 'app',
-  components:{
-      'v-header':header,
-      'v-footer':footer,
+    name: 'app',
+    components:{
+        'v-header':header,
+        'v-footer':footer,
+    }
   }
-}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

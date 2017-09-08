@@ -5,6 +5,7 @@ import detail from './components/detail/detail'
 import goodsList from './components/goodsList/goodsList'
 import order from './components/order/order'
 import success from './components/success/success'
+import login from './components/login/login'
 export default [
   {
     path: '/',
@@ -29,5 +30,10 @@ export default [
     path:'/goodsList',
     name:'goodsList',
     component: goodsList
+  },
+  {
+    path:'/login',
+    name:'login',
+    component: login
   }
 ]
