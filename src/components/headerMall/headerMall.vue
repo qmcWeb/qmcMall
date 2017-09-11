@@ -3,7 +3,7 @@
     <div class="header-wrapper">
       <div class="logo">
         <a class="qmc" href="https://www.qianmancang.com">
-          <img src="./logo.png" alt="" width="160" height="47">
+          <img src="./logo.png" alt="" width="128" height="36">
         </a>
         <i class="seg"></i>
         <a class="cd" href="#">仓豆商城</a>
@@ -87,9 +87,9 @@
       let uname = getCookie('username')
       this.name = uname
       /*如果cookie不存在，则跳转到登录页*/
-      if (uname == "") {
-        this.$router.push('/')
-      }
+//      if (uname == "") {
+//        this.$router.push('/')
+//      }
     },
     created() {
       //商品种类 请求
@@ -129,14 +129,14 @@
       },
       ...mapState({
         type_Arr: 'goodTypeData',
-        //userInfo:'userInfo',
+        userInfo: 'userInfo',
       })
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  @import "header.styl";
+  @import "headerMall.styl";
 
 
 </style>

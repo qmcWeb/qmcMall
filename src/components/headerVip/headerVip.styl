@@ -1,0 +1,197 @@
+.header
+  height: 80px
+  color: #264c65
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.12)
+  background #fff
+  .header-wrapper
+    width: 1200px
+    margin: auto
+    font-size: 0
+  .logo
+    display: inline-block
+    font-size: 0px
+    margin-top: 22px
+    i
+      display: inline-block
+      height: 22px
+      vertical-align: top
+      background: #be9f59
+      width: 2px
+      margin: 7px 13px 0
+    .qmc
+      display: inline-block;
+      vertical-align: top;
+    .cd
+      font-size: 20px;
+      color: #be9f59;
+      font-weight: bold;
+      line-height: 36px;
+      display: inline-block;
+      vertical-align: top;
+  .nav
+    display: inline-block;
+    margin-left: 163px;
+    vertical-align: top;
+    font-size: 0px;
+    & > li
+      display: inline-block;
+      position: relative
+      margin-right: 39px;
+      line-height: 80px;
+      width: 100px
+      text-align: center
+      font-size: 16px;
+      &:hover > a
+        color: #FE6E46
+      &:hover .arrow
+        display: block
+      .arrow
+        display: none
+        position: absolute
+        left: 0
+        bottom: 0
+        width: 100%
+        height: 3px
+        background: #FE6E46;
+        &:after
+          display: block
+          position: absolute
+          left: 50%;
+          bottom: 100%
+          transform: translateX(-50%)
+          content: ''
+          width: 0
+          height: 0
+          border: 8px solid transparent
+          border-bottom: 8px solid #FE6E46
+      &.goods
+        &:hover .list-wrapper
+          display: block
+        .list-wrapper
+          display: none
+          position: absolute
+          left: 0
+          z-index 2
+          top: 100%
+          width: 100%
+          background: #fff
+          box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.16)
+          li.list
+            width: 100%
+            line-height: 42px
+            text-align: center
+            font-size: 14px
+            color: #2E536B
+            &:first-child:hover
+              box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.16)
+            &:hover
+              box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
+      a
+        display: block;
+        color: #264C65;
+    &:last-child
+      margin: 0
+  .user
+    float: right;
+    font-size: 0px;
+    .login
+      height: 60px;
+      margin-top: 10px;
+      padding: 0 20px;
+      border-left: 1px solid #E4E4E4;
+      border-right: 1px solid #E4E4E4;
+      a
+        display: inline-block;
+        vertical-align: top;
+        font-size: 16px;
+        line-height: 1;
+      img
+        vertical-align: top;
+        margin-top: 5px;
+        margin-right: 33px;
+        border-radius: 50%
+      .log
+        font-size: 16px;
+        color: #FE6E46;
+        margin-top: 22px;
+      .reg
+        font-size: 16px;
+        color: #000029;
+        margin-top: 22px;
+      i
+        display: inline-block;
+        vertical-align: top;
+        height: 16px;
+        width: 2px;
+        background: #DDDDDD;
+        margin: 0 9px;
+        margin-top: 22px;
+    .logged
+      position: relative
+      width: 216px
+      box-sizing border-box
+      padding: 15px 20px;
+      font-size: 0
+      &:hover
+        box-shadow: 0 0px 12px 0 rgba(0, 0, 0, 0.14);
+      &:hover .arrow
+        transform rotate(180deg)
+      &:hover .sidebar
+        display: block
+      .arrow
+        position: absolute
+        right: 20px
+        top: 29px
+        border: 7px solid transparent
+        border-bottom: 7px solid #92979B
+        transition: all .3s
+        transform-origin: center 10px;
+      .sidebar
+        display: none
+        position: absolute
+        left: 0
+        top: 100%
+        width: 100%
+        z-index: 2
+        box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.14);
+        background: #fff
+        & > li
+          transition all .1s
+        & > li:hover
+          box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
+        li a
+          display: block
+          width: 100%
+          box-sizing border-box
+          padding 0 20px;
+          line-height 42px;
+          font-size: 14px;
+          color: #264C65;
+          i
+            float right
+            color #E4E4E4;
+            &.icon-rightArrow
+              margin-top: 14px
+              font-size: 14px
+            &.icon-exit
+              margin-top: 14px
+              font-size: 16px
+      .avatar
+        display: inline-block
+        margin-right 7px
+        vertical-align top
+        border-radius: 50%
+      .info
+        display: inline-block
+        vertical-align top
+        .name
+          margin-bottom: 4px
+          line-height: 21px;
+          font-size: 16px;
+          color: #264C65;
+        .count
+          line-height: 16px;
+          font-size: 14px;
+          color: #003D00;
+          span
+            color: #DA5140;

@@ -1,6 +1,10 @@
 
 // import Hello from '@/components/Hello'
-import home from './components/home/home'
+import homeMall from './components/homeMall/homeMall'
+import homeVip from './components/homeVip/homeVip'
+import taskVip from './components/taskVip/taskVip'
+import levelVip from './components/levelVip/levelVip'
+import rightVip from './components/rightVip/rightVip'
 import detail from './components/detail/detail'
 import goodsList from './components/goodsList/goodsList'
 import order from './components/order/order'
@@ -8,8 +12,24 @@ import success from './components/success/success'
 import login from './components/login/login'
 export default [
   {
-    path: '/',
-    component: home
+    path: '/homeMall',
+    component: homeMall
+  },
+  {
+    path: '/homeVip',
+    component: homeVip
+  },
+  {
+    path: '/taskVip',
+    component: taskVip
+  },
+  {
+    path: '/levelVip',
+    component: levelVip
+  },
+  {
+    path: '/rightVip',
+    component: rightVip
   },
   {
     path: '/detail',

@@ -1,19 +1,47 @@
 <template>
   <div id="app">
-   <v-header></v-header>
+    <v-headerMall v-if="headMallShow"></v-headerMall>
+    <v-headerVip v-if="headVipShow"></v-headerVip>
     <router-view></router-view>
     <v-footer></v-footer>
   </div>
 </template>
 
 <script>
-  import  header from  './components/header/header'
+  import  headerMall from  './components/headerMall/headerMall'
+  import  headerVip from  './components/headerVip/headerVip'
   import  footer from  './components/footer/footer'
   export default {
     name: 'app',
+    data() {
+      return {
+        headMallShow: false,
+        headVipShow: false,
+      }
+    },
     components: {
-      'v-header': header,
+      'v-headerMall': headerMall,
+      'v-headerVip': headerVip,
       'v-footer': footer,
+    },
+    watch: {
+      '$route': 'changePath'
+    },
+    methods: {
+      changePath () {
+        let path = this.$route.path;
+        let pathReg = /Vip/;
+        if (!pathReg.test(path)) {
+          this.headMallShow = true;
+          this.headVipShow = false;
+        } else {
+          this.headVipShow = true;
+          this.headMallShow = false;
+        }
+      }
+    },
+    created() {
+      this.changePath()
     }
   }
 </script>

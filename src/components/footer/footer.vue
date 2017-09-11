@@ -4,8 +4,12 @@
       <div class="footer-left left">
         <ul class="footer-info left">
           <h2>会员体系</h2>
-          <li><a href="JavaScript">会员体系</a></li>
-          <li><a href="JavaScript:;">会员权益</a></li>
+          <li>
+            <router-link :to="{ path: '/homeVip' }">会员体系</router-link>
+          </li>
+          <li>
+            <a href="JavaScript:;">会员权益</a>
+          </li>
         </ul>
         <ul class="footer-info right">
           <h2>仓豆商城</h2>
@@ -29,6 +33,7 @@
       </div>
       <div class="footer-bottom">
         京ICP备14053053号−1 / @2017 北京佛尔斯特金融信息服务有限公司 / 京公网安备 11010102002289号
+
       </div>
     </div>
   </div>
@@ -38,12 +43,12 @@
   export default{
     methods: {
       enter(){
-          this.$refs.encryption.style.cssText = 'opacity:1;z-index:1;';
+        this.$refs.encryption.style.cssText = 'opacity:1;z-index:1;';
       },
       leave(){
         setTimeout(() => {
           this.$refs.encryption.style.cssText = 'opacity:0;z-index:-1;';
-        },3000);
+        }, 3000);
       }
     }
   };

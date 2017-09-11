@@ -35,34 +35,33 @@
             <p></p>
           </div>
         </div>
-        <div class="preview-recommended right">
+        <div class="preview-recommended right" v-if="promotion.length">
           <div class="recommended-title">
             <div class="line"></div>
             <div class="text">优品推荐</div>
             <div class="line"></div>
           </div>
-          <div class="recommended">
-            <a href="javascript:;">
+          <div class="recommended" v-for="item in promotion">
               <div class="recommended-img left">
                 <img src="" alt="">
               </div>
               <div class="recommended-desc right">
-                <div class="info-title">御泥坊黑玫瑰矿物蚕丝面膜</div>
-                <div class="info-price"><span>5999</span>仓豆</div>
-                <div class="info-num">库存：20</div>
+                <div class="info-title">{{item.product_name}}</div>
+                <div class="info-price"><span>{{item.product_price}}</span>仓豆</div>
+                <div class="info-num">库存：{{item.inventory}}</div>
               </div>
-            </a>
           </div>
         </div>
-        <div class="preview-history left">
+        <div class="preview-history left" v-if="history.length">
           <div class="history-title">最近看过</div>
           <div class="history-clear">清空浏览记录</div>
           <div class="history-wrapper">
-            <a href="javascript:;">
+
+            <a href="javascript:;" v-for="item in history">
               <div class="history-item">
                 <div class="item-pic"></div>
-                <div class="item-desc">小狗家用超静音吸尘器</div>
-                <div class="item-price"><span>9990</span>仓豆</div>
+                <div class="item-desc">{{item.product_name}}</div>
+                <div class="item-price"><span>{{item.product_price}}</span>仓豆</div>
               </div>
             </a>
           </div>
@@ -89,6 +88,8 @@
         price: '',
         inventory: '',
         totalBeans: '',
+        history: [],
+        promotion: []
       }
     },
     computed: {
@@ -96,17 +97,20 @@
         return this.$store.state.userInfo
       }
     },
-    mounted() {
+    created() {
       let good = this;
-      console.log(this.$route.query.product_id)
       this.$http.get('/api/commodity/productDetails.do', {
         params: {
           product_id: this.$route.query.product_id,
-          user_id: 'admin'
+          user_id: 'm_13204392227'
         }
       }).then(response => {
-        good.goodInfoData = response.body.list;
-        console.log(JSON.stringify(response.body))
+        //商品详情
+        good.goodInfoData = response.body.detail;
+        //浏览历史
+        good.history = response.body.history;
+        //商品推介
+        good.promotion = response.body.promotion;
         good.name = good.goodInfoData.product_name;
         good.desc = good.goodInfoData.synopsis_info;
         good.beans = good.goodInfoData.product_price;

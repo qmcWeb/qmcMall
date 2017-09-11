@@ -15,7 +15,7 @@
           <div class="login-tips">{{hint}}</div>
           <div class="item item1">
             <label for="loginname-code" class="login-label icon-phone login-label1"></label>
-            <input type="text" id="loginname-code" placeholder="手机号码" :maxlength="11"
+            <input type="text" id="loginname-code" placeholder="手机号码" :maxlength="11" class="untouched"
                    v-validate="'required|phoneCode'" name="phoneCode" ref="phoneCode">
             <p class="formValidation phoneValidation" v-show="errors.has('phoneCode')">{{errors.first('phoneCode')}}</p>
           </div>
