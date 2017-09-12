@@ -8,20 +8,16 @@
         <i class="seg"></i>
         <a class="cd" href="#">会员中心</a>
       </div>
-      <ul class="nav">
-        <li>
-          <router-link :to="{ path: '/homeVip'}">
-            会员首页
 
+      <ul class="nav">
+        <li v-for="(item,index) in nav" class="item" @mouseover="mEnter(index)" @mouseout="mOut">
+          <router-link :to="{ path: item.path}">
+            {{item.name}}
           </router-link>
         </li>
-        <li>
-          <a href="javascript:;">
-            会员等级
-          </a>
-        </li>
+        <li class="slider" :style="{left:slideLeft}"></li>
       </ul>
-
+      <a href="https://www.qianmancang.com/" class="back-qmc">返回官方首页</a>
     </div>
   </div>
 </template>
@@ -39,7 +35,31 @@
           {name: '会员等级', path: '/levelVip'},
           {name: '会员权益', path: '/rightVip'},
           {name: '成长任务', path: '/taskVip'},
-        ]
+        ],
+        slideLeft: ''
+      }
+    },
+    watch: {
+      '$route': 'changePath'
+    },
+    created() {
+      this.changePath();
+    },
+    methods: {
+      mEnter(index) {
+        this.slideLeft = index * 112 + 28 + 'px';
+      },
+      mOut() {
+        this.changePath()
+      },
+      changePath(){
+        let path = this.$route.path;
+        for (var i = 0; i < this.nav.length; i++) {
+          if (this.nav[i].path == path) {
+            this.slideLeft = i * 112 + 28 + 'px';
+            break
+          }
+        }
       }
     }
 
