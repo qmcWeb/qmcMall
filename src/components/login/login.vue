@@ -12,17 +12,17 @@
         </div>
         <!--验证码登录-->
         <div class="login-form login-form1" v-show="pwdShow">
-          <div class="login-tips">{{hint}}</div>
+          <div class="login-tips">{{hintCode}}</div>
           <div class="item item1">
             <label for="loginname-code" class="login-label icon-phone login-label1"></label>
-            <input type="text" id="loginname-code" placeholder="手机号码" :maxlength="11" class="untouched"
-                   v-validate="'required|phoneCode'" name="phoneCode" ref="phoneCode">
+            <input type="text" id="loginname-code" placeholder="手机号码" :maxlength="11"
+                   v-validate="'required|phoneCode'" name="phoneCode" v-model="phoneCode">
             <p class="formValidation phoneValidation" v-show="errors.has('phoneCode')">{{errors.first('phoneCode')}}</p>
           </div>
           <div class="item item2">
             <label for="loginpwd" class="login-label icon-message login-label2"></label>
             <input type="text" id="loginpwd" placeholder="短信验证码" :maxlength="6"
-                   v-validate="'required|messageCode'" name="messageCode" ref="messageCode">
+                   v-validate="'required|messageCode'" name="messageCode" v-model="codeMessage">
             <span @click="showFigureCode" v-if="!countdownShow">获取</span>
             <span v-if="countdownShow">已发送…{{time}}s</span>
             <p class="formValidation messageValidation" v-show="errors.has('messageCode')">{{errors.first('messageCode')}}</p>
@@ -60,6 +60,7 @@
         </div>
         <!--密码登录-->
         <div class="login-form login-form2" v-show="codeShow">
+          <div class="login-tips">{{hintPwd}}</div>
           <div class="item item1">
             <label for="loginname-pwd" class="login-label icon-phone login-label1"></label>
             <input type="text" id="loginname-pwd" placeholder="手机号码" :maxlength="11"
@@ -96,28 +97,18 @@
       return {
         selected: 0,
         tabs: ['密码登录', '验证码登录'],
-        hint: '',
+        hintCode: '',
+        hintPwd:'',
         pwdShow: true,
         codeShow: false,
         figureCodeShow: false,
         countdownShow: false,
         time: 60,
-        phone: {
-          test: /^1[34578]\d{9}$/,
-          message: '电话号码格式不正确'
-        },
-        codeMessage: {
-          test: /\d{6}/,
-          message: '请输入正确的短信验证码'
-        },
-        codPic: {
-          test: /\d{4}/,
-          message: '请输入正确的图形验证码'
-        },
-        pwd: {
-          test: /\d{6}/,
-          message: '密码格式不正确'
-        }
+        phoneCode: '',
+        phonePwd: '',
+        codeMessage:'',
+        codPic:'',
+        pwd: ''
       }
     },
     mounted(){
@@ -164,42 +155,41 @@
       loginCode() {
         /*this.$http.post(
          'url()',
-         { phone: this.phone, messageCode: this.messageCode }
+         { codePhone: this.codePhone, messageCode: this.messageCode }
          ).then( (response) => {
          /!* 请求成功执行函数 *!/
          },(response) =>{
          console.log(response);
          } );*/
-        this.phoneCode = this.$refs.phoneCode.value;
-        this.messageCode = this.$refs.messageCode.value;
-        if (this.phoneCode == "" || this.messageCode == "") {
-          this.hint = '请输入手机号或短信验证码';
+        if (this.codePhone == "" || this.codeMessage == "") {
+          this.hintCode = '请输入手机号或短信验证码';
         } else {
-          let data = {'phone': this.phone, 'codeMessage': this.codeMessage};
-          /*接口请求*/
-          this.$http.get(
-            'http://localhost/vueapi/index.php/Home/user/login'
+          let data = {'codePhone':this.codePhone,'codeMessage':this.codeMessage}
+          // 接口请求
+          this.$http.post(
+            '/api/associatorUser/getUser.do',
+            data,
           ).then((res) => {
             res.data = -1;
-            /*接口的传值是(-1,该用户不存在),(0,密码错误)，同时还会检测管理员账号的值*/
+            // 接口的传值是(-1,该用户不存在),(0,密码错误)，同时还会检测管理员账号的值
             if (res.data == -1) {
-              this.hint = "该用户不存在";
+              this.hintcode = "该用户不存在";
             } else if (res.data == 0) {
-              this.hint = "密码输入错误";
+              this.hintcode = "密码输入错误";
             } else if (res.data == 'admin') {
-              /*路由跳转this.$router.push*/
+              // 路由跳转this.$router.push
               this.$router.push('/main');
             } else {
-              this.hint = "登录成功";
+              this.hintcode = "登录成功";
               setCookie('phone', this.phone, 1000 * 60)
               setTimeout(function () {
                 this.$router.push('/');
               }.bind(this), 1000);
+              //通过 store.commit 方法触发状态变更
+              this.$store.commit('increment');
             }
-          })
+          });
         }
-        //通过 store.commit 方法触发状态变更
-        this.$store.commit('increment');
       },
       loginPwd() {
         /*this.$http.post(
@@ -210,9 +200,13 @@
          },(response) =>{
          console.log(response);
          } );*/
-        this.$router.push({
-          path: '/'
-        });
+        if (this.codePhone == "" || this.codeMessage == "") {
+          this.hintPwd = '请输入手机号或登录密码';
+        } else {
+          this.$router.push({
+            path: 'Pwd/'
+          });
+        }
       }
     }
   }
