@@ -1,0 +1,239 @@
+.header {
+  height: 80px;
+  color: #264c65;
+  box-shadow: 0 0 12px 0 rgba(0,0,0,0.12);
+  background: #fff;
+}
+.header .header-wrapper {
+  width: 1200px;
+  margin: auto;
+  font-size: 0;
+}
+.header .logo {
+  display: inline-block;
+  font-size: 0px;
+  margin-top: 22px;
+}
+.header .logo i {
+  display: inline-block;
+  height: 22px;
+  vertical-align: top;
+  background: #be9f59;
+  width: 2px;
+  margin: 7px 13px 0;
+}
+.header .logo .qmc {
+  display: inline-block;
+  vertical-align: top;
+}
+.header .logo .cd {
+  font-size: 20px;
+  color: #be9f59;
+  font-weight: bold;
+  line-height: 36px;
+  display: inline-block;
+  vertical-align: top;
+}
+.header .nav {
+  display: inline-block;
+  margin-left: 163px;
+  vertical-align: top;
+  font-size: 0px;
+}
+.header .nav > li {
+  display: inline-block;
+  position: relative;
+  margin-right: 39px;
+  line-height: 80px;
+  width: 100px;
+  text-align: center;
+  font-size: 16px;
+}
+.header .nav > li:hover > a {
+  color: #fe6e46;
+}
+.header .nav > li:hover .arrow {
+  display: block;
+}
+.header .nav > li .arrow {
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: #fe6e46;
+}
+.header .nav > li .arrow:after {
+  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%);
+  content: '';
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-bottom: 8px solid #fe6e46;
+}
+.header .nav > li.goods:hover .list-wrapper {
+  display: block;
+}
+.header .nav > li.goods .list-wrapper {
+  display: none;
+  position: absolute;
+  left: 0;
+  z-index: 2;
+  top: 100%;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,0.16);
+}
+.header .nav > li.goods .list-wrapper li.list {
+  width: 100%;
+  line-height: 42px;
+  text-align: center;
+  font-size: 14px;
+  color: #2e536b;
+}
+.header .nav > li.goods .list-wrapper li.list:first-child:hover {
+  box-shadow: 0 4px 10px 0 rgba(0,0,0,0.16);
+}
+.header .nav > li.goods .list-wrapper li.list:hover {
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.16);
+}
+.header .nav > li a {
+  display: block;
+  color: #264c65;
+}
+.header .nav:last-child {
+  margin: 0;
+}
+.header .user {
+  float: right;
+  font-size: 0px;
+}
+.header .user .login {
+  height: 60px;
+  margin-top: 10px;
+  padding: 0 20px;
+  border-left: 1px solid #e4e4e4;
+  border-right: 1px solid #e4e4e4;
+}
+.header .user .login a {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 16px;
+  line-height: 1;
+}
+.header .user .login img {
+  vertical-align: top;
+  margin-top: 5px;
+  margin-right: 33px;
+  border-radius: 50%;
+}
+.header .user .login .log {
+  font-size: 16px;
+  color: #fe6e46;
+  margin-top: 22px;
+}
+.header .user .login .reg {
+  font-size: 16px;
+  color: #000029;
+  margin-top: 22px;
+}
+.header .user .login i {
+  display: inline-block;
+  vertical-align: top;
+  height: 16px;
+  width: 2px;
+  background: #ddd;
+  margin: 0 9px;
+  margin-top: 22px;
+}
+.header .user .logged {
+  position: relative;
+  width: 216px;
+  box-sizing: border-box;
+  padding: 15px 20px;
+  font-size: 0;
+}
+.header .user .logged:hover {
+  box-shadow: 0 0px 12px 0 rgba(0,0,0,0.14);
+}
+.header .user .logged:hover .arrow {
+  transform: rotate(180deg);
+}
+.header .user .logged:hover .sidebar {
+  display: block;
+}
+.header .user .logged .arrow {
+  position: absolute;
+  right: 20px;
+  top: 29px;
+  border: 7px solid transparent;
+  border-bottom: 7px solid #92979b;
+  transition: all 0.3s;
+  transform-origin: center 10px;
+}
+.header .user .logged .sidebar {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  z-index: 2;
+  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.14);
+  background: #fff;
+}
+.header .user .logged .sidebar > li {
+  transition: all 0.1s;
+}
+.header .user .logged .sidebar > li:hover {
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.16);
+}
+.header .user .logged .sidebar li a {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
+  line-height: 42px;
+  font-size: 14px;
+  color: #264c65;
+}
+.header .user .logged .sidebar li a i {
+  float: right;
+  color: #e4e4e4;
+}
+.header .user .logged .sidebar li a i.icon-rightArrow {
+  margin-top: 14px;
+  font-size: 14px;
+}
+.header .user .logged .sidebar li a i.icon-exit {
+  margin-top: 14px;
+  font-size: 16px;
+}
+.header .user .logged .avatar {
+  display: inline-block;
+  margin-right: 7px;
+  vertical-align: top;
+  border-radius: 50%;
+}
+.header .user .logged .info {
+  display: inline-block;
+  vertical-align: top;
+}
+.header .user .logged .info .name {
+  margin-bottom: 4px;
+  line-height: 21px;
+  font-size: 16px;
+  color: #264c65;
+}
+.header .user .logged .info .count {
+  line-height: 16px;
+  font-size: 14px;
+  color: #003d00;
+}
+.header .user .logged .info .count span {
+  color: #da5140;
+}

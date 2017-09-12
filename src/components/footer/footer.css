@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  font-family: MicrosoftYaHei;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.footer-wrapper {
+  width: 100%;
+  height: 226px;
+  background: #34404a;
+}
+.footer-wrapper .footer-content {
+  width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.footer-wrapper .footer-content h2 {
+  font-size: 18px;
+  color: #fff;
+  padding: 37px 0 20px;
+}
+.footer-wrapper .footer-content .left {
+  float: left;
+  height: 184px;
+}
+.footer-wrapper .footer-content .footer-left {
+  width: 400px;
+  padding: 0 55px;
+}
+.footer-wrapper .footer-content .footer-left ul.footer-info {
+  width: 50%;
+  height: 100%;
+  text-align: center;
+}
+.footer-wrapper .footer-content .footer-left ul.footer-info li {
+  width: 100%;
+  height: 30px;
+}
+.footer-wrapper .footer-content .footer-left ul.footer-info li a {
+  line-height: 30px;
+  font-size: 14px;
+  color: #89a9c4;
+  transition: color 0.2s;
+}
+.footer-wrapper .footer-content .footer-left ul.footer-info li a:hover {
+  color: #fff;
+}
+.footer-wrapper .footer-content .footer-middle {
+  width: 398px;
+  height: 104px;
+  margin-top: 40px;
+  border-left: 2px solid #3b4d5a;
+  border-right: 2px solid #3b4d5a;
+  text-align: center;
+  padding: 0 85px;
+  overflow: hidden;
+}
+.footer-wrapper .footer-content .footer-middle .item {
+  width: 50%;
+  height: 100%;
+}
+.footer-wrapper .footer-content .footer-middle .item h2 {
+  margin-top: 8px;
+  padding: 0;
+  font-size: 14px;
+  color: #81aac7;
+}
+.footer-wrapper .footer-content .footer-right {
+  width: 400px;
+  padding: 37px 0 0 80px;
+}
+.footer-wrapper .footer-content .footer-right h1 {
+  font-size: 34px;
+  line-height: 48px;
+  color: #81aac7;
+}
+.footer-wrapper .footer-content .footer-right p {
+  width: 124px;
+  height: 36px;
+  line-height: 36px;
+  border: 1px solid #81aac7;
+  border-radius: 5px;
+  color: #81aac7;
+  padding-left: 52px;
+  background: url("./kefu-online1.png") 18px 5px no-repeat;
+}
+.footer-wrapper .footer-content .footer-right p:hover {
+  background: url("./kefu-online2.png") 18px 5px no-repeat;
+}
+.footer-wrapper .footer-content .footer-right h3 {
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 11px;
+  color: #81aac7;
+}
+.footer-wrapper .footer-content .footer-bottom {
+  clear: both;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  border-top: 1px solid #3b4d5a;
+  font-size: 12px;
+  color: #5a7488;
+}

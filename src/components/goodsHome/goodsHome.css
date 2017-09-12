@@ -1,0 +1,106 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: MicrosoftYaHei;
+}
+.goods-wrapper {
+  width: 100%;
+  height: auto;
+  background: #eee;
+}
+.goods-wrapper .content-wrapper {
+  margin: 0 auto;
+  width: 1200px;
+  height: auto;
+  padding-bottom: 40px;
+}
+.goods-wrapper .content-wrapper .goods-item:first-child {
+  margin-top: 30px;
+}
+.goods-wrapper .content-wrapper .goods-item .title-wrapper {
+  position: relative;
+  padding: 0px 0 12px 0;
+  width: 100%;
+  display: flex;
+}
+.goods-wrapper .content-wrapper .goods-item .title-wrapper .title-icon {
+  position: relative;
+  width: 32px;
+  height: 44px;
+}
+.goods-wrapper .content-wrapper .goods-item .title-wrapper .title-icon div {
+  width: 32px;
+  height: 44px;
+}
+.goods-wrapper .content-wrapper .goods-item .title-wrapper .title-icon div.img-wrap-1 {
+  background: url("./floorNum-1.png");
+}
+.goods-wrapper .content-wrapper .goods-item .title-wrapper .title-icon div.img-wrap-2 {
+  background: url("./floorNum-2.png");
+}
+.goods-wrapper .content-wrapper .goods-item .title-wrapper .title-icon div.img-wrap-3 {
+  background: url("./floorNum-3.png");
+}
+.goods-wrapper .content-wrapper .goods-item .title-wrapper .title-icon div.img-wrap-4 {
+  background: url("./floorNum-4.png");
+}
+.goods-wrapper .content-wrapper .goods-item .title-wrapper .title-icon span {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  display: block;
+  width: 32px;
+  font-size: 20px;
+  color: #fff;
+  text-align: center;
+}
+.goods-wrapper .content-wrapper .goods-item .title-wrapper .product {
+  margin-left: 12px;
+  margin-top: 18px;
+  font-size: 20px;
+  color: #264c65;
+}
+.goods-wrapper .content-wrapper .goods-item .title-wrapper .product span {
+  margin-left: 12px;
+  font-size: 14px;
+  color: #264c65;
+}
+.goods-wrapper .content-wrapper .goods-item .title-wrapper .goods-more {
+  position: absolute;
+  top: 24px;
+  right: 0;
+  font-size: 14px;
+  color: #264c65;
+}
+.goods-wrapper .content-wrapper .goods-item .title-wrapper .goods-more:hover {
+  text-decoration: underline;
+}
+.goods-wrapper .content-wrapper .goods-item .goods {
+  width: 100%;
+}
+.goods-wrapper .content-wrapper .goods-item .goods li {
+  float: left;
+  margin: 0 15px 30px 0;
+}
+.goods-wrapper .content-wrapper .goods-item .goods li:nth-child(4n) {
+  margin-right: 0;
+}
+.goods-wrapper .content-wrapper .goods-item .goods li.clearBoth {
+  clear: both;
+  float: none;
+  margin: 0;
+}
+.goods-wrapper .content-wrapper .goods-item .goods .waitInfo {
+  line-height: 334px;
+  text-align: center;
+  color: #92979b;
+  width: 100%;
+  width: 285px;
+  background: #fff;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+.goods-wrapper .content-wrapper .goods-item .goods .waitInfo:hover {
+  box-shadow: 0 10px 18px 0 rgba(0,0,0,0.12);
+}
