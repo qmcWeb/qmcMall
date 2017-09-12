@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-  import  banner from  '@/components/banner/banner'
+  import  bannerMall from  '@/components/bannerMall/bannerMall'
   import  goodsHome from  '@/components/goodsHome/goodsHome'
   import {mapActions} from 'vuex'
   export default {
@@ -22,7 +22,7 @@
       this.$store.dispatch('req_indexData');
     },
     components: {
-      'v-banner': banner,
+      'v-banner': bannerMall,
       'v-goodsHome': goodsHome
     }
   }
