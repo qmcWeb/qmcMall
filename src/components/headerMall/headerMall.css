@@ -76,6 +76,12 @@
   border: 8px solid transparent;
   border-bottom: 8px solid #fe6e46;
 }
+.header .nav>li a.active {
+  color: #fe6e46;
+}
+.header .nav>li a.active + i {
+  display: block;
+}
 .header .nav>li.goods:hover .list-wrapper {
   display: block;
 }
