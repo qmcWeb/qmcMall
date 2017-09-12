@@ -175,3 +175,59 @@ img {
   font-size: 20px;
   color: #c0a15d;
 }
+.homeVip-wrapper .homeVip-help {
+  width: 100%;
+  min-width: 1200px;
+  margin: auto;
+  height: 298px;
+}
+.homeVip-wrapper .homeVip-help .homeVip-title {
+  padding: 60px 0 45px 0;
+}
+.homeVip-wrapper .homeVip-help .memberHelp,
+.homeVip-wrapper .homeVip-help .beanHelp {
+  width: 50%;
+  height: 90px;
+}
+.homeVip-wrapper .homeVip-help .memberHelp .help-title,
+.homeVip-wrapper .homeVip-help .beanHelp .help-title {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+}
+.homeVip-wrapper .homeVip-help .memberHelp ul,
+.homeVip-wrapper .homeVip-help .beanHelp ul {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+.homeVip-wrapper .homeVip-help .memberHelp ul li,
+.homeVip-wrapper .homeVip-help .beanHelp ul li {
+  padding-top: 20px;
+}
+.homeVip-wrapper .homeVip-help .memberHelp ul li:nth-child(even),
+.homeVip-wrapper .homeVip-help .beanHelp ul li:nth-child(even) {
+  float: right;
+  width: 45%;
+}
+.homeVip-wrapper .homeVip-help .memberHelp ul li:nth-child(odd),
+.homeVip-wrapper .homeVip-help .beanHelp ul li:nth-child(odd) {
+  float: left;
+  width: 55%;
+}
+.homeVip-wrapper .homeVip-help .memberHelp ul li a,
+.homeVip-wrapper .homeVip-help .beanHelp ul li a {
+  font-size: 14px;
+  color: #808080;
+}
+.homeVip-wrapper .homeVip-help .memberHelp ul li a:hover,
+.homeVip-wrapper .homeVip-help .beanHelp ul li a:hover {
+  color: #c0a15d;
+}
+.homeVip-wrapper .homeVip-help .memberHelp {
+  border-right: 1px solid #d9d9d9;
+  padding: 0 180px 0 30px;
+}
+.homeVip-wrapper .homeVip-help .beanHelp {
+  padding: 0 30px 0 180px;
+}

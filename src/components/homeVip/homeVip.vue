@@ -83,6 +83,37 @@
         </div>
       </div>
     </div>
+    <!--4.会员帮助-->
+    <div class="homeVip-help">
+      <div class="homeVip-content">
+        <div class="homeVip-title">
+          <span class="icon-question"></span>
+          会员帮助
+        </div>
+        <div class="memberHelp left">
+          <div class="help-title">
+            会员体系 <a class="see-more right" href="javascript:;">更多></a>
+          </div>
+          <ul>
+            <li><a href="javascript:;">1. 如何计算等级？</a></li>
+            <li><a href="javascript:;">2. 如何获得成长值？</a></li>
+            <li><a href="javascript:;">3. 什么是成长值？</a></li>
+            <li><a href="javascript:;">4. 会员权益有哪些？</a></li>
+          </ul>
+        </div>
+        <div class="beanHelp right">
+          <div class="help-title">
+            仓豆商城 <a class="see-more right" href="javascript:;">更多></a>
+          </div>
+          <ul>
+            <li><a href="javascript:;">1. 什么是仓豆？</a></li>
+            <li><a href="javascript:;">2. 仓豆和成长值的关系？</a></li>
+            <li><a href="javascript:;">3. 如何获得仓豆？</a></li>
+            <li><a href="javascript:;">4. 仓豆加速系数？</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
