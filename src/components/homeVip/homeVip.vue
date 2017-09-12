@@ -1,5 +1,7 @@
 <template>
   <div class="homeVip-wrapper">
+    <!--0.banner-->
+    <v-banner></v-banner>
     <!--1.等级与权益-->
     <div class="homeVip-grade">
       <div class="homeVip-content">
@@ -98,8 +100,9 @@
 <script>
   import LStorage from   '@/common/js/LStorage.js';
   import {setCookie, getCookie} from '../../common/js/cookie.js';
-  import {mapActions} from 'vuex'
-  import {mapState} from 'vuex'
+  import {mapActions} from 'vuex';
+  import {mapState} from 'vuex';
+  import  bannerVip from  '@/components/bannerVip/bannerVip'
   export default{
     data(){
       return {
@@ -118,6 +121,9 @@
           {src: '../../../static/img/beanMall/beanMall-2.png',goodsName: '飞科剃须刀',goodsPrice:'500'}
         ],
       }
+    },
+    components: {
+      'v-banner': bannerVip
     }
   }
 </script>
