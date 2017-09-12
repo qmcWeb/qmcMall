@@ -7,6 +7,9 @@
           <span class="icon-Diamond-1"></span>
           等级与权益
         </div>
+        <div class="grade-course">
+
+        </div>
       </div>
     </div>
     <!--2.成长任务-->
@@ -15,44 +18,19 @@
         <div class="homeVip-title">
           <span class="icon-task"></span>
           成长任务
-          <a class="right see-more">更多》</a>
+          <router-link class="right see-more" :to="{ path: '/taskVip'}">更多》</router-link>
         </div>
         <ul class="growUp-ul">
-          <li class="left remove">
-            <div class="growUp-li-item1">
-              <img src="./growUpTask-1.png" alt="成长任务" width="132" height="130">
-            </div>
-            <div class="growUp-li-item2">
-              <p class="taskName">互动任务</p>
-              <p class="taskAward">成长值：<span>100</span></p>
-            </div>
-          </li>
-          <li class="left remove">
-            <div class="growUp-li-item1">
-              <img src="./growUpTask-1.png" alt="成长任务" width="132" height="130">
-            </div>
-            <div class="growUp-li-item2">
-              <p class="taskName">互动任务</p>
-              <p class="taskAward">成长值：<span>100</span></p>
-            </div>
-          </li>
-          <li class="left remove">
-            <div class="growUp-li-item1">
-              <img src="./growUpTask-1.png" alt="成长任务" width="132" height="130">
-            </div>
-            <div class="growUp-li-item2">
-              <p class="taskName">互动任务</p>
-              <p class="taskAward">成长值：<span>100</span></p>
-            </div>
-          </li>
-          <li class="left remove">
-            <div class="growUp-li-item1">
-              <img src="./growUpTask-1.png" alt="成长任务" width="132" height="130">
-            </div>
-            <div class="growUp-li-item2">
-              <p class="taskName">互动任务</p>
-              <p class="taskAward">成长值：<span>100</span></p>
-            </div>
+          <li class="left remove" v-for="(task,index) in growUp">
+            <router-link :to="{ path: '/taskVip'}">
+              <div class="growUp-li-item1">
+                <img :src="growUp[index].src" alt="成长任务" width="132" height="130">
+              </div>
+              <div class="growUp-li-item2">
+                <p class="taskName">{{task.taskName}}</p>
+                <p class="taskAward">成长值：<span>{{task.taskAward}}</span></p>
+              </div>
+            </router-link>
           </li>
         </ul>
       </div>
@@ -63,19 +41,19 @@
         <div class="homeVip-title">
           <span class="icon-mall"></span>
           仓豆商城
-          <a class="right see-more" href="/homeMall">去仓豆商城看看》</a>
+          <router-link class="right see-more" :to="{ path: '/homeMall'}">去仓豆商城看看》</router-link>
         </div>
         <div class="beanAD left shadow"></div>
         <div class="beanShow right">
           <ul class="beanMall-ul">
-            <li class="left">
+            <li class="left" v-for="(goods,index) in beanMall">
               <div class="remove beanMall-li-content shadow">
                 <div class="beanMall-li-item1">
-                  <img src="./beanMall-1.png" alt="仓豆商城" width="270" height="210">
+                  <img :src="beanMall[index].src" alt="仓豆商城" width="270" height="210">
                 </div>
                 <div class="beanMall-li-item2">
-                  <p class="goodsName">这里是产品名称</p>
-                  <p class="goodsPrice">仓豆：<span>500</span></p>
+                  <p class="goodsName">{{goods.goodsName}}</p>
+                  <p class="goodsPrice">仓豆：<span>{{goods.goodsPrice}}</span></p>
                 </div>
               </div>
             </li>
@@ -118,7 +96,30 @@
 </template>
 
 <script>
-
+  import LStorage from   '@/common/js/LStorage.js';
+  import {setCookie, getCookie} from '../../common/js/cookie.js';
+  import {mapActions} from 'vuex'
+  import {mapState} from 'vuex'
+  export default{
+    data(){
+      return {
+        growUp:[
+          {src: '../../../static/img/growUpTask/growUpTask-1.png',taskName: '新手任务',taskAward:'100'},
+          {src: '../../../static/img/growUpTask/growUpTask-2.png',taskName: '互动任务',taskAward:'100'},
+          {src: '../../../static/img/growUpTask/growUpTask-3.png',taskName: '投资任务',taskAward:'100+'},
+          {src: '../../../static/img/growUpTask/growUpTask-4.png',taskName: '邀请任务',taskAward:'100+'}
+        ],
+        beanMall:[
+          {src: '../../../static/img/beanMall/beanMall-1.png',goodsName: '飞科剃须刀',goodsPrice:'500'},
+          {src: '../../../static/img/beanMall/beanMall-2.png',goodsName: '飞科剃须刀',goodsPrice:'500'},
+          {src: '../../../static/img/beanMall/beanMall-1.png',goodsName: '飞科剃须刀',goodsPrice:'500'},
+          {src: '../../../static/img/beanMall/beanMall-2.png',goodsName: '飞科剃须刀',goodsPrice:'500'},
+          {src: '../../../static/img/beanMall/beanMall-1.png',goodsName: '飞科剃须刀',goodsPrice:'500'},
+          {src: '../../../static/img/beanMall/beanMall-2.png',goodsName: '飞科剃须刀',goodsPrice:'500'}
+        ],
+      }
+    }
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

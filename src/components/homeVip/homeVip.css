@@ -59,6 +59,10 @@ img {
   height: 896px;
   background: #fff;
 }
+.homeVip-wrapper .homeVip-grade .grade-course {
+  height: 655px;
+  background: url("./grade-bg.png") no-repeat;
+}
 .homeVip-wrapper .homeVip-growUp {
   width: 100%;
   min-width: 1200px;
