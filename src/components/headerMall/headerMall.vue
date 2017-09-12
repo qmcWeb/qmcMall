@@ -10,21 +10,24 @@
       </div>
       <ul class="nav">
         <li>
-          <router-link :to="{ path: '/' }">
+          <router-link :to="{path: '/homeMall'}">
             商城首页
+
           </router-link>
           <i class="arrow"></i>
         </li>
         <li class="goods">
-          <a href="javascript:;" @click="router('all')">
+          <router-link
+            :to="{path: '/goodList',query:{type: 'all',price: 'all',sort: 'default',priceMin: 0,priceMax: 100000}}">
             全部商品
-          </a>
+
+          </router-link>
+          <i class="arrow"></i>
           <ul class="list-wrapper">
             <li class="list" v-for="item in type_Arr">
               <a href="javascript:;" @click="router(item.id)">{{item.name}}</a>
             </li>
           </ul>
-          <i class="arrow"></i>
         </li>
         <li>
           <a href="https://www.qianmancang.com">返回官方首页</a>
@@ -95,6 +98,7 @@
       //商品种类 请求
       this.req_goodTypeData();
     },
+
     methods: {
       router(typep){
         this.$router.push({

@@ -21,7 +21,8 @@ Vue.config.productionTip = false;
 Vue.use(VueRouter)
 // 并且配置路由规则
 const router = new VueRouter({
-  routes: routerMap
+  routes: routerMap,
+  linkActiveClass: 'active'
 });
 
 // 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
