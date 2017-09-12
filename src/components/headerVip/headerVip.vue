@@ -47,7 +47,7 @@
     },
     methods: {
       mEnter(index) {
-        this.slideLeft = index * 112 + 28 + 'px';
+        this.slideLeft = index * 112 + 24 + 'px';
       },
       mOut() {
         this.changePath()
@@ -56,7 +56,7 @@
         let path = this.$route.path;
         for (var i = 0; i < this.nav.length; i++) {
           if (this.nav[i].path == path) {
-            this.slideLeft = i * 112 + 28 + 'px';
+            this.slideLeft = i * 112 + 24 + 'px';
             break
           }
         }

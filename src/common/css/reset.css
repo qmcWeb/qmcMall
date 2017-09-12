@@ -19,7 +19,6 @@ time, mark, audio, video, input {
     margin: 0;
     padding: 0;
     border: 0;
-  font-size: 14px;
     font-weight: normal;
     vertical-align: baseline;
   font-style: normal;
@@ -142,4 +141,8 @@ body {
   top: 13px;
   -webkit-user-select: none;
   cursor: pointer;
+}
+
+.gold {
+  color: #c0a15d
 }
