@@ -6,7 +6,7 @@
           <img src="./logo.png" alt="" width="128" height="36">
         </a>
         <i class="seg"></i>
-        <a class="cd" href="#">仓豆商城huyou</a>
+        <a class="cd" href="#">仓豆商城</a>
       </div>
       <ul class="nav">
         <li>
