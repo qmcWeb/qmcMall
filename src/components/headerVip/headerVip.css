@@ -44,7 +44,7 @@
 .header .nav .slider {
   position: absolute;
   bottom: 0;
-  width: 56px;
+  width: 64px;
   height: 3px;
   background: #be9f59;
   transition: all 0.3s;
@@ -58,6 +58,8 @@
   font-size: 16px;
 }
 .header .nav .item a {
+  display: block;
+  height: 100%;
   color: #808080;
 }
 .header .nav .item a.active {
@@ -78,4 +80,5 @@
   color: #807e7e;
   background: #e1e1e1;
   margin-top: 16px;
+  font-size: 16px;
 }
