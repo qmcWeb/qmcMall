@@ -7,12 +7,21 @@
       </div>
       <div class="tabs-content-wrap">
         <div class="content-wrap task" v-show="taskShow">
+<<<<<<< HEAD
+          <div class="noLogin" v-show="logged">
+            <img src="./noLogin-Avatar.png" alt="" class="award">
+            <p class="text">登录查看会员任务</p>
+            <router-link :to="{ path: '/login',query:'{1:1}' }" class="btn">立即登录</router-link>
+          </div>
+          <div class="section" v-for="item in tasks" v-show="!logged">
+=======
           <div class="noLogin" v-if="!logged">
             <img src="./noLogin-Avatar.png" alt="" class="award">
             <p class="text">登录查看会员任务</p>
             <router-link :to="{ path: '/login',query:{where:'Vip'}}" class="btn">立即登录</router-link>
           </div>
           <div class="section" v-for="item in tasks" v-else>
+>>>>>>> 1e32538811f87521c5efa30cb1420a6c8d164406
             <h3 class="title">{{item.title}}</h3>
             <ul class="task-list">
               <li class="item" v-for="task in item.list">

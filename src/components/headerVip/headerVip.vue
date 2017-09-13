@@ -8,7 +8,6 @@
         <i class="seg"></i>
         <router-link :to="{ path: '/homeVip'}" class="cd">
           会员中心
-
         </router-link>
       </div>
 
@@ -57,16 +56,16 @@
       },
       changePath(){
         let path = this.$route.path;
-        console.log(path, 11111111111)
+        console.log(path, 11111111111);
         if (path != '/login') {
           for (var i = 0; i < this.nav.length; i++) {
             if (this.nav[i].path == path) {
               this.slideLeft = i * 112 + 24 + 'px';
-              return
+              return;
             }
           }
         } else {
-          this.slideLeft = ''
+          this.slideLeft = '';
         }
 
       }
