@@ -5,7 +5,7 @@
       <div class="mask-content right">
         <div class="mask-layer"></div>
         <!--1.已经登录-->
-        <div class="mask-login" v-if="">
+        <div class="mask-login" v-if="false">
           <div class="login-title">
             <span class="left userName">Hi,139****0000</span>
             <a class="right signIn" href="javascript:;">
@@ -81,7 +81,7 @@
           </div>
         </div>
         <!--2.没有登录-->
-        <div class="mask-noLogin" v-if="" style="display: none;">
+        <div class="mask-noLogin" v-if="true">
           <div class="login-title">Hi,欢迎来到钱满仓会员中心！</div>
           <div class="login-avatar">
             <img src="./noLogin-Avatar.png" alt="未登录" width="86" height="86">
@@ -89,7 +89,7 @@
           <div class="Login-prompt">
             <p class="promptText">登录查看我的等级</p>
             <p class="promptBtn">
-              <router-link :to="{ path: '/login' }">立即登录</router-link>
+              <router-link :to="{ path: '/login',query:{where:'Vip'}}">立即登录</router-link>
             </p>
           </div>
         </div>
