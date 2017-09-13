@@ -20,3 +20,46 @@ img {
   height: 380px;
   background: url("./bannerVip-wrapper.png") no-repeat;
 }
+.bannerVip-wrapper .mask-wrap {
+  width: 1200px;
+  height: 0;
+  margin: auto;
+}
+.bannerVip-wrapper .mask-wrap .mask-content {
+  position: relative;
+  margin-top: 19px;
+  width: 280px;
+  height: 342px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.bannerVip-wrapper .mask-wrap .mask-content .mask-layer {
+  width: 280px;
+  height: 342px;
+  background: rgba(255,255,255,0.9);
+}
+.bannerVip-wrapper .mask-wrap .mask-content .mask-login {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 342px;
+  padding: 10px 10px 10px 16px;
+}
+.bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-title .userName {
+  font-size: 14px;
+  color: #6d6d6d;
+  padding-top: 10px;
+}
+.bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-title .signIn {
+  font-size: 12px;
+  color: #be9f59;
+}
+.bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-title .signIn span {
+  margin-right: 5px;
+}
+.bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-avatar {
+  margin: 45px 0 25px 0;
+  width: 280px;
+  height: 86px;
+}
