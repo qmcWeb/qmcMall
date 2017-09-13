@@ -7,21 +7,12 @@
       </div>
       <div class="tabs-content-wrap">
         <div class="content-wrap task" v-show="taskShow">
-<<<<<<< HEAD
           <div class="noLogin" v-show="logged">
             <img src="./noLogin-Avatar.png" alt="" class="award">
             <p class="text">登录查看会员任务</p>
             <router-link :to="{ path: '/login',query:'{1:1}' }" class="btn">立即登录</router-link>
           </div>
           <div class="section" v-for="item in tasks" v-show="!logged">
-=======
-          <div class="noLogin" v-if="!logged">
-            <img src="./noLogin-Avatar.png" alt="" class="award">
-            <p class="text">登录查看会员任务</p>
-            <router-link :to="{ path: '/login',query:{where:'Vip'}}" class="btn">立即登录</router-link>
-          </div>
-          <div class="section" v-for="item in tasks" v-else>
->>>>>>> 1e32538811f87521c5efa30cb1420a6c8d164406
             <h3 class="title">{{item.title}}</h3>
             <ul class="task-list">
               <li class="item" v-for="task in item.list">
@@ -35,12 +26,12 @@
           </div>
         </div>
         <div class="content-wrap growth" v-show="!taskShow">
-          <div class="noLogin" v-if="!logged">
+          <div class="noLogin" v-show="!logged">
             <img src="./noLogin-Avatar.png" alt="" class="award">
             <p class="text">登录查看我的成长值</p>
-            <router-link :to="{ path: '/login',query:{where:'Vip'}}" class="btn">立即登录</router-link>
+            <router-link :to="{ path: '/login' }" class="btn">立即登录</router-link>
           </div>
-          <div class="logged" v-else>
+          <div class="logged" v-show="logged">
             <div class="growth-value">
               您目前的成长值为<span class="gold">10300</span>，您的会员等级为：
               <sapn class="gold">腰缠万贯</sapn>
@@ -144,7 +135,7 @@
           }, {time: '2017-04-09 17:11:05', value: '+480', where: '投资成功', desc: '投资项目：典贷宝2017-023号；投资金额：20000元'},
         ],
         taskShow: true,
-        logged: false
+        logged: true
       }
 
     }
