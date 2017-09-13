@@ -6,12 +6,12 @@
         <div class="tab" @click="taskShow=false" :class="{active:!taskShow}">我的成长值</div>
       </div>
       <div class="tabs-content-wrap">
-        <div class="noLogin" v-show="!logged">
-          <img src="./noLogin-Avatar.png" alt="" class="award">
-          <p class="text">登录查看会员任务</p>
-          <a href="#" class="btn">立即登录</a>
-        </div>
         <div class="content-wrap task" v-show="taskShow">
+          <div class="noLogin" v-show="!logged">
+            <img src="./noLogin-Avatar.png" alt="" class="award">
+            <p class="text">登录查看会员任务</p>
+            <a href="#" class="btn">立即登录</a>
+          </div>
           <div class="section" v-for="item in tasks">
             <h3 class="title">{{item.title}}</h3>
             <ul class="task-list">
