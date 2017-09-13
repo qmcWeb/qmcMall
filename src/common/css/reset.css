@@ -23,7 +23,6 @@ time, mark, audio, video, input {
     vertical-align: baseline;
   font-style: normal;
 }
-
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, menu, nav, section {
@@ -142,7 +141,6 @@ body {
   -webkit-user-select: none;
   cursor: pointer;
 }
-
 .gold {
   color: #c0a15d
 }

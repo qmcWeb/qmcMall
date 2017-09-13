@@ -54,7 +54,7 @@
   };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus" scoped="">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "footer.styl";
 </style>
 
