@@ -6,6 +6,11 @@
         <div class="tab" @click="taskShow=false" :class="{active:!taskShow}">我的成长值</div>
       </div>
       <div class="tabs-content-wrap">
+        <div class="noLogin" v-show="!logged">
+          <img src="./noLogin-Avatar.png" alt="" class="award">
+          <p class="text">登录查看会员任务</p>
+          <a href="#" class="btn">立即登录</a>
+        </div>
         <div class="content-wrap task" v-show="taskShow">
           <div class="section" v-for="item in tasks">
             <h3 class="title">{{item.title}}</h3>
@@ -82,7 +87,7 @@
           {
             title: '邀请任务',
             list: [
-              {iconClass: 'icon-microphone', name: '邀请好友注册并实名认证', desc: '成长值：＋50', complete: false},
+              {iconClass: 'icon-inviteFriends', name: '邀请好友注册并实名认证', desc: '成长值：＋50', complete: false},
               {
                 iconClass: 'icon-invite-invest', name: '好友投资', desc: '投资资金越多，时间越长' +
               '成长值越多', complete: false
