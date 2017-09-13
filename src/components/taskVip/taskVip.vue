@@ -10,9 +10,9 @@
           <div class="noLogin" v-show="!logged">
             <img src="./noLogin-Avatar.png" alt="" class="award">
             <p class="text">登录查看会员任务</p>
-            <a href="#" class="btn">立即登录</a>
+            <router-link :to="{ path: '/login' }" class="btn">立即登录</router-link>
           </div>
-          <div class="section" v-for="item in tasks">
+          <div class="section" v-for="item in tasks" v-show="logged">
             <h3 class="title">{{item.title}}</h3>
             <ul class="task-list">
               <li class="item" v-for="task in item.list">
@@ -29,7 +29,7 @@
           <div class="noLogin" v-show="!logged">
             <img src="./noLogin-Avatar.png" alt="" class="award">
             <p class="text">登录查看我的成长值</p>
-            <a href="#" class="btn">立即登录</a>
+            <router-link :to="{ path: '/login' }" class="btn">立即登录</router-link>
           </div>
           <div class="logged" v-show="logged">
             <div class="growth-value">
