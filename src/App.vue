@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-headerMall v-if="headMallShow"></v-headerMall>
-    <v-headerVip v-if="headVipShow"></v-headerVip>
+    <v-headerVip v-else></v-headerVip>
     <router-view></router-view>
     <v-footer></v-footer>
   </div>
@@ -15,8 +15,7 @@
     name: 'app',
     data() {
       return {
-        headMallShow: false,
-        headVipShow: false,
+
       }
     },
     components: {
@@ -24,25 +23,22 @@
       'v-headerVip': headerVip,
       'v-footer': footer,
     },
-    watch: {
-      '$route': 'changePath'
-    },
-    methods: {
-      changePath () {
+    computed: {
+      headMallShow() {
         let path = this.$route.path;
+        console.log(path)
         let pathReg = /Vip/;
         if (!pathReg.test(path)) {
-          this.headMallShow = true;
-          this.headVipShow = false;
+          if (pathReg.test(this.$route.query.where)) {
+            return false
+          }
+          return true
         } else {
-          this.headVipShow = true;
-          this.headMallShow = false;
+          return false
         }
       }
-    },
-    created() {
-      this.changePath()
     }
+
   }
 </script>
 

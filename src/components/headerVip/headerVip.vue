@@ -6,7 +6,10 @@
           <img src="./logo.png" alt="" width="128" height="36">
         </a>
         <i class="seg"></i>
-        <a class="cd" href="#">会员中心</a>
+        <router-link :to="{ path: '/homeVip'}" class="cd">
+          会员中心
+
+        </router-link>
       </div>
 
       <ul class="nav">
@@ -15,7 +18,7 @@
             {{item.name}}
           </router-link>
         </li>
-        <li class="slider" :style="{left:slideLeft}"></li>
+        <li class="slider" :style="{left:slideLeft}" v-if="slideLeft.length"></li>
       </ul>
       <a href="https://www.qianmancang.com/" class="back-qmc">返回官方首页</a>
     </div>
@@ -54,12 +57,18 @@
       },
       changePath(){
         let path = this.$route.path;
-        for (var i = 0; i < this.nav.length; i++) {
-          if (this.nav[i].path == path) {
-            this.slideLeft = i * 112 + 24 + 'px';
-            break
+        console.log(path, 11111111111)
+        if (path != '/login') {
+          for (var i = 0; i < this.nav.length; i++) {
+            if (this.nav[i].path == path) {
+              this.slideLeft = i * 112 + 24 + 'px';
+              return
+            }
           }
+        } else {
+          this.slideLeft = ''
         }
+
       }
     }
 
