@@ -24,6 +24,9 @@ const router = new VueRouter({
   routes: routerMap,
   linkActiveClass: 'active'
 });
+router.afterEach((to, from, next) => {
+  window.scrollTo(0, 0);
+});
 
 // 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
 const app = new Vue({

@@ -8,7 +8,7 @@
             <router-link :to="{ path: '/homeVip' }">会员体系</router-link>
           </li>
           <li>
-            <a href="JavaScript:;">会员权益</a>
+            <router-link :to="{ path: '/rightVip' }">会员权益</router-link>
           </li>
         </ul>
         <ul class="footer-info right">
