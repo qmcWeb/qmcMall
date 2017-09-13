@@ -26,15 +26,14 @@
     computed: {
       headMallShow() {
         let path = this.$route.path;
-        console.log(path)
         let pathReg = /Vip/;
         if (!pathReg.test(path)) {
           if (pathReg.test(this.$route.query.where)) {
-            return false
+            return false;
           }
-          return true
+          return true;
         } else {
-          return false
+          return false;
         }
       }
     }
