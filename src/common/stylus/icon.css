@@ -19,6 +19,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.icon-inviteFriends:before {
+  content: "\e900";
+}
 .icon-wechat:before {
   content: "\e901";
 }
@@ -26,10 +29,10 @@
   content: "\e902";
 }
 .icon-rightArrow:before {
-  conten: "\e903";
+  content: "\e903";
 }
 .icon-add:before {
-  content: "\e90";
+  content: "\e904";
 }
 .icon-reduce:before {
   content: "\e905";
@@ -123,7 +126,4 @@
 }
 .icon-sina-weibo:before {
   content: "\ea9a";
-}
-.icon-inviteFriends:before {
-  content: "\e900";
 }
