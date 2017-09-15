@@ -13,7 +13,7 @@
         </ul>
         <ul class="footer-info right">
           <h2>仓豆商城</h2>
-          <li><a href="JavaScript">商品列表</a></li>
+          <li><router-link :to="{ path: '/goodList' }">商品列表</router-link></li>
         </ul>
       </div>
       <div class="footer-middle left">

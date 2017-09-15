@@ -68,7 +68,6 @@
         } else {
           this.slideLeft = '';
         }
-
       }
     }
 
