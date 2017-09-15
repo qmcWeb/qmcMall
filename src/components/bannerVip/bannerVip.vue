@@ -2,10 +2,10 @@
   <div class="bannerVip-wrapper">
     <!--悬浮浮层-->
     <div class="mask-wrap">
-      <div class="mask-content right">
+      <div class="mask-content right" v-if="!rightShow">
         <div class="mask-layer"></div>
         <!--1.已经登录-->
-        <div class="mask-login" v-if="false">
+        <div class="mask-login" v-if="logged">
           <div class="login-title">
             <span class="left userName">Hi,139****0000</span>
             <a class="right signIn" href="javascript:;">
@@ -81,7 +81,7 @@
           </div>
         </div>
         <!--2.没有登录-->
-        <div class="mask-noLogin" v-if="true">
+        <div class="mask-noLogin" v-if="!logged">
           <div class="login-title">Hi,欢迎来到钱满仓会员中心！</div>
           <div class="login-avatar">
             <img src="./noLogin-Avatar.png" alt="未登录" width="86" height="86">
@@ -97,10 +97,9 @@
     </div>
     <!--徽章-->
     <div class="user-badge">
-      <div class="badge-content">
+      <div class="badge-content" v-if="!rightShow && logged">
         <div class="badge-list">
           <ul>
-            <!--<li :style="{ backgroundImage: 'url(' + str.url + ')' }">-->
             <li class="badge-item left" :class="badgeType" v-for="(badgeType,index) in badgeLight">
               <div class="badgeCrown" v-if=" index === grade-1  "></div>
               <div class="Badge">
@@ -115,15 +114,32 @@
           <p class="goUpData"><a href="https://www.qianmancang.com/loan-list">马上升级</a></p>
         </div>
       </div>
+      <img src="./bannerVip-noLogin.png" alt="" width="637" height="118" v-if="!logged" class="noLoginIMG">
+      <div class="card-wrap" v-if="rightShow">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" v-for="item in cards">
+              <i :class="item.iconClass"></i>
+              <h3 class="name">{{item.name}}</h3>
+              <p class="rightText">{{item.right}}</p>
+              <p class="desc">{{item.desc}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import Swiper from 'swiper';
+  import 'swiper/dist/css/swiper.min.css';
   const LENGTH = 8;
   const CLS_Gray = 'badgeTypeGray';
   const CLS_Light = 'badgeTypeLight';
-
   export default {
     data() {
       return {
@@ -133,6 +149,29 @@
         badge: [
           '白手起家', '略有积蓄', '小康之家', '腰缠万贯',
           '锦衣玉食', '金钱满仓', '堆金如山', '富甲天下'
+        ],
+        logged: true,
+        cards: [
+          {
+            iconClass: 'icon-cake', name: '生日加息', right: '1%加息券', desc: '生日当天发放，有效期N天' +
+          '无投资限制'
+          },
+          {
+            iconClass: 'icon-cake', name: '生日加息', right: '1%加息券', desc: '生日当天发放，有效期N天' +
+          '无投资限制'
+          },
+          {
+            iconClass: 'icon-cake', name: '生日加息', right: '1%加息券', desc: '生日当天发放，有效期N天' +
+          '无投资限制'
+          },
+          {
+            iconClass: 'icon-cake', name: '生日加息', right: '1%加息券', desc: '生日当天发放，有效期N天' +
+          '无投资限制'
+          },
+          {
+            iconClass: 'icon-cake', name: '生日加息', right: '1%加息券', desc: '生日当天发放，有效期N天' +
+          '无投资限制'
+          }
         ]
       }
     },
@@ -146,9 +185,26 @@
           result.push(CLS_Gray);
         }
         return result;
-      }
+      },
+      rightShow() {
+        if (this.logged) {
+          if (this.$route.path.indexOf('right') > -1) {
+            return true
+          }
+        }
+      },
 
 
+    },
+    mounted() {
+      //console.log('mounted', this);
+      var swiper = new Swiper('.swiper-container', {
+        paginationClickable: true,
+        spaceBetween: 10,
+        slidesPerView: 4,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+      });
     }
   }
 </script>

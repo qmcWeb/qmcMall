@@ -1,5 +1,6 @@
 <template>
   <div class="rightVip-wrap">
+    <v-banner></v-banner>
     <div class="level-wrap section">
       <h3 class="title">会员等级与权益</h3>
       <table class="table2">
@@ -206,9 +207,13 @@
 </template>
 
 <script>
+  import  bannerVip from  '@/components/bannerVip/bannerVip'
   export default{
     data() {
       return {}
+    },
+    components: {
+      'v-banner': bannerVip
     }
   }
 </script>

@@ -10,7 +10,7 @@
           <div class="noLogin" v-if="!logged">
             <img src="./noLogin-Avatar.png" alt="" class="award">
             <p class="text">登录查看会员任务</p>
-            <router-link :to="{ path: '/login',query:{where:'Vip'}}" class="btn">立即登录</router-link>
+            <router-link :to="{path: '/login',query:{where:'Vip'}}" class="btn">立即登录</router-link>
           </div>
           <div class="section" v-for="item in tasks" v-else>
             <h3 class="title">{{item.title}}</h3>
@@ -135,7 +135,7 @@
           }, {time: '2017-04-09 17:11:05', value: '+480', where: '投资成功', desc: '投资项目：典贷宝2017-023号；投资金额：20000元'},
         ],
         taskShow: true,
-        logged: false
+        logged: true
       }
 
     }

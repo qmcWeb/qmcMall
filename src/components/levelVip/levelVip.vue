@@ -1,5 +1,6 @@
 <template>
   <div class="levelVip-wrap">
+    <v-banner></v-banner>
     <div class="computed-wrap section">
       <h3 class="title">如何计算等级？</h3>
       <p class="content">
@@ -93,7 +94,12 @@
 </template>
 
 <script>
-
+  import  bannerVip from  '@/components/bannerVip/bannerVip'
+  export default{
+    components: {
+      'v-banner': bannerVip
+    }
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
