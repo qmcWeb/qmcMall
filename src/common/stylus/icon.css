@@ -19,85 +19,76 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-wechat:before {
+.icon-inviteFriends:before {
   content: "\e900";
 }
-.icon-exit:before {
+.icon-wechat:before {
   content: "\e901";
 }
-.icon-rightArrow:before {
+.icon-exit:before {
   content: "\e902";
 }
-.icon-sina-weibo:before {
-  content: "\ea9a";
-}
-.icon-add:before {
+.icon-rightArrow:before {
   content: "\e903";
 }
-.icon-go-right:before {
-  content: "\e905";
-}
-.icon-reduce:before {
+.icon-add:before {
   content: "\e904";
 }
-.icon-suo:before {
+.icon-reduce:before {
+  content: "\e905";
+}
+.icon-go-right:before {
   content: "\e906";
 }
-.icon-message:before {
+.icon-suo:before {
   content: "\e907";
 }
-.icon-phone:before {
+.icon-message:before {
   content: "\e908";
 }
-.icon-phone2:before {
-  content: "\e942";
-}
-.icon-circle-right:before {
-  content: "\ea42";
-}
-.icon-balloon:before {
+.icon-phone:before {
   content: "\e909";
 }
-.icon-sign:before {
+.icon-balloon:before {
   content: "\e90a";
 }
-.icon-invest:before {
+.icon-sign:before {
   content: "\e90b";
 }
-.icon-invite-invest:before {
+.icon-invest:before {
   content: "\e90c";
 }
-.icon-project:before {
+.icon-invite-invest:before {
   content: "\e90d";
 }
-.icon-measurement:before {
+.icon-project:before {
   content: "\e90e";
 }
-.icon-recharge:before {
+.icon-measurement:before {
   content: "\e90f";
 }
-.icon-real-name:before {
+.icon-recharge:before {
   content: "\e910";
 }
-.icon-right:before {
+.icon-real-name:before {
   content: "\e911";
 }
-.icon-Arrow-left:before {
+.icon-right:before {
   content: "\e912";
 }
-.icon-Arrow-right:before {
+.icon-Arrow-left:before {
   content: "\e913";
 }
-.icon-task:before {
+.icon-Arrow-right:before {
   content: "\e914";
 }
-.icon-mall:before {
+.icon-task:before {
   content: "\e915";
 }
-.icon-question:before {
+.icon-mall:before {
   content: "\e916";
 }
-.icon-Diamond-2:before {
+.icon-question:before {
   content: "\e917";
 }
 .icon-discount:before {
@@ -112,9 +103,6 @@
 .icon-Diamond-1:before {
   content: "\e91b";
 }
-.icon-cup:before {
-  content: "\e920";
-}
 .icon-gift:before {
   content: "\e91d";
 }
@@ -124,6 +112,18 @@
 .icon-rockets:before {
   content: "\e91f";
 }
-.icon-inviteFriends:before {
-  content: "\e900";
+.icon-cup:before {
+  content: "\e920";
+}
+.icon-Diamond-2:before {
+  content: "\e921";
+}
+.icon-phone2:before {
+  content: "\e942";
+}
+.icon-circle-right:before {
+  content: "\ea42";
+}
+.icon-sina-weibo:before {
+  content: "\ea9a";
 }

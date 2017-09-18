@@ -15,17 +15,13 @@
           <div class="login-tips">{{hintCode}}</div>
           <div class="item item1">
             <label for="loginname-code" class="login-label icon-phone login-label1"></label>
-            <input type="text" id="loginname-code" placeholder="手机号码" :maxlength="11"
-                   v-validate="'required|phoneCode'" name="phoneCode" v-model="phoneCode">
-            <p class="formValidation phoneValidation" v-show="errors.has('phoneCode')">{{errors.first('phoneCode')}}</p>
+            <input type="text" id="loginname-code" placeholder="手机号码" :maxlength="11" v-model="phoneCode">
           </div>
           <div class="item item2">
             <label for="loginpwd" class="login-label icon-message login-label2"></label>
-            <input type="text" id="loginpwd" placeholder="短信验证码" :maxlength="6"
-                   v-validate="'required|messageCode'" name="messageCode" v-model="codeMessage">
+            <input type="text" id="loginpwd" placeholder="短信验证码" :maxlength="6" v-model="codeMessage">
             <span @click="showFigureCode" v-if="!countdownShow">获取</span>
-            <span v-if="countdownShow">已发送…{{time}}s</span>
-            <p class="formValidation messageValidation" v-show="errors.has('messageCode')">{{errors.first('messageCode')}}</p>
+            <span v-if="countdownShow" class="huoQu">已发送…{{time}}s</span>
           </div>
           <div class="remember-me">
             <input class="login-check" type="checkbox" checked="checked">
@@ -63,15 +59,11 @@
           <div class="login-tips">{{hintPwd}}</div>
           <div class="item item1">
             <label for="loginname-pwd" class="login-label icon-phone login-label1"></label>
-            <input type="text" id="loginname-pwd" placeholder="手机号码" :maxlength="11"
-                   v-validate="'required|phonePwd'" name="phonePwd">
-            <p class="formValidation phoneValidation" v-show="errors.has('phonePwd')">{{errors.first('phonePwd')}}</p>
+            <input type="text" id="loginname-pwd" placeholder="手机号码" :maxlength="11">
           </div>
           <div class="item item2">
             <label for="logincode" class="login-label icon-suo login-label2"></label>
-            <input type="password" id="logincode" placeholder="登录密码" :maxlength="12"
-                   v-validate="'required|password'" name="password">
-            <p class="formValidation phoneValidation" v-show="errors.has('password')">{{errors.first('password')}}</p>
+            <input type="password" id="logincode" placeholder="登录密码" :maxlength="12">
           </div>
           <div class="remember-me">
             <input class="login-check" type="checkbox" checked="checked">
