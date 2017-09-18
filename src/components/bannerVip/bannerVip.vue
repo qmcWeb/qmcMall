@@ -30,51 +30,28 @@
               <a href="javascript:;" class="right">全部会员权益</a>
             </div>
             <div class="equityShow">
-              <ul>
-                <li class="left">
-                  <a href="javascript:;">
-                    <div class="equity-item">
-                      <div class="equityImg">
-                        <span class="icon-rockets hasEquity"></span>
+              <div class="equityShow-ul">
+                <ul :style="{marginLeft:marginLeft+'px'}">
+                  <li class="left" v-for="item in equity">
+                    <a href="javascript:;">
+                      <div class="equity-item">
+                        <div class="equityImg">
+                          <span class="hasEquity" :class="item.iconClass"></span>
+                        </div>
+                        <div class="equityName">{{item.equityName}}</div>
                       </div>
-                      <div class="equityName">仓豆加速</div>
-                    </div>
-                  </a>
-                </li>
-                <li class="left">
-                  <a href="javascript:;">
-                    <div class="equity-item">
-                      <div class="equityImg">
-                        <span class="icon-cake hasEquity"></span>
-                      </div>
-                      <div class="equityName">生日礼包</div>
-                    </div>
-                  </a>
-                </li>
-                <li class="left">
-                  <a href="javascript:;">
-                    <div class="equity-item">
-                      <div class="equityImg">
-                        <span class="icon-gift hasEquity"></span>
-                      </div>
-                      <div class="equityName">节日福利</div>
-                    </div>
-                  </a>
-                </li>
-                <li class="left">
-                  <a href="javascript:;">
-                    <div class="equity-item">
-                      <div class="equityImg">
-                        <span class="icon-cup hasEquity"></span>
-                      </div>
-                      <div class="equityName">升级奖励</div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-              <div class="equityMore">
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="equityMore-left">
                 <a href="javascript:;">
-                  <span class="icon-rightArrow"></span>
+                  <span class="icon-equityMore-left" @click="equityPrevMore" v-show="prevShow"></span>
+                </a>
+              </div>
+              <div class="equityMore-right">
+                <a href="javascript:;">
+                  <span class="icon-equityMore-right" @click="equityNextMore" v-show="nextShow"></span>
                 </a>
               </div>
             </div>
@@ -172,7 +149,44 @@
             iconClass: 'icon-cake', name: '生日加息', right: '1%加息券', desc: '生日当天发放，有效期N天' +
           '无投资限制'
           }
-        ]
+        ],
+        equity: [
+          {iconClass:'icon-rockets',equityName:'仓豆加速'},
+          {iconClass:'icon-cake',equityName:'生日好礼'},
+          {iconClass:'icon-cup',equityName:'升级礼包'},
+          {iconClass:'icon-gift',equityName:'节日福利'},
+          {iconClass:'icon-microphone',equityName:'高端沙龙'},
+          {iconClass:'icon-discount',equityName:'费用折扣'},
+          {iconClass:'icon-customer-service',equityName:'专属客服'},
+          {iconClass:'icon-Diamond-2',equityName:'专享订制标'},
+          {iconClass:'icon-balloon',equityName:'活动福利'}
+        ],
+        marginLeft:'',
+        prevShow: false,
+        nextShow: true
+      }
+    },
+    methods: {
+      equityNextMore(){
+        console.log(this.marginLeft, 1);
+        if (this.marginLeft == -325) {
+          this.nextShow = false;
+          this.marginLeft = -325;
+        } else {
+          this.prevShow = true;
+          this.nextShow = true;
+          this.marginLeft = this.marginLeft - 65;
+        }
+      },
+      equityPrevMore(){
+        if (this.marginLeft == 0){
+          this.prevShow = false;
+          this.marginLeft = 0;
+        } else {
+          this.prevShow = true;
+          this.nextShow = true;
+          this.marginLeft = this.marginLeft + 65;
+        }
       }
     },
     computed: {
@@ -193,8 +207,6 @@
           }
         }
       },
-
-
     },
     mounted() {
       //console.log('mounted', this);

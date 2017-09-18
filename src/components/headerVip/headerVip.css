@@ -68,9 +68,6 @@
 .header .nav .item a:hover {
   color: #be9f59;
 }
-.header .nav .item:last-child {
-  width: 56px;
-}
 .header .back-qmc {
   float: right;
   width: 140px;
