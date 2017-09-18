@@ -18,7 +18,7 @@
         </li>
         <li class="goods">
           <router-link
-            :to="{path: '/goodList',query:{type: 'all',price: 'all',sort: 'default',priceMin: 0,priceMax: 100000}}">
+            :to="{path: '/goodsList',query:{type: 'all',price: 'all',sort: 'default',priceMin: 0,priceMax: 100000}}">
             全部商品
 
           </router-link>
