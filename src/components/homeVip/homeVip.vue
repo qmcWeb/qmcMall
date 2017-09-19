@@ -49,15 +49,17 @@
         <div class="beanShow right">
           <ul class="beanMall-ul">
             <li class="left" v-for="(goods,index) in beanMall">
-              <div class="remove beanMall-li-content shadow">
-                <div class="beanMall-li-item1">
-                  <img :src="beanMall[index].src" alt="仓豆商城" width="270" height="210">
+              <a href="javascript:;">
+                <div class="remove beanMall-li-content shadow">
+                  <div class="beanMall-li-item1">
+                    <img :src="beanMall[index].src" alt="仓豆商城" width="270" height="210">
+                  </div>
+                  <div class="beanMall-li-item2">
+                    <p class="goodsName">{{goods.goodsName}}</p>
+                    <p class="goodsPrice">仓豆：<span>{{goods.goodsPrice}}</span></p>
+                  </div>
                 </div>
-                <div class="beanMall-li-item2">
-                  <p class="goodsName">{{goods.goodsName}}</p>
-                  <p class="goodsPrice">仓豆：<span>{{goods.goodsPrice}}</span></p>
-                </div>
-              </div>
+              </a>
             </li>
           </ul>
         </div>
