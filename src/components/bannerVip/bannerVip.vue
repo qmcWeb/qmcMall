@@ -168,7 +168,6 @@
     },
     methods: {
       equityNextMore(){
-        console.log(this.marginLeft, 1);
         if (this.marginLeft == -325) {
           this.nextShow = false;
           this.marginLeft = -325;
@@ -180,10 +179,14 @@
       },
       equityPrevMore(){
         if (this.marginLeft == 0){
-          this.prevShow = false;
+          this.prevShow = true;
           this.marginLeft = 0;
         } else {
-          this.prevShow = true;
+          if (this.marginLeft == -65){
+            this.prevShow = false;
+          }else{
+            this.prevShow = true;
+          }
           this.nextShow = true;
           this.marginLeft = this.marginLeft + 65;
         }
