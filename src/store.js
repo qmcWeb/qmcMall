@@ -74,6 +74,7 @@ export default {
     set_error: function ({commit}, errorObj) {
       commit('change_error', {data: errorObj});
     }
+    /*会员中心*/
   },
   getters: {
     new_index_data: state => {

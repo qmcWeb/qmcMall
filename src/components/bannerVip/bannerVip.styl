@@ -13,12 +13,15 @@ img
 .right
   float right
 
+.shadow
+  box-shadow 0 0px 50px 0 rgba(0, 0, 0, 0.2)
+
 .bannerVip-wrapper
   width 100%
   min-width 1200px
   margin auto
   height 380px
-  background url(./bannerVip-wrapper.png) no-repeat;
+  background url(./bannerVip-wrapper.png) center no-repeat;
   .mask-wrap
     width 1200px
     height 0
@@ -29,11 +32,11 @@ img
       width 280px
       height 342px
       border-radius 10px
-      overflow hidden
       .mask-layer
         width 280px
         height 342px
         background rgba(255,255,255,.9)
+        border-radius 10px
       .mask-login, .mask-noLogin
         position absolute
         top 0
@@ -41,6 +44,49 @@ img
         width 280px
         height 342px
         padding 10px
+        border-radius 10px
+        .sign-pop-up
+          position absolute
+          top 38px
+          right 37px
+          z-index 10
+          width 448px
+          height 318px
+          background #fff
+          border-radius 10px
+          &::before
+            content ''
+            position absolute
+            right 35px
+            top -20px
+            border 10px solid transparent
+            border-bottom 10px solid #fff
+          .sign-pop-title
+            padding-top 34px
+            font-size 18px
+            font-weight bold
+            color #bd9e59
+            text-align center
+            .icon-right
+              font-size 24px
+              color #1ab160
+              vertical-align -5px
+          .sign-app-2wm
+            text-align center
+            margin-top 40px
+            p
+              font-size 14px
+              color #999999
+          .sign-pop-hint
+            font-size 16px
+            color #808080
+            padding-left 42px
+            line-height 26px
+            margin-top 15px
+            span
+              display block
+              font-weight bold
+              color #333333
         .login-title
           overflow hidden
           .userName
@@ -62,6 +108,7 @@ img
             height 86px
             margin auto
         .login-case
+          position relative
           width 100%
           height 60px
           padding 22px 0
@@ -82,7 +129,36 @@ img
               top -8px
               cursor pointer
               font-size 14px
-
+              &:hover + .bean-hint
+                display block
+            .bean-hint
+              position absolute
+              top 8px
+              right 40px
+              display none
+              line-height 22px
+              padding 0 7px
+              background #fff
+              font-size 12px
+              color #808080
+              border 1px solid #cccccc
+              border-radius 5px
+              &::after
+                content ''
+                position absolute
+                top 6px
+                right -10px
+                z-index 1
+                border 5px solid transparent
+                border-left 5px solid #cccccc
+              &::before
+                content ''
+                position absolute
+                top 6px
+                right -9px
+                z-index 2
+                border 5px solid transparent
+                border-left 5px solid #fff
         .mine-equity
           width 100%
           height 110px
@@ -102,38 +178,46 @@ img
             margin-top 20px
             width 100%
             height 55px
-            ul
+            .equityShow-ul
               width 100%
               height 55px
-              li
-                width 25%
+              overflow hidden
+              ul
+                width 585px
                 height 55px
-                .equity-item
-                  width 100%
+                margin-left 0px
+                transition all linear 0.3s
+                li
+                  width 65px
                   height 55px
-                  text-align center
-                  .equityImg
+                  .equity-item
                     width 100%
-                    height 30px
-                    padding-top 3px
-                    overflow hidden
-                    span
-                      font-size 24px
+                    height 55px
+                    text-align center
+                    .equityImg
+                      width 100%
+                      height 30px
+                      padding-top 3px
+                      overflow hidden
+                      span
+                        font-size 24px
+                        color #808080
+                      span.hasEquity
+                        color #be9f59
+                    .equityName
+                      padding-top 12px
+                      font-size 12px
                       color #808080
-                    span.hasEquity
-                      color #be9f59
-                  .equityName
-                    padding-top 12px
-                    font-size 12px
-                    color #808080
-            .equityMore
+            .equityMore-right, .equityMore-left
               position absolute
-              right -5px
               top 20px
               span
                 font-size 16px
                 color #cccccc
-
+            .equityMore-right
+              right -8px
+            .equityMore-left
+              left -8px
       .mask-noLogin
         padding 19px 17px
         .login-title
@@ -175,56 +259,37 @@ img
     .badge-content
       width 920px
       height 100%
-      padding-top 140px
+      padding-top 110px
       .badge-list
-        width 760px
-        height 77px
+        width 770px
+        height 122px
         margin auto
         ul
-          width 760px
-          height 77px
+          width 770px
+          height 122px
           li
             position relative
-            width 95px
-            height 77px
-            text-align center
-            .badgeCrown
-              position absolute
-              left 31px
-              top -17px
-              z-index 1
-              width 33px
-              height 21px
-              background url(./crown-light-member.png) no-repeat
-            .Badge
-              position absolute
-              top 0
-              left 0
-              z-index 2
-              width 95px
-              height 77px
-              .badgeGrade
-                padding-top 20px
-                font-size 12px
-                font-weight bold
-              .badgeName
-                font-size 14px
-                margin-top 3px
-                line-height 16px
+            width 92px
+            height 122px
+            .badgeGrade
+              text-align center
+              padding-top 68px
+              font-size 14px
+              font-weight bold
           .badgeTypeGray
-            background url(./badge-gray-member.png) no-repeat
-            .Badge
-              .badgeName
-                color #ffffff
-              .badgeGrade
-                color #858585
+            background url(./badge-gray-member.png) center center no-repeat
+            .badgeGrade
+              color #3c3c3c
           .badgeTypeLight
-            background url(./badge-light-member.png) no-repeat
-            .Badge
-              .badgeName
-                color #feeaca
-              .badgeGrade
-                color #d53c2c
+            background url(./badge-light-member.png) center center no-repeat
+            .badgeGrade
+              color #5d2d1e
+          .activeType
+            width 126px
+            height 122px
+            background url(./present-light.png) center no-repeat
+            .badgeGrade
+              font-size 20px
       .badge-hint
         width 100%
         padding-top 27px
