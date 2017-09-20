@@ -22,6 +22,7 @@
             <p class="warehouseBean right">
               仓豆：<span>100</span>
               <span class="icon-question"></span>
+              <span class="bean-hint">仓豆可在仓豆商城兑换奖品哦~</span>
             </p>
           </div>
           <div class="mine-equity">

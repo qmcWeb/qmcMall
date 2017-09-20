@@ -81,6 +81,7 @@ img {
 }
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-case,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-case {
+  position: relative;
   width: 100%;
   height: 60px;
   padding: 22px 0;
@@ -109,6 +110,44 @@ img {
   top: -8px;
   cursor: pointer;
   font-size: 14px;
+}
+.bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-case .warehouseBean .icon-question:hover+.bean-hint,
+.bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-case .warehouseBean .icon-question:hover+.bean-hint {
+  display: block;
+}
+.bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-case .warehouseBean .bean-hint,
+.bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-case .warehouseBean .bean-hint {
+  position: absolute;
+  top: 8px;
+  right: 40px;
+  display: none;
+  line-height: 22px;
+  padding: 0 7px;
+  background: #fff;
+  font-size: 12px;
+  color: #808080;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-case .warehouseBean .bean-hint::after,
+.bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-case .warehouseBean .bean-hint::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: -10px;
+  z-index: 1;
+  border: 5px solid transparent;
+  border-left: 5px solid #ccc;
+}
+.bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-case .warehouseBean .bean-hint::before,
+.bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-case .warehouseBean .bean-hint::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  right: -9px;
+  z-index: 2;
+  border: 5px solid transparent;
+  border-left: 5px solid #fff;
 }
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity {
