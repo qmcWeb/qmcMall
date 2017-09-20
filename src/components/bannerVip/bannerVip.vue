@@ -169,11 +169,15 @@
     methods: {
       equityNextMore(){
         if (this.marginLeft == -325) {
-          this.nextShow = false;
+          this.nextShow = true;
           this.marginLeft = -325;
         } else {
+          if (this.marginLeft == -260) {
+            this.nextShow = false;
+          }else{
+            this.nextShow = true;
+          }
           this.prevShow = true;
-          this.nextShow = true;
           this.marginLeft = this.marginLeft - 65;
         }
       },
