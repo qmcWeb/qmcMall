@@ -7,9 +7,9 @@
         <!--1.已经登录-->
         <div class="mask-login" v-if="logged">
           <!-- 签到浮层 -->
-          <div class="sign-pop-up shadow">
+          <div class="sign-pop-up shadow" v-show="signShow">
             <div class="sign-pop-close">
-              <span class="icon-close"></span>
+              <span class="icon-close" @click="signPopUpHide"></span>
             </div>
             <div class="sign-pop-title">
               <span class="icon-right"></span>
@@ -26,9 +26,12 @@
           </div>
           <div class="login-title">
             <span class="left userName">Hi,139****0000</span>
-            <a class="right signIn" href="javascript:;">
+            <p class="right signIn" @click="signPopUpShow" v-if="noSign">
               <span class="icon-sign"></span>签到赢福利
-            </a>
+            </p>
+            <p class="right signIn signOver" v-else>
+              <span class="icon-sign"></span>今日已签到
+            </p>
           </div>
           <div class="login-avatar">
             <img src="./W-Avatar.png" alt="女头像" width="86" height="86">
@@ -174,7 +177,9 @@
         ],
         marginLeft:'',
         prevShow: false,
-        nextShow: true
+        nextShow: true,
+        signShow: false,
+        noSign: true
       }
     },
     methods: {
@@ -205,6 +210,13 @@
           this.nextShow = true;
           this.marginLeft = this.marginLeft + 65;
         }
+      },
+      signPopUpShow(){
+        this.signShow = true;
+      },
+      signPopUpHide(){
+        this.signShow = false;
+        this.noSign = false;
       }
     },
     computed: {

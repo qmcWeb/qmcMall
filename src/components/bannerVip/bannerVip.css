@@ -135,10 +135,15 @@ img {
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-title .signIn {
   font-size: 12px;
   color: #be9f59;
+  cursor: pointer;
 }
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-title .signIn span,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-title .signIn span {
   margin-right: 5px;
+}
+.bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-title .signOver,
+.bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-title .signOver {
+  color: #6d6d6d;
 }
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-avatar,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-avatar {
