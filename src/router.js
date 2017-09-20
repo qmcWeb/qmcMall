@@ -1,4 +1,3 @@
-
 // import Hello from '@/components/Hello'
 import homeMall from './components/homeMall/homeMall'
 import homeVip from './components/homeVip/homeVip'
@@ -33,13 +32,17 @@ export default [
   },
   {
     path: '/detail',
-    name:'detail',
+    name: 'detail',
     component: detail
   },
   {
     path: '/order',
     name: 'order',
-    component: order
+    component: order,
+    meta: {
+      // 添加该字段，表示进入这个路由是需要登录的
+      requireAuth: true,
+    },
   },
   {
     path: '/success',
@@ -47,8 +50,8 @@ export default [
     component: success
   },
   {
-    path:'/goodsList',
-    name:'goodsList',
+    path: '/goodsList',
+    name: 'goodsList',
     component: goodsList
   },
   {

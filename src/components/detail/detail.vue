@@ -1,8 +1,8 @@
 <template>
   <div class="detail-wrapper">
     <v-crumbsBar></v-crumbsBar>
-    <v-errorLayer :errorCon="errorCon" :errorType="errorType" :errorlayerSHow="errorlayerSHow"></v-errorLayer>
-    <div class="product-intro">
+    <v-errorLayer></v-errorLayer>
+    <div class="product-intro" v-if="name">
       <div class="preview-top">
         <div class="preview-img left">
           <img src="" alt="">
@@ -19,6 +19,7 @@
             {{ count }}
             <span class="goods-amount icon-add" @click="addNum()"></span>
             <span>库存<b>{{inventory}}</b>件</span>
+
           </div>
           <div class="goods-btn">
             <a href="javascript:;" @click="exchange">立即兑换</a>
@@ -89,7 +90,7 @@
         inventory: '',
         totalBeans: '',
         history: [],
-        promotion: []
+        promotion: [],
       }
     },
     computed: {
@@ -99,61 +100,53 @@
     },
     created() {
       let good = this;
-      this.$http.get('/api/commodity/productDetails.do', {
-        params: {
-          product_id: this.$route.query.product_id,
-          user_id: 'm_13204392227'
+      this.$store.dispatch('req_detailData', this.$route.query.product_id).then(
+        (value) => {
+          //商品详情
+          good.goodInfoData = value.detail;
+          //浏览历史
+          good.history = value.history;
+          //商品推介
+          good.promotion = value.promotion;
+          good.name = good.goodInfoData.product_name;
+          good.desc = good.goodInfoData.synopsis_info;
+          good.beans = good.goodInfoData.product_price;
+          good.price = good.goodInfoData.selling_price;
+          good.inventory = good.goodInfoData.inventory;
+          good.totalBeans = good.beans * good.count
+        },
+        (err) => {
+          console.log(err)
         }
-      }).then(response => {
-        //商品详情
-        good.goodInfoData = response.body.detail;
-        //浏览历史
-        good.history = response.body.history;
-        //商品推介
-        good.promotion = response.body.promotion;
-        good.name = good.goodInfoData.product_name;
-        good.desc = good.goodInfoData.synopsis_info;
-        good.beans = good.goodInfoData.product_price;
-        good.price = good.goodInfoData.selling_price;
-        good.inventory = good.goodInfoData.inventory;
-        good.totalBeans = good.beans * good.count
-      });
+      )
     },
     methods: {
       reduceNum() {
-        if (this.result <= 1) {
+        if (this.count <= 1) {
           return false;
         }
         this.count--;
-        this.$emit('input', {res: this.result, other: '--'})
       },
       addNum() {
-        if (this.result >= 5) {
+        if (this.count >= 5) {
           return false;
         }
         this.count++;
-        this.$emit('input', {res: this.result, other: '++'})
       },
       exchange() {
         let good = this;
         if (good.count > good.inventory) {
-          console.log(1)
-          this.errorCon = '很抱歉，库存数量不足，我们将尽快补货 ^_^',
-            this.errorType = 'normal',
-            this.errorlayerSHow = true
+          this.$store.dispatch('set_error', {errorCon: '很抱歉，库存数量不足，我们将尽快补货 ^_^', errorType: 'normal'})
           return false
         }
-        if (good.totalBeans > this.userInfo.cd_money) {
-          this.errorCon = '仓豆不够啦 >_<',
-            this.errorType = 'lessBeans',
-            this.errorlayerSHow = true
+        if (good.beans * good.count > this.userInfo.cd_money) {
+          this.$store.dispatch('set_error', {errorCon: '仓豆不够啦 >_<', errorType: 'lessBeans'})
           return false
         }
         good.goodInfoData.goodCount = good.count;
         LStorage.setItem('goodInfoData', good.goodInfoData)
-        this.$router.push({path: '/order', query: {goodId: good.goodInfoData.id}})
+        this.$router.push({path: '/order', query: {product_id: good.$route.query.product_id}})
       }
-
     },
     components: {
       'v-crumbsBar': crumbsBar,

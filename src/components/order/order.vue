@@ -187,6 +187,11 @@
       good.count = good.goodInfoData.goodCount;
       good.totalBeans = good.beans * good.count
     },
+    computed: {
+      userInfo() {
+        return this.$store.state.userInfo
+      }
+    },
     methods: {
       reduceNum() {
         if (this.count <= 1) {
@@ -223,15 +228,12 @@
       },
       selectProvince(value) {
         this.select.province = value;
-        console.log(value);
       },
       selectCity(value) {
         this.select.city = value;
-        console.log(value);
       },
       selectArea(value) {
         this.select.area = value;
-        console.log(value);
       },
       saveAddress() {
         //表单检验
@@ -307,6 +309,10 @@
         this.$router.go(-1)
       },
       openOrderPop() {
+        if (this.totalBeans > this.userInfo.cd_money) {
+          this.$store.dispatch('set_error', {errorCon: '仓豆不够啦 >_<', errorType: 'lessBeans'})
+          return false
+        }
         this.orderLayerShow = !this.orderLayerShow
       },
       confirmOrder() {

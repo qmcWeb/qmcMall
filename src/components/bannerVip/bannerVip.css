@@ -38,6 +38,7 @@ img {
   height: 342px;
   background: rgba(255,255,255,0.9);
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin {
   position: absolute;
@@ -47,31 +48,37 @@ img {
   height: 342px;
   padding: 10px;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-title,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-title {
   overflow: hidden;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-title .userName,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-title .userName {
   font-size: 14px;
   color: #6d6d6d;
   padding-top: 10px;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-title .signIn,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-title .signIn {
   font-size: 12px;
   color: #be9f59;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-title .signIn span,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-title .signIn span {
   margin-right: 5px;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-avatar,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-avatar {
   margin-top: 40px;
   width: 100%;
   height: 86px;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-avatar img,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-avatar img {
   display: block;
@@ -79,6 +86,7 @@ img {
   height: 86px;
   margin: auto;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-case,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-case {
   width: 100%;
@@ -86,6 +94,7 @@ img {
   padding: 22px 0;
   border-bottom: 1px solid #d9d9d9;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-case p,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-case p {
   width: 50%;
@@ -94,15 +103,18 @@ img {
   color: #333;
   text-align: center;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-case p span,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-case p span {
   font-size: 16px;
   color: #be9f59;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-case .warehouseBean,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-case .warehouseBean {
   border-left: 1px solid #d9d9d9;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .login-case .warehouseBean .icon-question,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-case .warehouseBean .icon-question {
   position: relative;
@@ -110,28 +122,33 @@ img {
   cursor: pointer;
   font-size: 14px;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity {
   width: 100%;
   height: 110px;
   padding-top: 19px;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity .equityTitle,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity .equityTitle {
   height: 14px;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity .equityTitle span,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity .equityTitle span {
   font-size: 14px;
   border-left: 2px solid #be9f59;
   padding-left: 9px;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity .equityTitle a,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity .equityTitle a {
   font-size: 12px;
   color: #999;
   text-align: right;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity .equityShow,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity .equityShow {
   position: relative;
@@ -139,22 +156,26 @@ img {
   width: 100%;
   height: 55px;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity .equityShow ul,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity .equityShow ul {
   width: 100%;
   height: 55px;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity .equityShow ul li,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity .equityShow ul li {
   width: 25%;
   height: 55px;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity .equityShow ul li .equity-item,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity .equityShow ul li .equity-item {
   width: 100%;
   height: 55px;
   text-align: center;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity .equityShow ul li .equity-item .equityImg,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity .equityShow ul li .equity-item .equityImg {
   width: 100%;
@@ -162,49 +183,59 @@ img {
   padding-top: 3px;
   overflow: hidden;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity .equityShow ul li .equity-item .equityImg span,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity .equityShow ul li .equity-item .equityImg span {
   font-size: 24px;
   color: #808080;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity .equityShow ul li .equity-item .equityImg span.hasEquity,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity .equityShow ul li .equity-item .equityImg span.hasEquity {
   color: #be9f59;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity .equityShow ul li .equity-item .equityName,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity .equityShow ul li .equity-item .equityName {
   padding-top: 12px;
   font-size: 12px;
   color: #808080;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity .equityShow .equityMore,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity .equityShow .equityMore {
   position: absolute;
   right: -5px;
   top: 20px;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .mine-equity .equityShow .equityMore span,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .mine-equity .equityShow .equityMore span {
   font-size: 16px;
   color: #ccc;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin {
   padding: 19px 17px;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .login-title {
   font-size: 16px;
   color: #6d6d6d;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .Login-prompt {
   margin-top: 50px;
   width: 100%;
   height: 90px;
   text-align: center;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .Login-prompt .promptText {
   font-size: 14px;
   color: #4c4c4c;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .Login-prompt .promptBtn {
   margin: 20px auto 0;
   width: 154px;
@@ -215,6 +246,7 @@ img {
   background: #be9f59;
   overflow: hidden;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .Login-prompt .promptBtn a {
   display: block;
   width: 100%;
@@ -222,34 +254,41 @@ img {
   color: #fff;
   transition: all linear 0.3s;
 }
+
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .Login-prompt .promptBtn a:hover {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
 }
+
 .bannerVip-wrapper .user-badge {
   width: 1200px;
   height: 380px;
   margin: auto;
 }
+
 .bannerVip-wrapper .user-badge .badge-content {
   width: 920px;
   height: 100%;
   padding-top: 140px;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-list {
   width: 760px;
   height: 77px;
   margin: auto;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-list ul {
   width: 760px;
   height: 77px;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-list ul li {
   position: relative;
   width: 95px;
   height: 77px;
   text-align: center;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-list ul li .badgeCrown {
   position: absolute;
   left: 31px;
@@ -259,6 +298,7 @@ img {
   height: 21px;
   background: url("./crown-light-member.png") no-repeat;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-list ul li .Badge {
   position: absolute;
   top: 0;
@@ -267,34 +307,43 @@ img {
   width: 95px;
   height: 77px;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-list ul li .Badge .badgeGrade {
   padding-top: 20px;
   font-size: 12px;
   font-weight: bold;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-list ul li .Badge .badgeName {
   font-size: 14px;
   margin-top: 3px;
   line-height: 16px;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-list ul .badgeTypeGray {
   background: url("./badge-gray-member.png") no-repeat;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-list ul .badgeTypeGray .Badge .badgeName {
   color: #fff;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-list ul .badgeTypeGray .Badge .badgeGrade {
   color: #858585;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-list ul .badgeTypeLight {
   background: url("./badge-light-member.png") no-repeat;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-list ul .badgeTypeLight .Badge .badgeName {
   color: #feeaca;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-list ul .badgeTypeLight .Badge .badgeGrade {
   color: #d53c2c;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-hint {
   width: 100%;
   padding-top: 27px;
@@ -302,9 +351,11 @@ img {
   text-align: center;
   color: #fff;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-hint .goUpData {
   padding-top: 8px;
 }
+
 .bannerVip-wrapper .user-badge .badge-content .badge-hint .goUpData a {
   color: #f96230;
 }

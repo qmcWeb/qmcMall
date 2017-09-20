@@ -17,12 +17,12 @@
              :class="[{active:item.select},{'marginR-10':item.call==='convertible'}]">{{item.con}}</a>
           <div class="widget">
             <i>￥</i>
-            <input type="number" v-model="priceMinModal">
+            <input type="number" v-model="route.priceMin">
           </div>
           <i class="to">-</i>
           <div class="widget">
             <i>￥</i>
-            <input type="number" v-model="priceMaxModal">
+            <input type="number" v-model="route.priceMax">
           </div>
           <a href="javascript:;" class="sure" @click="priceQuery">确定</a>
         </div>
@@ -60,26 +60,12 @@
         ],
         priceMin: [],
         priceMax: [],
+        route: ''
       }
 
     },
     computed: {
-      priceMinModal: {
-        get () {
-          return this.$store.state.listParamsData.priceMin
-        },
-        set (value) {
-          this.$store.commit('SET_listParamsMinData', value)
-        }
-      },
-      priceMaxModal: {
-        get () {
-          return this.$store.state.listParamsData.priceMax
-        },
-        set (value) {
-          this.$store.commit('SET_listParamsMaxData', value)
-        }
-      }
+
     },
     watch: {
       // 如果路由有变化，执行该方法
@@ -87,6 +73,7 @@
     },
     created() {
       this.RefreshDom();
+      this.route = this.$route.query
     },
     methods: {
       router(call, selected, index){
@@ -97,30 +84,30 @@
           this.sort[3].call = 'priceUp'
           call = 'priceUp'
         }
-        this.$store.state.listParamsData[selected] = call;
-        this.$store.dispatch('set_listParamsData', this.$store.state.listParamsData);
+        this.route[selected] = call;
         this.setParams()
       },
       setParams() {
+        let route = this.route
         //神奇的傻逼
         this.$router.push({
           path: '/goodsList',
           query: {
-            type: this.$store.state.listParamsData.type,
-            price: this.$store.state.listParamsData.price,
-            sort: this.$store.state.listParamsData.sort,
-            priceMin: this.$store.state.listParamsData.priceMin,
+            type: route.type,
+            price: route.price,
+            sort: route.sort,
+            priceMin: route.priceMin,
             priceMax: 1000000
           }
         })
         this.$router.push({
           path: '/goodsList',
           query: {
-            type: this.$store.state.listParamsData.type,
-            price: this.$store.state.listParamsData.price,
-            sort: this.$store.state.listParamsData.sort,
-            priceMin: this.$store.state.listParamsData.priceMin,
-            priceMax: this.$store.state.listParamsData.priceMax
+            type: route.type,
+            price: route.price,
+            sort: route.sort,
+            priceMin: route.priceMin,
+            priceMax: route.priceMax
           }
         })
       },
@@ -129,14 +116,13 @@
       },
       RefreshDom() {
         //请求获取数据
-        this.$store.dispatch('set_listParamsData', this.$route.query);
-        this.$store.dispatch('req_listData');
+        this.route = this.$route.query
         let route = this.$route.query
+        this.$store.dispatch('req_listData', route);
         for (let i in route) {
           if (String(route[i]).indexOf('price') > -1) {
             this.sort[3].call = route[i];
           }
-          console.log(this[i].length)
           for (let n = 0; n < this[i].length; n++) {
             if (this[i][n]['call'] == route[i]) {
               this[i][n]['select'] = true

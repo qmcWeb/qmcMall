@@ -19,75 +19,99 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 .icon-inviteFriends:before {
   content: "\e900";
 }
+
 .icon-wechat:before {
   content: "\e901";
 }
+
 .icon-exit:before {
   content: "\e902";
 }
+
 .icon-rightArrow:before {
   content: "\e903";
 }
+
 .icon-add:before {
   content: "\e904";
 }
+
 .icon-reduce:before {
   content: "\e905";
 }
+
 .icon-go-right:before {
   content: "\e906";
 }
+
 .icon-suo:before {
   content: "\e907";
 }
+
 .icon-message:before {
   content: "\e908";
 }
+
 .icon-phone:before {
   content: "\e909";
 }
+
 .icon-balloon:before {
   content: "\e90a";
 }
+
 .icon-sign:before {
   content: "\e90b";
 }
+
 .icon-invest:before {
   content: "\e90c";
 }
+
 .icon-invite-invest:before {
   content: "\e90d";
 }
+
 .icon-project:before {
   content: "\e90e";
 }
+
 .icon-measurement:before {
   content: "\e90f";
 }
+
 .icon-recharge:before {
   content: "\e910";
 }
+
 .icon-real-name:before {
   content: "\e911";
 }
+
 .icon-right:before {
   content: "\e912";
 }
+
 .icon-Arrow-left:before {
   content: "\e913";
 }
+
 .icon-Arrow-right:before {
   content: "\e914";
 }
+
 .icon-task:before {
   content: "\e915";
 }
+
 .icon-mall:before {
   content: "\e916";
 }
+
 .icon-question:before {
   content: "\e917";
 }
@@ -112,18 +136,23 @@
 .icon-rockets:before {
   content: "\e91f";
 }
+
 .icon-cup:before {
   content: "\e920";
 }
+
 .icon-Diamond-2:before {
   content: "\e921";
 }
+
 .icon-phone2:before {
   content: "\e942";
 }
+
 .icon-circle-right:before {
   content: "\ea42";
 }
+
 .icon-sina-weibo:before {
   content: "\ea9a";
 }

@@ -8,6 +8,7 @@ import VueResource from 'vue-resource';
 import Vuex from 'vuex';
 import './common/js/validate.js';
 import './common/js/LStorage.js';
+import {isEmptyObj} from './common/js/isEmptyObj';
 //在main.js中引入Store实例
 // 使用{}引入store实例，因为store是一个const变量
 
@@ -27,6 +28,26 @@ const router = new VueRouter({
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0);
 });
+// 全局导航钩子
+router.beforeEach((to, from, next) => {
+  // 判断该路由是否需要登录权限
+  if (to.meta.requireAuth) {
+    // 通过vuex state获取当前的token是否存在
+    // console.log(isEmptyObject(store.state.user))
+    if (!isEmptyObj(store.state.userInfo)) {
+      next();
+    }
+    else {
+      next({
+        path: '/login',
+        query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
+      })
+    }
+  }
+  else {
+    next();
+  }
+})
 
 // 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
 const app = new Vue({

@@ -18,9 +18,8 @@
         </li>
         <li class="goods">
           <router-link
-            :to="{path: '/goodList',query:{type: 'all',price: 'all',sort: 'default',priceMin: 0,priceMax: 100000}}">
+            :to="{path: '/goodsList',query:{type: 'all',price: 'all',sort: 'default',priceMin: 0,priceMax: 100000}}">
             全部商品
-
           </router-link>
           <i class="arrow"></i>
           <ul class="list-wrapper">
@@ -35,12 +34,12 @@
         </li>
       </ul>
       <div class="user">
-        <div class="logged" v-if="!loginShow">
+        <div class="logged" v-if="userInfo">
           <i class="arrow"></i>
           <img src="./Avatar.png" alt="" width="50" height="50" class="avatar">
           <div class="info">
-            <div class="name">王玲文先生</div>
-            <div class="count"><span>999999</span>仓豆</div>
+            <div class="name">{{userInfo.realname}}</div>
+            <div class="count"><span>{{userInfo.cd_money}}</span>仓豆</div>
           </div>
           <ul class="sidebar">
             <li>
@@ -62,7 +61,7 @@
             </li>
           </ul>
         </div>
-        <div class="login" v-if="loginShow">
+        <div class="login" v-else>
           <img src="./Avatar.png" alt="" width="50" height="50">
           <router-link :to="{ path: '/login' }" class="log">登录</router-link>
           <i class="seg"></i>
@@ -86,6 +85,9 @@
       }
     },
     mounted(){
+      //this.$store.dispatch('req_userInfo');
+      this.$store.dispatch('get_user_fromCk');
+
       /*页面挂载获取保存的cookie值，渲染到页面上*/
       let uname = getCookie('username')
       this.name = uname

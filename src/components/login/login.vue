@@ -4,24 +4,25 @@
       <div class="login-wrap">
         <div class="login-tab">
           <p class="left">登录钱满仓</p>
-          <p class="right" v-for="(item,index) in tabs" :class="{active:index == selected}"
+          <p class="right" v-for="(item,index) in tabs" v-if="index == selected"
              @click="show(index)">
             {{item}}
             <span class="icon-go-right"></span>
           </p>
         </div>
+        <!--error-->
+        <div class="login-tips">{{errorInfo}}</div>
         <!--验证码登录-->
-        <div class="login-form login-form1" v-show="pwdShow">
-          <div class="login-tips">{{hintCode}}</div>
+        <div class="login-form login-form1" v-if="codeShow">
           <div class="item item1">
             <label for="loginname-code" class="login-label icon-phone login-label1"></label>
-            <input type="text" id="loginname-code" placeholder="手机号码" :maxlength="11" v-model="phoneCode">
+            <input type="tel" id="loginname-code" placeholder="手机号码" :maxlength="11" v-model="phoneCode">
           </div>
           <div class="item item2">
             <label for="loginpwd" class="login-label icon-message login-label2"></label>
-            <input type="text" id="loginpwd" placeholder="短信验证码" :maxlength="6" v-model="codeMessage">
+            <input type="tel" id="loginpwd" placeholder="短信验证码" :maxlength="6" v-model="codeMessage">
             <span @click="showFigureCode" v-if="!countdownShow">获取</span>
-            <span v-if="countdownShow" class="huoQu">已发送…{{time}}s</span>
+            <span v-else class="huoQu">已发送…{{time}}s</span>
           </div>
           <div class="remember-me">
             <input class="login-check" type="checkbox" checked="checked">
@@ -29,6 +30,28 @@
           </div>
           <div class="immediately-login">
             <a href="javascript:;" @click="loginCode()">立即登录</a>
+          </div>
+          <div class="registration">
+            <a href="https://www.qianmancang.com/zhuce">没有账号？注册享投资好礼></a>
+          </div>
+        </div>
+        <!--密码登录-->
+        <div class="login-form login-form2" v-if="pwdShow">
+          <div class="item item1">
+            <label for="loginname-pwd" class="login-label icon-phone login-label1"></label>
+            <input type="tel" id="loginname-pwd" placeholder="手机号码" :maxlength="11" v-model="phonePwd">
+          </div>
+          <div class="item item2">
+            <label for="logincode" class="login-label icon-suo login-label2"></label>
+            <input type="password" id="logincode" placeholder="登录密码" :maxlength="12">
+          </div>
+          <div class="remember-me">
+            <input class="login-check" type="checkbox" checked="checked">
+            <span>记住手机号</span>
+            <a class="right" href="https://www.qianmancang.com/find_login-password">忘记密码？</a>
+          </div>
+          <div class="immediately-login">
+            <a href="javascript:;" @click="loginPwd">立即登录</a>
           </div>
           <div class="registration">
             <a href="https://www.qianmancang.com/zhuce">没有账号？注册享投资好礼></a>
@@ -54,29 +77,6 @@
             </div>
           </div>
         </div>
-        <!--密码登录-->
-        <div class="login-form login-form2" v-show="codeShow">
-          <div class="login-tips">{{hintPwd}}</div>
-          <div class="item item1">
-            <label for="loginname-pwd" class="login-label icon-phone login-label1"></label>
-            <input type="text" id="loginname-pwd" placeholder="手机号码" :maxlength="11">
-          </div>
-          <div class="item item2">
-            <label for="logincode" class="login-label icon-suo login-label2"></label>
-            <input type="password" id="logincode" placeholder="登录密码" :maxlength="12">
-          </div>
-          <div class="remember-me">
-            <input class="login-check" type="checkbox" checked="checked">
-            <span>记住手机号</span>
-            <a class="right" href="https://www.qianmancang.com/find_login-password">忘记密码？</a>
-          </div>
-          <div class="immediately-login">
-            <a href="javascript:;" @click="loginPwd">立即登录</a>
-          </div>
-          <div class="registration">
-            <a href="https://www.qianmancang.com/zhuce">没有账号？注册享投资好礼></a>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -84,15 +84,16 @@
 
 <script type="text/ecmascript-6">
   import {setCookie, getCookie} from '../../common/js/cookie.js';
+  const phoneReg = /^1[34578]\d{9}$/;
   export default {
     data() {
       return {
         selected: 0,
         tabs: ['密码登录', '验证码登录'],
-        hintCode: '',
+        errorInfo: '',
         hintPwd:'',
-        pwdShow: true,
-        codeShow: false,
+        pwdShow: false,
+        codeShow: true,
         figureCodeShow: false,
         countdownShow: false,
         time: 60,
@@ -113,16 +114,20 @@
       show(index){
         if (index == 0) {
           index = 1;
-          this.codeShow = true;
-          this.pwdShow = false;
+          this.codeShow = false;
+          this.pwdShow = true;
         } else {
           index = 0;
-          this.pwdShow = true;
-          this.codeShow = false;
+          this.pwdShow = false;
+          this.codeShow = true;
         }
         this.selected = index;
       },
       showFigureCode(){
+        if (!phoneReg.test(this.phoneCode)) {
+          this.errorInfo = '请输入正确格式的手机号码'
+          return
+        }
         this.figureCodeShow = !this.figureCodeShow;
       },
       picCodeSubmit() {

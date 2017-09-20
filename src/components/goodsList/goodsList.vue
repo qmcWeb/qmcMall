@@ -36,11 +36,7 @@
       'v-selector': selector,
       'v-paging': paging,
       'v-good': good
-    },
-    watch: {
-      // 如果路由有变化，会再次执行该方法
-    },
-    methods: {}
+    }
   }
 </script>
 

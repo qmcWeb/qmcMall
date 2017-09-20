@@ -17,7 +17,6 @@
 </template>
 
 <script>
-  import LStorage from '@/common/js/LStorage'
   export default{
     props: ['item'],
     methods: {
