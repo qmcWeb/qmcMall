@@ -20,10 +20,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 .icon-close:before {
-  content: "\e923";
+  content: "\e900";
 }
 .icon-inviteFriends:before {
-  content: "\e900";
+  content: "\e923";
 }
 .icon-wechat:before {
   content: "\e901";

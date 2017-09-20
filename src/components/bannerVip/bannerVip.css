@@ -71,6 +71,18 @@ img {
   border: 10px solid transparent;
   border-bottom: 10px solid #fff;
 }
+.bannerVip-wrapper .mask-wrap .mask-content .mask-login .sign-pop-up .sign-pop-close,
+.bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .sign-pop-up .sign-pop-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  cursor: pointer;
+}
+.bannerVip-wrapper .mask-wrap .mask-content .mask-login .sign-pop-up .sign-pop-close .icon-close,
+.bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .sign-pop-up .sign-pop-close .icon-close {
+  font-size: 14px;
+  color: #c0a15d;
+}
 .bannerVip-wrapper .mask-wrap .mask-content .mask-login .sign-pop-up .sign-pop-title,
 .bannerVip-wrapper .mask-wrap .mask-content .mask-noLogin .sign-pop-up .sign-pop-title {
   padding-top: 34px;
