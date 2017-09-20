@@ -6,14 +6,14 @@
       <table class="table2">
         <tr>
           <td class="bg">用户等级／权益</td>
-          <td class="bg">白手起家</td>
-          <td class="bg">略有积蓄</td>
-          <td class="bg">小康之家</td>
-          <td class="bg">腰缠万贯</td>
-          <td class="bg">锦衣玉食</td>
-          <td class="bg">金钱满仓</td>
-          <td class="bg">堆金如山</td>
-          <td class="bg">富甲天下</td>
+          <td class="bg">V1</td>
+          <td class="bg">V2</td>
+          <td class="bg">V3</td>
+          <td class="bg">V4</td>
+          <td class="bg">V5</td>
+          <td class="bg">V6</td>
+          <td class="bg">V7</td>
+          <td class="bg">V8</td>
         </tr>
         <tr>
           <td>仓豆加速</td>

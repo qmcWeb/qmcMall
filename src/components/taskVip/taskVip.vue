@@ -19,8 +19,8 @@
                 <i :class="task.iconClass"></i>
                 <h3 class="name">{{task.name}}</h3>
                 <p class="desc">{{task.desc}}</p>
-                <a href="#" v-if="task.complete" class="btn">已完成</a>
-                <a href="#" class="btn No-complete" v-else>去完成</a>
+                <a href="JavaScript:;" v-if="task.complete" class="btn">已完成</a>
+                <a href="javascript:;" class="btn No-complete" v-else>去完成</a>
               </li>
             </ul>
           </div>
@@ -39,6 +39,7 @@
             <div class="select-widget">
               <select name="" id="">
                 <option value="">最近一个月</option>
+                <option value="">最近三个月</option>
               </select>
             </div>
             <table class="table2">
@@ -132,7 +133,12 @@
             value: '+480',
             where: '投资成功',
             desc: '投资项目：典贷宝2017-023号；投资金额：20000元'
-          }, {time: '2017-04-09 17:11:05', value: '+480', where: '投资成功', desc: '投资项目：典贷宝2017-023号；投资金额：20000元'},
+          }, {
+            time: '2017-04-09 17:11:05',
+            value: '+480',
+            where: '投资成功',
+            desc: '投资项目：典贷宝2017-023号；投资金额：20000元'
+          },
         ],
         taskShow: true,
         logged: true

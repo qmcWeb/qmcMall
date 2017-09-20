@@ -19,6 +19,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.icon-close:before {
+  content: "\e923";
+}
 .icon-inviteFriends:before {
   content: "\e900";
 }
@@ -28,7 +31,7 @@
 .icon-exit:before {
   content: "\e902";
 }
-.icon-rightArrow:before {
+.icon-equityMore-right:before {
   content: "\e903";
 }
 .icon-add:before {
@@ -103,6 +106,9 @@
 .icon-Diamond-1:before {
   content: "\e91b";
 }
+.icon-equityMore-left:before {
+  content: "\e91c";
+}
 .icon-gift:before {
   content: "\e91d";
 }
@@ -118,6 +124,9 @@
 .icon-Diamond-2:before {
   content: "\e921";
 }
+.icon-rightArrow:before {
+  content: "\e922";
+}
 .icon-phone2:before {
   content: "\e942";
 }
@@ -126,10 +135,4 @@
 }
 .icon-sina-weibo:before {
   content: "\ea9a";
-}
-.icon-equityMore-right:before {
-  content: "\e903";
-}
-.icon-equityMore-left:before {
-  content: "\e91c";
 }

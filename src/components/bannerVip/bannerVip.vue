@@ -6,6 +6,24 @@
         <div class="mask-layer"></div>
         <!--1.已经登录-->
         <div class="mask-login" v-if="logged">
+          <!-- 签到浮层 -->
+          <div class="sign-pop-up shadow">
+            <div class="sign-pop-close">
+              <span class="icon-close"></span>
+            </div>
+            <div class="sign-pop-title">
+              <span class="icon-right"></span>
+              签到成功！成长值＋2
+            </div>
+            <div class="sign-app-2wm">
+              <img src="./qmc-wx-2wm.png" width="110" height="110" alt="app二维码">
+              <p>手机扫描下载钱满仓APP</p>
+            </div>
+            <div class="sign-pop-hint">
+              <span>温馨提示：</span>
+              钱满仓APP签到每日成长值+2，连续签到有惊喜哦~
+            </div>
+          </div>
           <div class="login-title">
             <span class="left userName">Hi,139****0000</span>
             <a class="right signIn" href="javascript:;">
@@ -78,17 +96,13 @@
       <div class="badge-content" v-if="!rightShow && logged">
         <div class="badge-list">
           <ul>
-            <li class="badge-item left" :class="badgeType" v-for="(badgeType,index) in badgeLight">
-              <div class="badgeCrown" v-if=" index === grade-1  "></div>
-              <div class="Badge">
-                <div class="badgeGrade">V{{index + 1}}</div>
-                <div class="badgeName">{{badge[index]}}</div>
-              </div>
+            <li class="badge-item left" :class="[badgeType,index==grade-1?'activeType':'']" v-for="(badgeType,index) in badgeLight">
+              <p class="badgeGrade">LV{{index+1}}</p>
             </li>
           </ul>
         </div>
         <div class="badge-hint">
-          <p class="hint">再积累500成长值即可  升级为“{{badge[grade]}}” </p>
+          <p class="hint">再积累500成长值即可  升级为“LV{{grade+1}}” </p>
           <p class="goUpData"><a href="https://www.qianmancang.com/loan-list">马上升级</a></p>
         </div>
       </div>
@@ -122,12 +136,8 @@
     data() {
       return {
         badgeType: false,
-        grade: 5,
+        grade: 3,
         hasCrown: false,
-        badge: [
-          '白手起家', '略有积蓄', '小康之家', '腰缠万贯',
-          '锦衣玉食', '金钱满仓', '堆金如山', '富甲天下'
-        ],
         logged: true,
         cards: [
           {
@@ -206,12 +216,13 @@
         while (result.length < LENGTH) {
           result.push(CLS_Gray);
         }
+        console.log(result,122333);
         return result;
       },
       rightShow() {
         if (this.logged) {
           if (this.$route.path.indexOf('right') > -1) {
-            return true
+            return true;
           }
         }
       },
