@@ -19,12 +19,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 .icon-close:before {
-  content: "\e923";
+  content: "\e900";
 }
 .icon-inviteFriends:before {
-  content: "\e900";
+  content: "\e923";
 }
 .icon-wechat:before {
   content: "\e901";
@@ -32,7 +31,6 @@
 .icon-exit:before {
   content: "\e902";
 }
-
 .icon-equityMore-right:before {
   content: "\e903";
 }
@@ -108,7 +106,6 @@
 .icon-Diamond-1:before {
   content: "\e91b";
 }
-
 .icon-equityMore-left:before {
   content: "\e91c";
 }
@@ -127,7 +124,6 @@
 .icon-Diamond-2:before {
   content: "\e921";
 }
-
 .icon-rightArrow:before {
   content: "\e922";
 }

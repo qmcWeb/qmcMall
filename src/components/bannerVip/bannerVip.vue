@@ -7,14 +7,13 @@
         <!--1.已经登录-->
         <div class="mask-login" v-if="logged">
           <!-- 签到浮层 -->
-          <div class="sign-pop-up shadow">
+          <div class="sign-pop-up shadow" v-show="signShow">
             <div class="sign-pop-close">
-              <span class="icon-close"></span>
+              <span class="icon-close" @click="signPopUpHide"></span>
             </div>
             <div class="sign-pop-title">
               <span class="icon-right"></span>
               签到成功！成长值＋2
-
             </div>
             <div class="sign-app-2wm">
               <img src="./qmc-wx-2wm.png" width="110" height="110" alt="app二维码">
@@ -23,14 +22,16 @@
             <div class="sign-pop-hint">
               <span>温馨提示：</span>
               钱满仓APP签到每日成长值+2，连续签到有惊喜哦~
-
             </div>
           </div>
           <div class="login-title">
             <span class="left userName">Hi,139****0000</span>
-            <a class="right signIn" href="javascript:;">
+            <p class="right signIn" @click="signPopUpShow" v-if="noSign">
               <span class="icon-sign"></span>签到赢福利
-            </a>
+            </p>
+            <p class="right signIn signOver" v-else>
+              <span class="icon-sign"></span>今日已签到
+            </p>
           </div>
           <div class="login-avatar">
             <img src="./W-Avatar.png" alt="女头像" width="86" height="86">
@@ -98,14 +99,13 @@
       <div class="badge-content" v-if="!rightShow && logged">
         <div class="badge-list">
           <ul>
-            <li class="badge-item left" :class="[badgeType,index==grade-1?'activeType':'']"
-                v-for="(badgeType,index) in badgeLight">
-              <p class="badgeGrade">LV{{index + 1}}</p>
+            <li class="badge-item left" :class="[badgeType,index==grade-1?'activeType':'']" v-for="(badgeType,index) in badgeLight">
+              <p class="badgeGrade">LV{{index+1}}</p>
             </li>
           </ul>
         </div>
         <div class="badge-hint">
-          <p class="hint">再积累500成长值即可  升级为“LV{{grade + 1}}” </p>
+          <p class="hint">再积累500成长值即可  升级为“LV{{grade+1}}” </p>
           <p class="goUpData"><a href="https://www.qianmancang.com/loan-list">马上升级</a></p>
         </div>
       </div>
@@ -165,19 +165,21 @@
           }
         ],
         equity: [
-          {iconClass: 'icon-rockets', equityName: '仓豆加速'},
-          {iconClass: 'icon-cake', equityName: '生日好礼'},
-          {iconClass: 'icon-cup', equityName: '升级礼包'},
-          {iconClass: 'icon-gift', equityName: '节日福利'},
-          {iconClass: 'icon-microphone', equityName: '高端沙龙'},
-          {iconClass: 'icon-discount', equityName: '费用折扣'},
-          {iconClass: 'icon-customer-service', equityName: '专属客服'},
-          {iconClass: 'icon-Diamond-2', equityName: '专享订制标'},
-          {iconClass: 'icon-balloon', equityName: '活动福利'}
+          {iconClass:'icon-rockets',equityName:'仓豆加速'},
+          {iconClass:'icon-cake',equityName:'生日好礼'},
+          {iconClass:'icon-cup',equityName:'升级礼包'},
+          {iconClass:'icon-gift',equityName:'节日福利'},
+          {iconClass:'icon-microphone',equityName:'高端沙龙'},
+          {iconClass:'icon-discount',equityName:'费用折扣'},
+          {iconClass:'icon-customer-service',equityName:'专属客服'},
+          {iconClass:'icon-Diamond-2',equityName:'专享订制标'},
+          {iconClass:'icon-balloon',equityName:'活动福利'}
         ],
-        marginLeft: '',
+        marginLeft:'',
         prevShow: false,
-        nextShow: true
+        nextShow: true,
+        signShow: false,
+        noSign: true
       }
     },
     methods: {
@@ -188,7 +190,7 @@
         } else {
           if (this.marginLeft == -260) {
             this.nextShow = false;
-          } else {
+          }else{
             this.nextShow = true;
           }
           this.prevShow = true;
@@ -196,18 +198,25 @@
         }
       },
       equityPrevMore(){
-        if (this.marginLeft == 0) {
+        if (this.marginLeft == 0){
           this.prevShow = true;
           this.marginLeft = 0;
         } else {
-          if (this.marginLeft == -65) {
+          if (this.marginLeft == -65){
             this.prevShow = false;
-          } else {
+          }else{
             this.prevShow = true;
           }
           this.nextShow = true;
           this.marginLeft = this.marginLeft + 65;
         }
+      },
+      signPopUpShow(){
+        this.signShow = true;
+      },
+      signPopUpHide(){
+        this.signShow = false;
+        this.noSign = false;
       }
     },
     computed: {
@@ -219,7 +228,7 @@
         while (result.length < LENGTH) {
           result.push(CLS_Gray);
         }
-        console.log(result, 122333);
+        console.log(result,122333);
         return result;
       },
       rightShow() {

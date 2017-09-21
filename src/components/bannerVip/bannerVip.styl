@@ -61,6 +61,14 @@ img
             top -20px
             border 10px solid transparent
             border-bottom 10px solid #fff
+          .sign-pop-close
+            position absolute
+            top 18px
+            right 18px
+            cursor pointer
+            .icon-close
+              font-size 14px
+              color #c0a15d
           .sign-pop-title
             padding-top 34px
             font-size 18px
@@ -96,8 +104,11 @@ img
           .signIn
             font-size 12px
             color #be9f59
+            cursor pointer
             span
               margin-right 5px
+          .signOver
+            color #6d6d6d
         .login-avatar
           margin-top 40px
           width 100%
@@ -129,7 +140,7 @@ img
               top -8px
               cursor pointer
               font-size 14px
-              &:hover + .bean-hint
+              &:hover+.bean-hint
                 display block
             .bean-hint
               position absolute
@@ -208,7 +219,7 @@ img
                       padding-top 12px
                       font-size 12px
                       color #808080
-            .equityMore-right, .equityMore-left
+            .equityMore-right,.equityMore-left
               position absolute
               top 20px
               span
