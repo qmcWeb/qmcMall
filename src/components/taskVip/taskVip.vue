@@ -99,6 +99,7 @@
             title: '互动任务',
             list: [
               {iconClass: 'icon-sign', name: 'PC端签到', desc: '成长值：＋1', complete: false},
+              {iconClass: 'icon-sign', name: 'App端签到', desc: '成长值：＋2', complete: false}
             ]
           }
         ],
