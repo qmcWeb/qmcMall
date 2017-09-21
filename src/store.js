@@ -12,7 +12,10 @@ export default {
     goodTypeData: '',
     listParamsData: '',
     loginShow: true,
-    error: ''
+    error: '',
+    vipInfo: '',
+    rightCards: '',
+    success: false
   },
   actions: {
     //请求商品种类
@@ -30,9 +33,13 @@ export default {
     },
     //从cookie获取用户信息
     get_user_fromCk: function ({commit}) {
-      var userInfo = JSON.parse(getCookie('user_info'))
+      var userInfo;
+      if (getCookie('user_info')) {
+        userInfo = JSON.parse(getCookie('user_info'))
+      } else {
+        userInfo = ''
+      }
       commit('SET_userInfo_data', {data: userInfo});
-      console.log(userInfo)
     },
     //请求首页列表数据
     req_indexData: function ({commit}) {
@@ -73,8 +80,33 @@ export default {
     //设置更新购买错误信息
     set_error: function ({commit}, errorObj) {
       commit('change_error', {data: errorObj});
-    }
+    },
     /*会员中心*/
+    //获取会员信息
+    get_vipInfo: function ({commit}, userID) {
+      return new Promise(function (resolve, reject) {
+        Vue.http.get('/cjx/Associator_center/getAssociator_centerInfo.do', {params: userID}).then(response => {
+          resolve(response.body.list)
+          commit('set_success', {data: true});
+          commit('set_vipInfo', {data: response.body});
+        }, response => {
+          reject(response.status)
+          console.log(response.status)
+        })
+      })
+
+    },
+    //获取会员权益
+    get_Right: function ({commit}, userID) {
+      return new Promise(function (resolve, reject) {
+        Vue.http.get('/cjx/Privilege_type/getPrivilegeInfo_Message.do', {params: userID}).then(response => {
+          resolve(response.body.list)
+          commit('set_right', {data: response.body.list});
+        }, response => {
+          reject(response.status)
+        })
+      })
+    }
   },
   getters: {
     new_index_data: state => {
@@ -127,7 +159,16 @@ export default {
     },
     change_error: (state, {data}) => {
       state.error = data
-    }
+    },
+    set_vipInfo: (state, {data}) => {
+      state.vipInfo = data
+    },
+    set_right: (state, {data}) => {
+      state.rightCards = data
+    },
+    set_success: (state, {data}) => {
+      state.success = data
+    },
   }
 }
 

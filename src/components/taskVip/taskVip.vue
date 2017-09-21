@@ -34,12 +34,11 @@
           <div class="logged" v-else>
             <div class="growth-value">
               您目前的成长值为<span class="gold">10300</span>，您的会员等级为：
-              <sapn class="gold">腰缠万贯</sapn>
+              <span class="gold">腰缠万贯</span>
             </div>
             <div class="select-widget">
-              <select name="" id="">
-                <option value="">最近一个月</option>
-                <option value="">最近三个月</option>
+              <select name="" id="" @change="changeQuery(selected)" v-model="selected">
+                <option :value="item.value" v-for="item in options" :name="item.value"> {{item.text}}</option>
               </select>
             </div>
             <table class="table2">
@@ -141,9 +140,30 @@
           },
         ],
         taskShow: true,
-        logged: true
+        logged: true,
+        selected: 1,
+        options: [
+          {text: '最近一个月', value: 1},
+          {text: '最近三个月', value: 3},
+          {text: '最近一年', value: 12}
+        ],
+
       }
 
+    },
+    methods: {
+      changeQuery: function (value) {
+        this.$http.get('/cjx/Associator_center/getGrowthValueList.do', {
+          params: {
+            user_id: 'admin',
+            flag: value
+          }
+        }).then(response => {
+          console.log(response.body)
+        }, response => {
+          console.log(response.status)
+        })
+      }
     }
   }
 </script>

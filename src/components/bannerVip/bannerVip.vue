@@ -1,11 +1,30 @@
 <template>
   <div class="bannerVip-wrapper">
-    <!--悬浮浮层-->
-    <div class="mask-wrap">
-      <div class="mask-content right" v-if="!rightShow">
-        <div class="mask-layer"></div>
-        <!--1.已经登录-->
-        <div class="mask-login" v-if="logged">
+    <div v-if="success">
+      <!--没有登录-->
+      <div class="mask-wrap" v-if="!vipInfo">
+        <img src="./bannerVip-noLogin.png" alt="" width="637" height="118" style="margin: 93px 0 0 81px;"
+             class="noLoginIMG">
+        <div class="mask-content right">
+          <div class="mask-layer"></div>
+          <!--2.没有登录-->
+          <div class="mask-noLogin">
+            <div class="login-title">Hi,欢迎来到钱满仓会员中心！</div>
+            <div class="login-avatar">
+              <img src="./noLogin-Avatar.png" alt="未登录" width="86" height="86">
+            </div>
+            <div class="Login-prompt">
+              <p class="promptText">登录查看我的等级</p>
+              <p class="promptBtn">
+                <router-link :to="{ path: '/login',query:{where:'Vip'}}">立即登录</router-link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--已经登录普通-->
+      <div class="mask-wrap" v-if="vipInfo && !rightShow">
+        <div class="mask-login">
           <!-- 签到浮层 -->
           <div class="sign-pop-up shadow" v-show="signShow">
             <div class="sign-pop-close">
@@ -14,6 +33,8 @@
             <div class="sign-pop-title">
               <span class="icon-right"></span>
               签到成功！成长值＋2
+
+
             </div>
             <div class="sign-app-2wm">
               <img src="./qmc-wx-2wm.png" width="110" height="110" alt="app二维码">
@@ -22,6 +43,8 @@
             <div class="sign-pop-hint">
               <span>温馨提示：</span>
               钱满仓APP签到每日成长值+2，连续签到有惊喜哦~
+
+
             </div>
           </div>
           <div class="login-title">
@@ -79,59 +102,48 @@
             </div>
           </div>
         </div>
-        <!--2.没有登录-->
-        <div class="mask-noLogin" v-if="!logged">
-          <div class="login-title">Hi,欢迎来到钱满仓会员中心！</div>
-          <div class="login-avatar">
-            <img src="./noLogin-Avatar.png" alt="未登录" width="86" height="86">
+        <div class="badge-content">
+          <div class="badge-list">
+            <ul>
+              <li class="badge-item left" :class="[badgeType,index==grade-1?'activeType':'']"
+                  v-for="(badgeType,index) in badgeLight">
+                <p class="badgeGrade">LV{{index + 1}}</p>
+              </li>
+            </ul>
           </div>
-          <div class="Login-prompt">
-            <p class="promptText">登录查看我的等级</p>
-            <p class="promptBtn">
-              <router-link :to="{ path: '/login',query:{where:'Vip'}}">立即登录</router-link>
-            </p>
+          <div class="badge-hint">
+            <p class="hint">再积累500成长值即可  升级为“LV{{grade + 1}}” </p>
+            <p class="goUpData"><a href="https://www.qianmancang.com/loan-list">马上升级</a></p>
           </div>
         </div>
       </div>
-    </div>
-    <!--徽章-->
-    <div class="user-badge">
-      <div class="badge-content" v-if="!rightShow && logged">
-        <div class="badge-list">
-          <ul>
-            <li class="badge-item left" :class="[badgeType,index==grade-1?'activeType':'']" v-for="(badgeType,index) in badgeLight">
-              <p class="badgeGrade">LV{{index+1}}</p>
-            </li>
-          </ul>
-        </div>
-        <div class="badge-hint">
-          <p class="hint">再积累500成长值即可  升级为“LV{{grade+1}}” </p>
-          <p class="goUpData"><a href="https://www.qianmancang.com/loan-list">马上升级</a></p>
-        </div>
-      </div>
-      <img src="./bannerVip-noLogin.png" alt="" width="637" height="118" v-if="!logged" class="noLoginIMG">
-      <div class="card-wrap" v-if="rightShow">
-        <div class="swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="item in cards">
-              <i :class="item.iconClass"></i>
-              <h3 class="name">{{item.name}}</h3>
-              <p class="rightText">{{item.right}}</p>
-              <p class="desc">{{item.desc}}</p>
+      <!--已经登录权益-->
+      <div class="mask-wrap" v-if="vipInfo && rightShow">
+        <div class="card-wrap">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" v-for="item in cards">
+                <i class="icon-cake"></i>
+                <h3 class="name">{{item.iconClass}}</h3>
+                <p class="rightText">11213</p>
+                <p class="desc">{{item.desc}}</p>
+              </div>
             </div>
           </div>
+          <!-- Add Arrows -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
         </div>
-        <!-- Add Arrows -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import Swiper from 'swiper';
   import 'swiper/dist/css/swiper.min.css';
+  import {mapState} from 'vuex'
   const LENGTH = 8;
   const CLS_Gray = 'badgeTypeGray';
   const CLS_Light = 'badgeTypeLight';
@@ -141,7 +153,6 @@
         badgeType: false,
         grade: 3,
         hasCrown: false,
-        logged: true,
         cards: [
           {
             iconClass: 'icon-cake', name: '生日加息', right: '1%加息券', desc: '生日当天发放，有效期N天' +
@@ -165,17 +176,17 @@
           }
         ],
         equity: [
-          {iconClass:'icon-rockets',equityName:'仓豆加速'},
-          {iconClass:'icon-cake',equityName:'生日好礼'},
-          {iconClass:'icon-cup',equityName:'升级礼包'},
-          {iconClass:'icon-gift',equityName:'节日福利'},
-          {iconClass:'icon-microphone',equityName:'高端沙龙'},
-          {iconClass:'icon-discount',equityName:'费用折扣'},
-          {iconClass:'icon-customer-service',equityName:'专属客服'},
-          {iconClass:'icon-Diamond-2',equityName:'专享订制标'},
-          {iconClass:'icon-balloon',equityName:'活动福利'}
+          {iconClass: 'icon-rockets', equityName: '仓豆加速'},
+          {iconClass: 'icon-cake', equityName: '生日好礼'},
+          {iconClass: 'icon-cup', equityName: '升级礼包'},
+          {iconClass: 'icon-gift', equityName: '节日福利'},
+          {iconClass: 'icon-microphone', equityName: '高端沙龙'},
+          {iconClass: 'icon-discount', equityName: '费用折扣'},
+          {iconClass: 'icon-customer-service', equityName: '专属客服'},
+          {iconClass: 'icon-Diamond-2', equityName: '专享订制标'},
+          {iconClass: 'icon-balloon', equityName: '活动福利'}
         ],
-        marginLeft:'',
+        marginLeft: '',
         prevShow: false,
         nextShow: true,
         signShow: false,
@@ -190,7 +201,7 @@
         } else {
           if (this.marginLeft == -260) {
             this.nextShow = false;
-          }else{
+          } else {
             this.nextShow = true;
           }
           this.prevShow = true;
@@ -198,13 +209,13 @@
         }
       },
       equityPrevMore(){
-        if (this.marginLeft == 0){
+        if (this.marginLeft == 0) {
           this.prevShow = true;
           this.marginLeft = 0;
         } else {
-          if (this.marginLeft == -65){
+          if (this.marginLeft == -65) {
             this.prevShow = false;
-          }else{
+          } else {
             this.prevShow = true;
           }
           this.nextShow = true;
@@ -228,26 +239,44 @@
         while (result.length < LENGTH) {
           result.push(CLS_Gray);
         }
-        console.log(result,122333);
         return result;
       },
       rightShow() {
-        if (this.logged) {
-          if (this.$route.path.indexOf('right') > -1) {
-            return true;
-          }
+        if (this.$route.path.indexOf('right') > -1) {
+          return true;
+        } else {
+          return false
         }
       },
+      ...mapState([
+        'vipInfo', 'rightCards', 'success'
+      ])
     },
     mounted() {
-      //console.log('mounted', this);
-      var swiper = new Swiper('.swiper-container', {
-        paginationClickable: true,
-        spaceBetween: 10,
-        slidesPerView: 4,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-      });
+      this.$store.dispatch('get_vipInfo', {user_id: 'admin'}).then(function (right) {
+        new Swiper('.swiper-container', {
+          paginationClickable: true,
+          spaceBetween: 10,
+          slidesPerView: 4,
+          nextButton: '.swiper-button-next',
+          prevButton: '.swiper-button-prev',
+
+        })
+      })
+
+    },
+    created(){
+      this.$store.dispatch('get_vipInfo', {user_id: 'admin'}).then(function (right) {
+        new Swiper('.swiper-container', {
+          paginationClickable: true,
+          spaceBetween: 10,
+          slidesPerView: 4,
+          nextButton: '.swiper-button-next',
+          prevButton: '.swiper-button-prev',
+
+        })
+      })
+      this.$store.dispatch('get_Right', {user_id: 'admin'})
     }
   }
 </script>

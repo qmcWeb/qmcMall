@@ -89,8 +89,8 @@
       this.$store.dispatch('get_user_fromCk');
 
       /*页面挂载获取保存的cookie值，渲染到页面上*/
-      let uname = getCookie('username')
-      this.name = uname
+      // let uname = getCookie('username')
+      // this.name = uname
       /*如果cookie不存在，则跳转到登录页*/
 //      if (uname == "") {
 //        this.$router.push('/')

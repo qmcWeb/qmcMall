@@ -26,18 +26,7 @@ img
     width 1200px
     height 0
     margin auto
-    .mask-content
-      position relative
-      margin-top 19px
-      width 280px
-      height 342px
-      border-radius 10px
-      .mask-layer
-        width 280px
-        height 342px
-        background rgba(255,255,255,.9)
-        border-radius 10px
-      .mask-login, .mask-noLogin
+    .mask-login, .mask-noLogin
         position absolute
         top 0
         left 0
@@ -140,7 +129,7 @@ img
               top -8px
               cursor pointer
               font-size 14px
-              &:hover+.bean-hint
+              &:hover + .bean-hint
                 display block
             .bean-hint
               position absolute
@@ -219,7 +208,7 @@ img
                       padding-top 12px
                       font-size 12px
                       color #808080
-            .equityMore-right,.equityMore-left
+            .equityMore-right, .equityMore-left
               position absolute
               top 20px
               span
@@ -229,6 +218,18 @@ img
               right -8px
             .equityMore-left
               left -8px
+    .mask-content
+      position relative
+      margin-top 19px
+      width 280px
+      height 342px
+      border-radius 10px
+      .mask-layer
+        width 280px
+        height 342px
+        background rgba(255, 255, 255, .9)
+        border-radius 10px
+
       .mask-noLogin
         padding 19px 17px
         .login-title
@@ -260,7 +261,46 @@ img
               &:hover
                 background rgba(255, 255, 255, .2)
 
-  .user-badge
+    .card-wrap
+      width: 1000px;
+      margin: auto
+      padding-top: 34px;
+      position relative
+      .swiper-button-next
+        background url("./arrow-right.png")
+        width 30px
+        height 42px
+        right: -60px;
+        top: 56%;
+      .swiper-button-prev
+        background url("./arrow-left.png")
+        width 30px
+        height 42px
+        left: -60px;
+        top: 56%;
+      .swiper-container
+        .swiper-slide
+          background: #f3f3f5
+          border-radius: 5px;
+          width: 244px;
+          height: 322px;
+          text-align: center
+          padding: 74px 25px;
+          i
+            color: #c0a15d
+            font-size: 32px;
+          .name
+            color: #333333
+            margin-top: 34px;
+          .rightText
+            color: #808080
+            margin-top: 14px;
+          .desc
+            color: #808080
+            margin-top: 64px;
+            line-height: 1.4
+
+.user-badge
     width 1200px
     height 380px
     margin auto
@@ -312,43 +352,5 @@ img
           a
             color #f96230
 
-    .card-wrap
-      width: 1000px;
-      margin: auto
-      padding-top: 34px;
-      position relative
-      .swiper-button-next
-        background url("./arrow-right.png")
-        width 30px
-        height 42px
-        right: -60px;
-        top: 56%;
-      .swiper-button-prev
-        background url("./arrow-left.png")
-        width 30px
-        height 42px
-        left: -60px;
-        top: 56%;
-      .swiper-container
-        .swiper-slide
-          background: #f3f3f5
-          border-radius: 5px;
-          width: 244px;
-          height: 322px;
-          text-align: center
-          padding: 74px 25px;
-          i
-            color: #c0a15d
-            font-size: 32px;
-          .name
-            color: #333333
-            margin-top: 34px;
-          .rightText
-            color: #808080
-            margin-top: 14px;
-          .desc
-            color: #808080
-            margin-top: 64px;
-            line-height: 1.4
 
 
