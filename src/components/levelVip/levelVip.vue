@@ -9,14 +9,14 @@
       <table align="center" valign="middle">
         <tr>
           <td>等级</td>
-          <td>V1</td>
-          <td>V2</td>
-          <td>V3</td>
-          <td>V4</td>
-          <td>V5</td>
-          <td>V6</td>
-          <td>V7</td>
-          <td>V8</td>
+          <td>LV1</td>
+          <td>LV2</td>
+          <td>LV3</td>
+          <td>LV4</td>
+          <td>LV5</td>
+          <td>LV6</td>
+          <td>LV7</td>
+          <td>LV8</td>
         </tr>
         <tr>
           <td>成长值</td>
@@ -73,9 +73,13 @@
           <td>投资金额＊投资时间＊0.1%</td>
         </tr>
         <tr>
-          <td>互动任务</td>
+          <td rowspan="2">互动任务</td>
           <td>pc端签到</td>
           <td>1</td>
+        </tr>
+        <tr>
+          <td>App端签到</td>
+          <td>2</td>
         </tr>
       </table>
     </div>
