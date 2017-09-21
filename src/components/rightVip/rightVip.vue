@@ -6,14 +6,14 @@
       <table class="table2">
         <tr>
           <td class="bg">用户等级／权益</td>
-          <td class="bg">V1</td>
-          <td class="bg">V2</td>
-          <td class="bg">V3</td>
-          <td class="bg">V4</td>
-          <td class="bg">V5</td>
-          <td class="bg">V6</td>
-          <td class="bg">V7</td>
-          <td class="bg">V8</td>
+          <td class="bg">LV1</td>
+          <td class="bg">LV2</td>
+          <td class="bg">LV3</td>
+          <td class="bg">LV4</td>
+          <td class="bg">LV5</td>
+          <td class="bg">LV6</td>
+          <td class="bg">LV7</td>
+          <td class="bg">LV8</td>
         </tr>
         <tr>
           <td>仓豆加速</td>
@@ -166,7 +166,7 @@
               专属客服
             </h5>
             <p class="disc">
-              “金钱满仓”及以上等级用户，均拥有一名专属客服，用户拨打客服热线，可获得高端专属服务，问题专人跟进！            </p>
+              “LV7”及以上等级用户，均拥有一名专属客服，用户拨打客服热线，可获得高端专属服务，问题专人跟进！            </p>
           </div>
         </li>
         <li>
@@ -174,15 +174,16 @@
             <h5>
               <span class="icon-microphone"></span>
               高端沙龙
-</h5>
+            </h5>
             <p class="disc">
-              “锦衣玉食”及以上级别用户，可不定期享受高端主题沙龙等福利，具体服务以实际活动邀约为准。
+              “Lv5”及以上级别用户，可不定期享受高端主题沙龙等福利，具体服务以实际活动邀约为准。
             </p>
           </div>
           <div>
             <h5>
               <span class="icon-Diamond-1"></span>
-              专属订制标            </h5>
+              专属订制标
+            </h5>
             <p class="disc">
               专属定制项目是针对高等级会员推出的专享特权，会在活动期间不定时发出，购买专属定制项目，让您的收益快人一步！</p>
           </div>
@@ -193,7 +194,8 @@
               <span class="icon-discount"></span>
               费率折扣</h5>
             <p class="disc">
-              “腰缠万贯”及以上等级用户债权转让时，可享受不同的费用折扣！            </p>
+              “LV5”及以上等级用户债权转让时，可享受不同的费用折扣！
+            </p>
           </div>
           <div>
             <p class="more">
