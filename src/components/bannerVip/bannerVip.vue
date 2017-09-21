@@ -1,10 +1,12 @@
 <template>
   <div class="bannerVip-wrapper">
-    <div v-if="success">
+    <div>
       <!--没有登录-->
       <div class="mask-wrap" v-if="!vipInfo">
-        <img src="./bannerVip-noLogin.png" alt="" width="637" height="118" style="margin: 93px 0 0 81px;"
-             class="noLoginIMG">
+        <div class="bannerVip-left left">
+          <img src="./bannerVip-noLogin.png" alt="" width="637" height="118" style="margin: 93px 0 0 81px;"
+               class="noLoginIMG">
+        </div>
         <div class="mask-content right">
           <div class="mask-layer"></div>
           <!--2.没有登录-->
@@ -24,7 +26,25 @@
       </div>
       <!--已经登录普通-->
       <div class="mask-wrap" v-if="vipInfo && !rightShow">
-        <div class="mask-login">
+        <div class="bannerVip-left left">
+          <div class="badge-content">
+            <div class="badge-list">
+              <ul>
+                <li class="badge-item left" :class="[badgeType,index==grade-1?'activeType':'']"
+                    v-for="(badgeType,index) in badgeLight">
+                  <p class="badgeGrade">LV{{index + 1}}</p>
+                </li>
+              </ul>
+            </div>
+            <div class="badge-hint">
+              <p class="hint">再积累500成长值即可  升级为“LV{{grade + 1}}” </p>
+              <p class="goUpData"><a href="https://www.qianmancang.com/loan-list">马上升级</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="mask-content right">
+          <div class="mask-layer"></div>
+          <div class="mask-login">
           <!-- 签到浮层 -->
           <div class="sign-pop-up shadow" v-show="signShow">
             <div class="sign-pop-close">
@@ -102,19 +122,6 @@
             </div>
           </div>
         </div>
-        <div class="badge-content">
-          <div class="badge-list">
-            <ul>
-              <li class="badge-item left" :class="[badgeType,index==grade-1?'activeType':'']"
-                  v-for="(badgeType,index) in badgeLight">
-                <p class="badgeGrade">LV{{index + 1}}</p>
-              </li>
-            </ul>
-          </div>
-          <div class="badge-hint">
-            <p class="hint">再积累500成长值即可  升级为“LV{{grade + 1}}” </p>
-            <p class="goUpData"><a href="https://www.qianmancang.com/loan-list">马上升级</a></p>
-          </div>
         </div>
       </div>
       <!--已经登录权益-->
@@ -136,7 +143,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
