@@ -1,6 +1,6 @@
 <template>
   <div class="bannerVip-wrapper">
-    <div>
+    <div v-if="success">
       <!--没有登录-->
       <div class="mask-wrap" v-if="!vipInfo">
         <div class="bannerVip-left left">
