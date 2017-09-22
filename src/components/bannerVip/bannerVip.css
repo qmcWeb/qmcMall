@@ -370,62 +370,62 @@ img {
   margin-top: 90px;
   margin-left: 111px;
 }
-.bannerVip-wrapper .mask-wrap .noLoginIMG .badge-content {
+.bannerVip-wrapper .mask-wrap .badge-content {
   width: 920px;
   height: 100%;
   padding-top: 110px;
 }
-.bannerVip-wrapper .mask-wrap .noLoginIMG .badge-content .badge-list {
+.bannerVip-wrapper .mask-wrap .badge-content .badge-list {
   width: 770px;
   height: 122px;
   margin: auto;
 }
-.bannerVip-wrapper .mask-wrap .noLoginIMG .badge-content .badge-list ul {
+.bannerVip-wrapper .mask-wrap .badge-content .badge-list ul {
   width: 770px;
   height: 122px;
 }
-.bannerVip-wrapper .mask-wrap .noLoginIMG .badge-content .badge-list ul li {
+.bannerVip-wrapper .mask-wrap .badge-content .badge-list ul li {
   position: relative;
   width: 92px;
   height: 122px;
 }
-.bannerVip-wrapper .mask-wrap .noLoginIMG .badge-content .badge-list ul li .badgeGrade {
+.bannerVip-wrapper .mask-wrap .badge-content .badge-list ul li .badgeGrade {
   text-align: center;
   padding-top: 68px;
   font-size: 14px;
   font-weight: bold;
 }
-.bannerVip-wrapper .mask-wrap .noLoginIMG .badge-content .badge-list ul .badgeTypeGray {
+.bannerVip-wrapper .mask-wrap .badge-content .badge-list ul .badgeTypeGray {
   background: url("./badge-gray-member.png") center center no-repeat;
 }
-.bannerVip-wrapper .mask-wrap .noLoginIMG .badge-content .badge-list ul .badgeTypeGray .badgeGrade {
+.bannerVip-wrapper .mask-wrap .badge-content .badge-list ul .badgeTypeGray .badgeGrade {
   color: #3c3c3c;
 }
-.bannerVip-wrapper .mask-wrap .noLoginIMG .badge-content .badge-list ul .badgeTypeLight {
+.bannerVip-wrapper .mask-wrap .badge-content .badge-list ul .badgeTypeLight {
   background: url("./badge-light-member.png") center center no-repeat;
 }
-.bannerVip-wrapper .mask-wrap .noLoginIMG .badge-content .badge-list ul .badgeTypeLight .badgeGrade {
+.bannerVip-wrapper .mask-wrap .badge-content .badge-list ul .badgeTypeLight .badgeGrade {
   color: #5d2d1e;
 }
-.bannerVip-wrapper .mask-wrap .noLoginIMG .badge-content .badge-list ul .activeType {
+.bannerVip-wrapper .mask-wrap .badge-content .badge-list ul .activeType {
   width: 126px;
   height: 122px;
   background: url("./present-light.png") center no-repeat;
 }
-.bannerVip-wrapper .mask-wrap .noLoginIMG .badge-content .badge-list ul .activeType .badgeGrade {
+.bannerVip-wrapper .mask-wrap .badge-content .badge-list ul .activeType .badgeGrade {
   font-size: 20px;
 }
-.bannerVip-wrapper .mask-wrap .noLoginIMG .badge-content .badge-hint {
+.bannerVip-wrapper .mask-wrap .badge-content .badge-hint {
   width: 100%;
   padding-top: 27px;
   font-size: 14px;
   text-align: center;
   color: #fff;
 }
-.bannerVip-wrapper .mask-wrap .noLoginIMG .badge-content .badge-hint .goUpData {
+.bannerVip-wrapper .mask-wrap .badge-content .badge-hint .goUpData {
   padding-top: 8px;
 }
-.bannerVip-wrapper .mask-wrap .noLoginIMG .badge-content .badge-hint .goUpData a {
+.bannerVip-wrapper .mask-wrap .badge-content .badge-hint .goUpData a {
   color: #f96230;
 }
 .bannerVip-wrapper .mask-wrap .card-wrap {
