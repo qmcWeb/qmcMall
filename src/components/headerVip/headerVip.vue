@@ -29,7 +29,6 @@
   import LStorage from   '@/common/js/LStorage.js';
   import {setCookie, getCookie} from '../../common/js/cookie.js';
   import {mapActions} from 'vuex'
-  import {mapState} from 'vuex'
   export default{
     data(){
       return {
@@ -47,6 +46,11 @@
     },
     created() {
       this.changePath();
+      this.$store.dispatch('get_user_fromCk');
+      if (this.userInfo) {
+        console.log(1111)
+        this.$store.dispatch('get_userInfo_dynamic', {user_id: this.userInfo.user_id})
+      }
     },
     methods: {
       mEnter(index) {
@@ -69,7 +73,8 @@
         }
 
       }
-    }
+    },
+
 
   }
 </script>

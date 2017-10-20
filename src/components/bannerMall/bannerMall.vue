@@ -1,11 +1,12 @@
 <template>
-  <div class="swiper-container">
-  <div class="swiper-wrapper">
-    <div class="swiper-slide" v-for="str in listImg" :style="{ backgroundImage: 'url(' + str.url + ')' }">
-    </div>
+  <div class="banner-wrap">
+    <swiper :options="swiperOption" :not-next-tick="notNextTick" ref="mySwiper">
+      <!-- slides -->
+      <swiper-slide v-for="str in listImg" :style="{ backgroundImage: 'url(' + str.picUrl + ')' }"
+                    :key="str.id"></swiper-slide>
+      <div class="swiper-pagination" slot="pagination"></div>
+    </swiper>
   </div>
-  <div class="swiper-pagination swiper-pagination-white"></div>
-</div>
 </template>
 
 <script>
@@ -14,34 +15,20 @@
   export default {
     data () {
       return {
-        listImg: [
-          {
-            'url': '../../../static/img/banner1.png'
-          },
-          {
-            'url': '../../../static/img/banner2.jpg'
-          }, {
-            'url': '../../../static/img/banner3.jpg'
-          }, {
-            'url': '../../../static/img/banner4.jpg'
-          },
-          {
-            'url': '../../../static/img/banner5.jpg'
-          }
-        ]
+        listImg: [],
+        notNextTick: true,
+        swiperOption: {
+          pagination: '.swiper-pagination',
+          paginationClickable: true,
+          nextButton: '.swiper-button-next',
+          prevButton: '.swiper-button-prev',
+        }
       }
     },
-    mounted() {
-      //console.log('mounted', this);
-      var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        loop: true,
-        speed: 600,
-        autoplay: 4000,
-        onTouchEnd: function() {
-          swiper.startAutoplay()
-        }
+    created(){
+      this.$http.get('/cjx/banner/bannerList.do', {params: {product_id: this.$route.query.product_id}}).then(response => {
+        this.listImg = response.body;
+        console.log(response.body)
       });
     }
   }

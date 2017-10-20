@@ -7,6 +7,7 @@
   background: #fff
   margin: 44px auto 40px
   .address-wrap
+    margin-bottom: 40px;
     .title
       line-height: 26px
       font-size: 20px;
@@ -25,6 +26,8 @@
         border-radius: 5px;
         color: #92979B;
         padding: 21px;
+        &.default
+          border-color: #FB6C45
         .modify
           color: #92979B;
           position: absolute;
@@ -54,18 +57,18 @@
           border-color: #FB6C45
         &:nth-child(3n)
           margin-right 0
-        .userName
+        .userCName
           font-size: 16px;
           color: #264C65;
           line-height: 21px;
           padding-bottom 14px
           border-bottom: 1px solid #E4E4E4
-        .userPhone
+        .userCPhone
           font-size: 14px;
           color: #92979B;
           line-height 19px;
           margin: 12px 0 4px
-        .userSite
+        .userCSite
           font-size: 14px;
           color: #92979B;
           line-height 19px;
@@ -164,9 +167,7 @@
             border: 1px solid #E4E4E4;
             color #969B9F
             float right
-
   .orderInfo-wrap
-    margin-top: 40px;
     .title
       line-height: 26px
       font-size: 20px;

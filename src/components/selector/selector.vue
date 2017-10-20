@@ -45,9 +45,9 @@
         type: [{con: "全部", select: true, call: 'all'},
           {con: "热兑商品", select: false, call: 1},
           {con: "健康美食", select: false, call: 2},
-          {con: "时尚美妆", select: false, call: 3},
-          {con: "优惠卡券", select: false, call: 4},
-          {con: "家电数码", select: false, call: 5}],
+          {con: "优惠卡券", select: false, call: 3},
+          {con: "家电数码", select: false, call: 4},
+          {con: "日常护理", select: false, call: 5}],
         price: [
           {con: '全部', select: true, call: 'all'},
           {con: '我可兑换', select: false, call: 'convertible'}
@@ -60,7 +60,9 @@
         ],
         priceMin: [],
         priceMax: [],
-        route: ''
+        route: '',
+        pageNo: [],
+        pageSize: []
       }
 
     },

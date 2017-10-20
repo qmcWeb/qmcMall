@@ -21,7 +21,7 @@
           <div class="item item2">
             <label for="loginpwd" class="login-label icon-message login-label2"></label>
             <input type="text" id="loginpwd" placeholder="短信验证码" :maxlength="6" v-model="codeMessage" @focus="clear">
-            <span @click="showFigureCode" v-if="!countdownShow">获取</span>
+            <span @click="getImgCode" v-if="!countdownShow">获取</span>
             <span v-if="countdownShow" class="huoQu">已发送…{{time}}s</span>
           </div>
           <div class="remember-me">
@@ -40,7 +40,7 @@
           <div class="figure-code-wrap">
             <div class="figure-code-title">
               <span>请先验证</span>
-              <p class="close" @click="showFigureCode">×</p>
+              <p class="close">×</p>
             </div>
             <div class="figure-code-content">
               <div class="figure-code-item">
@@ -59,11 +59,11 @@
           <div class="login-tips">{{hintPwd}}</div>
           <div class="item item1">
             <label for="loginname-pwd" class="login-label icon-phone login-label1"></label>
-            <input type="tel" id="loginname-pwd" placeholder="手机号码" :maxlength="11" @click="clear">
+            <input type="tel" id="loginname-pwd" placeholder="手机号码" :maxlength="11" v-model="phone" @click="clear">
           </div>
           <div class="item item2">
             <label for="logincode" class="login-label icon-suo login-label2"></label>
-            <input type="password" id="logincode" placeholder="登录密码" :maxlength="12" @click="clear">
+            <input type="password" id="logincode" placeholder="登录密码" :maxlength="12" @click="clear" v-model="pwd">
           </div>
           <div class="remember-me">
             <input class="login-check" type="checkbox" checked="checked">
@@ -83,6 +83,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  const phoneReg = /^1[134578]\d{9}$/;
   import {setCookie, getCookie} from '../../common/js/cookie.js';
   export default {
     data() {
@@ -98,7 +99,7 @@
         countdownShow: false, //倒计时显示
         time: 60, //倒计时时间
         phoneCode: '', //验证码登录手机号
-        phonePwd: '', //密码登录手机号
+        phone: '', //密码登录手机号
         codeMessage: '', //短信验证码
         codPic: '', //图形验证码
         pwd: '' //密码
@@ -109,6 +110,7 @@
       if (getCookie('phone')) {
         this.$router.push('/');
       }
+      console.log(this.$route.query.redirect)
     },
     methods: {
       show(index){
@@ -123,7 +125,17 @@
         }
         this.selected = index;
       },
-      showFigureCode(){
+      getImgCode(){
+        if (!phoneReg.test(this.phoneCode)) {
+          this.hintCode = '请输入正确格式的手机号码';
+          return false
+        }
+        this.$http.post(
+          '/api/associatorUser/sendAuthCode.do',
+          {mobile_number: this.phoneCode},
+        ).then((res) => {
+          console.log(res.body)
+        })
         this.figureCodeShow = !this.figureCodeShow;
       },
       picCodeSubmit() {
@@ -161,7 +173,6 @@
         }
       },
       loginCode() {
-        let phoneReg = /^1[34578]\d{9}$/;
         let codeMessageReg = /\d{6}/;
         if (!phoneReg.test(this.phoneCode)) {
           this.hintCode = '请输入正确格式的手机号码';
@@ -193,34 +204,33 @@
         }
       },
       loginPwd() {
-        let phoneReg = /^1[34578]\d{9}$/;
         let pwdReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
-        if (!phoneReg.test(this.phonePwd)) {
+        if (!phoneReg.test(this.phone)) {
           this.hintPwd = '请输入正确格式的手机号码';
         } else {
-          let data = {'codePhone': this.phonePwd, 'pwd': this.pwd};
+          let data = {'mobile_number': this.phone, 'password': this.pwd};
+          console.log(data)
           // 接口请求
+          var _this = this;
           this.$http.post(
-            '/api/associatorUser/getUser.do',
-            data,
+            '/api/associatorUser/login.do', data
           ).then((res) => {
-            if (res.data == 0) {
-              this.hintPwd = "该手机号未注册";
-            } else if (!pwdReg.test(this.pwd)) {
-              this.hintPwd = "登录密码无效";
-            } else {
-              if (res.data == 2) {
-                this.hintPwd = "登录密码无效";
-              } else {
-                this.hintPwd = "登录成功";
-                setCookie('phonePwd', this.phonePwd, 1000 * 60);
-                setTimeout(function () {
-                  this.$router.push('/');
-                }.bind(this), 1000);
-                //通过 store.commit 方法触发状态变更
-                this.$store.commit('increment');
+            console.log(res.body)
+            var result = res.body
+            if (result.error) {
+              _this.hintPwd = result.error;
+              return false
+            }
+            if (result.message == '登录成功') {
+              this.$store.dispatch('req_userInfo', result);
+              this.$store.dispatch('get_user_fromCk');
+              setCookie('user_info', JSON.stringify(result), 14);
+              this.$store.dispatch('get_userInfo_dynamic', {user_id: result.user_id});
+              if (this.$route.query) {
+                this.$router.push(this.$route.query.redirect);
               }
             }
+
           });
         }
       },

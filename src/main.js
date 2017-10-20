@@ -9,9 +9,8 @@ import Vuex from 'vuex';
 import './common/js/validate.js';
 import './common/js/LStorage.js';
 import {isEmptyObj} from './common/js/isEmptyObj';
-//在main.js中引入Store实例
-// 使用{}引入store实例，因为store是一个const变量
-
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+Vue.use(VueAwesomeSwiper)
 import store_vuex from './store'
 Vue.use(Vuex);
 const store = new Vuex.Store(store_vuex);
@@ -30,8 +29,8 @@ router.afterEach((to, from, next) => {
 });
 // 全局导航钩子
 router.beforeEach((to, from, next) => {
+  store.dispatch('get_user_fromCk');
   // 判断该路由是否需要登录权限
-  console.log(to.meta,123434555)
   if (to.meta.requireAuth) {
     // 通过vuex state获取当前的token是否存在
     // console.log(isEmptyObject(store.state.user))
@@ -48,7 +47,7 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-
+Vue.http.options.emulateJSON = true;
 // 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
 const app = new Vue({
   router,

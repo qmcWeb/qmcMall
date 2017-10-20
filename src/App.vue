@@ -11,6 +11,7 @@
   import  headerMall from  './components/headerMall/headerMall'
   import  headerVip from  './components/headerVip/headerVip'
   import  footer from  './components/footer/footer'
+  import {mapState} from 'vuex'
   export default {
     name: 'app',
     data() {
@@ -24,20 +25,28 @@
       'v-footer': footer,
     },
     created(){
+      //从本地cookie取ueseInfo
+      this.$store.dispatch('get_user_fromCk');
+      if (this.userInfo) {
+        this.$store.dispatch('get_userInfo_dynamic', {user_id: this.userInfo.user_id});
+      }
     },
     computed: {
       headMallShow() {
         let path = this.$route.path;
         let pathReg = /Vip/;
         if (!pathReg.test(path)) {
-          if (pathReg.test(this.$route.query.where)) {
+          if (pathReg.test(this.$route.query.redirect)) {
             return false;
           }
           return true;
         } else {
           return false;
         }
-      }
+      },
+      ...mapState([
+        'userInfo'
+      ])
     }
 
   }

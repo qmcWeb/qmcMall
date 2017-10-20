@@ -13,45 +13,63 @@ export default {
     listParamsData: '',
     loginShow: true,
     error: '',
-    vipInfo: '',
-    rightCards: '',
-    success: false
+    success: false,
+    dynamic: '',
+    noLogged: false,
+    pageNumber: ''
   },
   actions: {
+
     //请求商品种类
     req_goodTypeData: function ({commit}) {
       Vue.http.get('/api/commodity/queryCommodityType.do').then(response => {
         commit('SET_type_data', {data: response.body.list});
       })
     },
-    //请求用户信息
-    req_userInfo: function ({commit}) {
-      Vue.http.get('/api/associatorUser/getUser.do', {params: {user_id: 'admin'}}).then(response => {
-        commit('SET_userInfo_data', {data: response.body});
-        setCookie('user_info', JSON.stringify(response.body))
-      });
+    //设置用户信息
+    req_userInfo: function ({commit}, infoData) {
+      commit('SET_userInfo_data', {data: infoData});
     },
     //从cookie获取用户信息
     get_user_fromCk: function ({commit}) {
       var userInfo;
       if (getCookie('user_info')) {
         userInfo = JSON.parse(getCookie('user_info'))
+        //有cookie  就是登录的
+        commit('SET_NoLogged', false);
       } else {
-        userInfo = ''
+        userInfo = '';
+        //判断没有登录
+        commit('SET_NoLogged', true);
       }
       commit('SET_userInfo_data', {data: userInfo});
+    },
+    //请求动态用户信息level，仓豆
+    get_userInfo_dynamic: function ({commit}, userID) {
+      return new Promise(function (resolve, reject) {
+        Vue.http.get('/cjx/Associator_center/getAssociatorNewInfo.do', {params: userID}).then(response => {
+          commit('SET_userInfo_dynamic', {data: response.body});
+          console.log(response.body)
+          resolve(response.body)
+        }, response => {
+          reject(response.status)
+        })
+      })
+
     },
     //请求首页列表数据
     req_indexData: function ({commit}) {
       Vue.http.get('/cjx/commodity/showIndexList.do').then(response => {
-        commit('SET_indexData', {data: response.body.list});
+        commit('SET_indexData', {data: response.body});
       });
     },
     //请求不同的列表页
     req_listData: function ({commit}, reqparams) {
       return new Promise(function (resolve, reject) {
         Vue.http.get('/api/commodity/screenOrderCommodityList.do', {params: reqparams}).then(response => {
-          commit('SET_listData', {data: response.body.list});
+          commit('SET_listData', {data: response.body.dataBody});
+          commit('SET_pageNumber', {data: response.body.pageNumber});
+          console.log(response.body)
           resolve(response.body)
         }, response => {
           reject(response.status)
@@ -62,15 +80,14 @@ export default {
     set_goodDetailData: function ({commit}, params) {
       commit('set_goodDetail', {data: params});
     },
-    req_detailData: function ({commit}, proId) {
+    req_detailData: function ({commit}, {proId, user}) {
       return new Promise(function (resolve, reject) {
         Vue.http.get('/api/commodity/productDetails.do', {
           params: {
             product_id: proId,
-            user_id: 'm_13204392227'
+            user_id: user
           }
         }).then(response => {
-          console.log(response.body)
           resolve(response.body)
         }, response => {
           reject(response.status)
@@ -82,31 +99,7 @@ export default {
       commit('change_error', {data: errorObj});
     },
     /*会员中心*/
-    //获取会员信息
-    get_vipInfo: function ({commit}, userID) {
-      return new Promise(function (resolve, reject) {
-        Vue.http.get('/cjx/Associator_center/getAssociator_centerInfo.do', {params: userID}).then(response => {
-          resolve(response.body.list)
-          commit('set_success', {data: true});
-          commit('set_vipInfo', {data: response.body});
-        }, response => {
-          reject(response.status)
-          console.log(response.status)
-        })
-      })
 
-    },
-    //获取会员权益
-    get_Right: function ({commit}, userID) {
-      return new Promise(function (resolve, reject) {
-        Vue.http.get('/cjx/Privilege_type/getPrivilegeInfo_Message.do', {params: userID}).then(response => {
-          resolve(response.body.list)
-          commit('set_right', {data: response.body.list});
-        }, response => {
-          reject(response.status)
-        })
-      })
-    }
   },
   getters: {
     new_index_data: state => {
@@ -133,6 +126,9 @@ export default {
   },
   mutations: {
     //设置state
+    SET_NoLogged: (state, bool) => {
+      state.noLogged = bool
+    },
     SET_type_data: (state, {data}) => {
       state.goodTypeData = data
     },
@@ -166,8 +162,14 @@ export default {
     set_right: (state, {data}) => {
       state.rightCards = data
     },
-    set_success: (state, {data}) => {
+    set_success: (state, data) => {
       state.success = data
+    },
+    SET_userInfo_dynamic: (state, {data}) => {
+      state.dynamic = data
+    },
+    SET_pageNumber: (state, {data}) => {
+      state.pageNumber = data
     },
   }
 }

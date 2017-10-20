@@ -12,13 +12,12 @@
         <li>
           <router-link :to="{path: '/homeMall'}">
             商城首页
-
           </router-link>
           <i class="arrow"></i>
         </li>
         <li class="goods">
           <router-link
-            :to="{path: '/goodsList',query:{type: 'all',price: 'all',sort: 'default',priceMin: 0,priceMax: 100000}}">
+            :to="{path: '/goodsList',query:{type: 'all',price: 'all',sort: 'default',priceMin: 0,priceMax: 100000,pageNo:1,pageSize:2}}">
             全部商品
           </router-link>
           <i class="arrow"></i>
@@ -34,12 +33,12 @@
         </li>
       </ul>
       <div class="user">
-        <div class="logged" v-if="userInfo">
+        <div class="logged" v-if="dynamic">
           <i class="arrow"></i>
           <img src="./Avatar.png" alt="" width="50" height="50" class="avatar">
           <div class="info">
             <div class="name">{{userInfo.realname}}</div>
-            <div class="count"><span>{{userInfo.cd_money}}</span>仓豆</div>
+            <div class="count"><span>{{dynamic.cd_money}}</span>仓豆</div>
           </div>
           <ul class="sidebar">
             <li>
@@ -61,9 +60,9 @@
             </li>
           </ul>
         </div>
-        <div class="login" v-else>
+        <div class="login" v-if="noLogged">
           <img src="./Avatar.png" alt="" width="50" height="50">
-          <router-link :to="{ path: '/login' }" class="log">登录</router-link>
+          <router-link :to="{ path: '/login',query:{redirect: this.$route.fullPath}}" class="log">登录</router-link>
           <i class="seg"></i>
           <a href="https://www.qianmancang.com/zhuce" class="reg">注册</a>
         </div>
@@ -74,33 +73,20 @@
 
 <script>
   import LStorage from   '@/common/js/LStorage.js';
-  import {setCookie, getCookie} from '../../common/js/cookie.js';
+  import {setCookie, getCookie, delCookie} from '../../common/js/cookie.js';
   import {mapActions} from 'vuex'
   import {mapState} from 'vuex'
   export default{
     data(){
       return {
         selectPrice: 'all',
-        slecetSort: 'default'
+        slecetSort: 'default',
       }
-    },
-    mounted(){
-      //this.$store.dispatch('req_userInfo');
-      this.$store.dispatch('get_user_fromCk');
-
-      /*页面挂载获取保存的cookie值，渲染到页面上*/
-      // let uname = getCookie('username')
-      // this.name = uname
-      /*如果cookie不存在，则跳转到登录页*/
-//      if (uname == "") {
-//        this.$router.push('/')
-//      }
     },
     created() {
       //商品种类 请求
       this.req_goodTypeData();
     },
-
     methods: {
       router(typep){
         this.$router.push({
@@ -115,27 +101,30 @@
         })
       },
       exit() {
-        this.$store.commit('increment');
-        this.loginShow = this.$store.state.loginShow;
+        this.$store.dispatch('req_userInfo', '');
+        this.$store.commit('SET_userInfo_dynamic', {data: ''});
         /*删除cookie*/
-        delCookie('username')
+        delCookie('user_info');
+        this.$store.dispatch('get_user_fromCk');
       },
       ...mapActions(['req_goodTypeData', 'req_userInfo', 'req_listData'])
     },
     computed: {
-      loginShow: {
-        // getter
-        get: function () {
-          return this.$store.state.loginShow;
-        },
-        // setter
-        set: function (newValue) {
-          return this.$store.state.loginShow = newValue;
-        }
-      },
+//      loginShow: {
+//        // getter
+//        get: function () {
+//          return this.$store.state.loginShow;
+//        },
+//        // setter
+//        set: function (newValue) {
+//          return this.$store.state.loginShow = newValue;
+//        }
+//      },
       ...mapState({
         type_Arr: 'goodTypeData',
         userInfo: 'userInfo',
+        dynamic: 'dynamic',
+        noLogged: 'noLogged'
       })
     }
   }

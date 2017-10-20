@@ -11,9 +11,9 @@
             <div class="s-title">寄送地址</div>
             <div class="name-phone-widget">
               <div>收件人</div>
-              <input type="text" name="name" class="name" v-model="userName">
+              <input type="text" name="name" class="name" v-model="user_name">
               <div>手机号码</div>
-              <input type="tel" name="phone" class="phone" maxlength="11" v-model="userPhone">
+              <input type="tel" name="phone" class="phone" maxlength="11" v-model="phone_number">
             </div>
             <div class="select-widget">
               <div>收获地址</div>
@@ -22,9 +22,12 @@
                             :area="select.area.value">
               </v-distpicker>
             </div>
-            <textarea name="area" id="" cols="30" rows="10" placeholder="请输入您的具体地址" v-model="userSite"></textarea>
+            <textarea name="area" id="" cols="30" rows="10" placeholder="请输入您的具体地址"
+                      v-model="detailed_address"></textarea>
             <div class="errorTips">
               {{errorTips}}
+
+
             </div>
             <div class="operate-btn-wrap">
               <a class="save" href="javascript:;" @click="saveAddress">保存</a>
@@ -58,7 +61,7 @@
               <div class="mid">
                 <dl>
                   <dt class="justify">配&nbsp&nbsp送&nbsp&nbsp至：</dt>
-                  <dd>北京市东城区安德里北街22号恒通伟业大厦9层      松松      13500000000</dd>
+                  <dd>{{site_info}}</dd>
                 </dl>
               </div>
               <div class="bot">
@@ -72,6 +75,10 @@
             <div class="attention">
               1.请您仔细核实商品订单信息，兑换成功后，除商品在运输途中发生损坏或本身存在残次问题外，恕不允许退货或换货。<br>
               2.兑换成功后，您的商品将在3个工作日内寄出，您可在 我的账户-仓豆商城账户-兑换记录中点击订单详情查询配送信息。
+
+
+
+
             </div>
             <div class="lastOperation">
               <a class="last-sure" href="javascript:;" @click="confirmOrder">确认支付</a>
@@ -80,15 +87,19 @@
           </div>
         </div>
       </div>
-      <div class="address-wrap">
+      <div class="address-wrap" v-if="listDomFlag">
         <h3 class="title">寄送地址</h3>
         <ul class="address-list">
-          <li v-for="(item, index) in addressList" class="item">
-            <div class="userName">{{item.userName}}</div>
-            <div class="userPhone">{{item.userPhone}}</div>
-            <div class="userSite">{{item.userSite}}</div>
+          <li v-for="(item, index) in addressList" class="item" :class="item.default_status>0?'default':''"
+              v-if="addressList.length>0" @click="set_default(index)" ref="site">
+            <div class="userCName">{{item.user_name}}</div>
+            <div class="userCPhone">{{item.phone_number}}</div>
+            <div class="userCSite">
+              {{item.province_value + item.city_value + item.county_value + item.detailed_address}}
+
+            </div>
             <div class="modify" @click="modifySite(index)">修改</div>
-            <div class="default-operation Default" v-if="item.defaultWhether">默认地址</div>
+            <div class="default-operation Default" v-if="item.default_status>0">默认地址</div>
             <div class="default-operation" v-else @click="setDefault(index)">
               设为默认
             </div>
@@ -99,7 +110,7 @@
           </li>
         </ul>
       </div>
-      <div class="orderInfo-wrap">
+      <div class="orderInfo-wrap" v-if="name">
         <h3 class="title">兑换商品</h3>
         <div class="orderInfo-content">
           <ul class="tits">
@@ -117,7 +128,7 @@
             <li class="count-widget"><span class="countIcon icon-reduce" @click="reduceNum()"></span>
               <span class="number">{{ count }}</span>
               <span class="countIcon icon-add" @click="addNum()"></span></li>
-            <li>{{stockNum}}</li>
+            <li>{{inventory}}</li>
             <li><span class="orange">{{beans}}</span>仓豆</li>
           </ul>
         </div>
@@ -125,7 +136,6 @@
           <transition name="addMessBtn" leave-active-class="animated fadeOutLeft">
             <div class="addMessBtn" v-if="addMessBtnShow"
                  @click="addMessBtnShow=!addMessBtnShow;addMessInputShow=!addMessInputShow">添加留言
-
             </div>
           </transition>
           <transition name="addMessInput" enter-active-class="animated shake">
@@ -150,21 +160,29 @@
   import  crumbsBar from  '@/components/crumbsBar/crumbsBar'
   import  errorLayer from  '@/components/errorLayer/errorLayer'
   import LStorage from '@/common/js/LStorage'
+  import {mapState} from 'vuex'
   export default {
     data() {
       return {
         result: 1,
         addressList: [],
         newAddressLayer: false,
-        select: {province: '', city: '', area: ''},
-        userName: '',
-        userPhone: '',
-        userSite: '',
+        select: {province: {code: '', value: ''}, city: {code: '', value: ''}, area: {code: '', value: ''}},
+        user_name: '',
+        phone_number: '',
+        detailed_address: '',
         newAddress: [],
         count: 1,
+        product_id: '',
         requirement: '',
         totalBeans: 1,
-        stockNum: 10,
+        inventory: '',
+        name: '',
+        desc: '',
+        beans: '',
+        price: '',
+        inventory: '',
+        totalBeans: '',
         siteLayerTitle: '添加新地址',
         siteIndex: -1,
         errorTips: '',
@@ -173,26 +191,73 @@
         orderLayerShow: false,
         errorCon: 'Vx级以上会员才能兑换该商品哦，<a href="baidu">快去看看如何升级吧</a>',
         errorType: 'lessBeans',
-        errorlayerSHow: false
+        errorlayerSHow: false,
+        id: '',
+        site_info: '',
+        listDomFlag: false,
+        entity: false
       }
     },
     created() {
       let good = this;
-      good.goodInfoData = LStorage.getItem('goodInfoData');
-      console.log(good.goodInfoData);
-      good.name = good.goodInfoData.product_name;
-      good.desc = '荷兰进口刀头，性贴面设计，舒适切剃，剃须静音更舒心！';
-      good.beans = good.goodInfoData.product_price;
-      good.price = good.goodInfoData.selling_price;
-      good.count = good.goodInfoData.goodCount;
-      good.totalBeans = good.beans * good.count
+      let queryData = this.$route.query;
+      var userID;
+      this.userInfo ? userID = this.userInfo.user_id : userID = ''
+      this.$store.dispatch('req_detailData', {proId: queryData.product_id, user: userID}).then(
+        (value) => {
+          //商品详情
+          console.log(value.detail)
+          good.goodInfoData = value.detail;
+          good.name = good.goodInfoData.product_name;
+          good.desc = good.goodInfoData.synopsis_info;
+          good.beans = good.goodInfoData.product_price;
+          good.price = good.goodInfoData.selling_price;
+          good.inventory = good.goodInfoData.inventory;
+          if (queryData.count) {
+            good.count = queryData.count;
+          }
+          if (queryData.product_type === 'entity') {
+            good.entity = true
+          }
+          good.totalBeans = good.beans * good.count;
+        },
+        (err) => {
+          console.log(err)
+        }
+      )
+      //请求地址
+      this.req_site()
+      //初始化设置地址id
     },
     computed: {
-      userInfo() {
-        return this.$store.state.userInfo
-      }
+      ...mapState([
+        'userInfo', 'success', 'dynamic'
+      ])
     },
     methods: {
+      //选择送货地址
+      set_default(index){
+        var siteObj = this.$refs.site;
+        for (let i = 0; i < siteObj.length; i++) {
+          siteObj[i].className = 'item'
+        }
+        siteObj[index].className = 'item default',
+          this.id = this.addressList[index].id,
+          this.site_info = this.addressList[index].province_value + this.addressList[index].city_value + this.addressList[index].county_value + this.addressList[index].detailed_address + '   ' + this.addressList[index].user_name + '   ' + this.addressList[index].phone_number
+      },
+      req_site(){
+        this.$http.get('/cjx/clientinfolist/addressList.do', {params: {user_id: this.userInfo.user_id}}).then((res) => {
+          this.addressList = res.body.list;
+          //地址Dom 可以显示
+          this.listDomFlag = true
+          for (let i = 0; i < this.addressList.length; i++) {
+            if (this.addressList[i].default_status == 1) {
+              this.id = this.addressList[i].id;
+              this.site_info = this.addressList[i].province_value + this.addressList[i].city_value + this.addressList[i].county_value + this.addressList[i].detailed_address + '   ' + this.addressList[i].user_name + '   ' + this.addressList[i].phone_number
+            }
+          }
+        })
+      },
       reduceNum() {
         if (this.count <= 1) {
           return false;
@@ -201,18 +266,15 @@
         this.totalBeans = this.count * this.beans
       },
       addNum() {
-        if (this.count >= this.stockNum) {
-          return false;
-        }
         this.count++;
         this.totalBeans = this.count * this.beans
       },
       addSite() {
         this.siteIndex = -1;
         this.siteLayerTitle = '添加新地址';
-        this.userName = '';
-        this.userPhone = '';
-        this.userSite = '';
+        this.user_name = '';
+        this.phone_number = '';
+        this.detailed_address = '';
         this.select.province = ''
         this.select.city = ''
         this.select.area = ''
@@ -238,70 +300,87 @@
       saveAddress() {
         //表单检验
         let phoneReg = /^1[34578]\d{9}$/;
-        if (!this.userName.length) {
+        if (!this.user_name.length) {
           this.errorTips = '请填写收件人';
           return false;
         }
-        if (!phoneReg.test(this.userPhone)) {
+        if (!phoneReg.test(this.phone_number)) {
           this.errorTips = '请输入有效的手机号码';
           return false;
         }
-        if (!this.select.province) {
+        if (!this.select.province.code) {
           this.errorTips = '请选择省份';
           return false;
         }
-        if (!this.select.city) {
+        if (!this.select.city.code) {
           this.errorTips = '请选择市';
           return false;
         }
-        if (!this.select.area) {
+        if (!this.select.area.code) {
           this.errorTips = '请选择区县';
           return false;
         }
-        if (!this.userSite.length) {
+        if (!this.detailed_address.length) {
           this.errorTips = '请填写具体地址';
           return false;
         }
         this.errorTips = '';
         let index = this.siteIndex
         if (index > -1) {
-          this.addressList[index].userName = this.userName;
-          this.addressList[index].userPhone = this.userPhone;
-          this.addressList[index].userSite = this.userSite;
-          this.addressList[index].province = this.select.province
-          this.addressList[index].city = this.select.city
-          this.addressList[index].area = this.select.area
+          this.addressList[index].user_name = this.user_name;
+          this.addressList[index].phone_number = this.phone_number;
+          this.addressList[index].detailed_address = this.detailed_address;
+          this.addressList[index].province = this.select.province.code;
+          this.addressList[index].city = this.select.city.code;
+          this.addressList[index].county = this.select.area.code;
+          this.addressList[index].province_value = this.select.province.value;
+          this.addressList[index].city_value = this.select.city.value;
+          this.addressList[index].county_value = this.select.area.value;
+          this.$http.get('/cjx/clientinfolist/modifyAddr.do', {params: {json: JSON.stringify(this.addressList[index])}}).then((res) => {
+          })
         } else {
-          this.addressList.push({
-            userName: this.userName,
-            userPhone: this.userPhone,
-            userSite: this.userSite,
-            province: this.select.province,
-            city: this.select.city,
-            area: this.select.area,
-            defaultWhether: false
+          let data = {
+            user_name: this.user_name,
+            phone_number: this.phone_number,
+            detailed_address: this.detailed_address,
+            province: this.select.province.code,
+            city: this.select.city.code,
+            county: this.select.area.code,
+            province_value: this.select.province.value,
+            city_value: this.select.city.value,
+            county_value: this.select.area.value,
+            user_id: this.userInfo.user_id,
+            default_status: 0,
+            addr_number: '',
+            postcode: ''
+          }
+          this.$http.get('/cjx/clientinfolist/addAddr.do', {params: {json: JSON.stringify(data)}}).then((res) => {
+            if (res.body.message == '操作成功') {
+              this.req_site()
+            }
           })
         }
-        console.log(this.select)
         this.closeSiteLayer()
       },
       setDefault(index) {
         for (let i = 0; i < this.addressList.length; i++) {
-          this.addressList[i].defaultWhether = false
+          this.addressList[i].default_status = 0
         }
-        this.addressList[index].defaultWhether = true;
-        //let defaultSite = this.addressList.splice(index, 1);
-        // this.addressList=defaultSite.concat(this.addressList)
+        this.addressList[index].default_status = 1;
+        this.$http.get('/cjx/clientinfolist/changeAddr.do', {params: {json: JSON.stringify(this.addressList[index])}}).then((res) => {
+        })
       },
       modifySite(index) {
         this.siteIndex = index;
-        console.log(this.addressList[index])
-        this.userName = this.addressList[index].userName;
-        this.userPhone = this.addressList[index].userPhone;
-        this.userSite = this.addressList[index].userSite;
-        this.select.province = this.addressList[index].province;
-        this.select.city = this.addressList[index].city;
-        this.select.area = this.addressList[index].area;
+        this.user_name = this.addressList[index].user_name;
+        this.phone_number = this.addressList[index].phone_number;
+        this.detailed_address = this.addressList[index].detailed_address;
+        this.select.province.code = this.addressList[index].province;
+        this.select.city.code = this.addressList[index].city;
+        this.select.area.code = this.addressList[index].county;
+        this.select.province.value = this.addressList[index].province_value;
+        this.select.city.value = this.addressList[index].city_value;
+        this.select.area.value = this.addressList[index].county_value;
         this.siteLayerTitle = '修改地址';
         this.newAddressLayer = !this.newAddressLayer
       },
@@ -309,14 +388,31 @@
         this.$router.go(-1)
       },
       openOrderPop() {
-        if (this.totalBeans > this.userInfo.cd_money) {
+        if (this.totalBeans > this.dynamic.cd_money) {
           this.$store.dispatch('set_error', {errorCon: '仓豆不够啦 >_<', errorType: 'lessBeans'})
           return false
         }
         this.orderLayerShow = !this.orderLayerShow
       },
       confirmOrder() {
-        this.$router.push({path: '/success', query: {goodId: this.goodInfoData.id}})
+        let data = {
+          user_id: this.userInfo.user_id,
+          product_id: this.$route.query.product_id,
+          purchase_count: this.count,
+          customer_message: this.requirement,
+          acquisition_addr: this.id,
+          totalBeans: this.totalBeans
+        }
+        console.log(this.requirement);
+        //good.recordInfo.product_type = good.goodInfoData.product_type;
+        this.$http.post('/api/orderAdminList/orderAdminListInsert.do', data).then((res) => {
+          console.log(res.body)
+          if (res.body.message == '兑换成功') {
+            this.$router.push({path: '/success', query: this.$route.query})
+          }
+        }, () => {
+        })
+
       }
     },
     components: {

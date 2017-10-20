@@ -47,19 +47,19 @@
         </div>
         <div class="beanAD left shadow"></div>
         <div class="beanShow right">
-          <ul class="beanMall-ul">
+          <ul class="beanMall-ul" v-if="beanMall.length">
             <li class="left" v-for="(goods,index) in beanMall">
-              <a href="javascript:;">
+              <router-link :to="{path: '/detail', query: {product_id: goods.product_id}}">
                 <div class="remove beanMall-li-content shadow">
                   <div class="beanMall-li-item1">
-                    <img :src="beanMall[index].src" alt="仓豆商城" width="270" height="210">
+                    <img src="" alt="" width="270" height="210">
                   </div>
                   <div class="beanMall-li-item2">
-                    <p class="goodsName">{{goods.goodsName}}</p>
-                    <p class="goodsPrice">仓豆：<span>{{goods.goodsPrice}}</span></p>
+                    <p class="goodsName">{{goods.product_name}}</p>
+                    <p class="goodsPrice">仓豆：<span>{{goods.product_price}}</span></p>
                   </div>
                 </div>
-              </a>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -114,15 +114,14 @@
           {src: '../../../static/img/growUpTask/growUpTask-3.png',taskName: '投资任务',taskAward:'100+'},
           {src: '../../../static/img/growUpTask/growUpTask-4.png',taskName: '邀请任务',taskAward:'100+'}
         ],
-        beanMall:[
-          {src: '../../../static/img/beanMall/beanMall-1.png',goodsName: '飞科剃须刀',goodsPrice:'500'},
-          {src: '../../../static/img/beanMall/beanMall-2.png',goodsName: '飞科剃须刀',goodsPrice:'500'},
-          {src: '../../../static/img/beanMall/beanMall-1.png',goodsName: '飞科剃须刀',goodsPrice:'500'},
-          {src: '../../../static/img/beanMall/beanMall-2.png',goodsName: '飞科剃须刀',goodsPrice:'500'},
-          {src: '../../../static/img/beanMall/beanMall-1.png',goodsName: '飞科剃须刀',goodsPrice:'500'},
-          {src: '../../../static/img/beanMall/beanMall-2.png',goodsName: '飞科剃须刀',goodsPrice:'500'}
-        ],
+        beanMall: [],
       }
+    },
+    created(){
+      this.$http.get('/cjx/commodity/showCenterList.do').then(response => {
+        this.beanMall = response.body.list;
+        console.log(response.body)
+      });
     },
     components: {
       'v-banner': bannerVip

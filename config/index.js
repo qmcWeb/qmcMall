@@ -29,14 +29,14 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://192.168.15.11:80',
+        target: 'http://121.42.209.253:38182',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
         }
       },
       '/cjx': {
-        target: 'http://192.168.15.114:8099',
+        target: 'http://121.42.209.253:38182',
         changeOrigin: true,
         pathRewrite: {
           '^/cjx': ''

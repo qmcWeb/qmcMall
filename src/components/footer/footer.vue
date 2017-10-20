@@ -14,7 +14,7 @@
         <ul class="footer-info right">
           <h2>仓豆商城</h2>
           <li>
-            <router-link :to="{ path: '/goodList' }">商品列表</router-link>
+            <router-link :to="{ path: '/homeMall' }">商品首页</router-link>
           </li>
         </ul>
       </div>

@@ -7,7 +7,7 @@
       </div>
       <div class="tabs-content-wrap">
         <div class="content-wrap task" v-show="taskShow">
-          <div class="noLogin" v-if="!logged">
+          <div class="noLogin" v-if="!userInfo">
             <img src="./noLogin-Avatar.png" alt="" class="award">
             <p class="text">登录查看会员任务</p>
             <router-link :to="{path: '/login',query:{where:'Vip'}}" class="btn">立即登录</router-link>
@@ -26,15 +26,15 @@
           </div>
         </div>
         <div class="content-wrap growth" v-show="!taskShow">
-          <div class="noLogin" v-if="!logged">
+          <div class="noLogin" v-if="!userInfo">
             <img src="./noLogin-Avatar.png" alt="" class="award">
             <p class="text">登录查看我的成长值</p>
             <router-link :to="{ path: '/login',query:{where:'Vip'}}" class="btn">立即登录</router-link>
           </div>
           <div class="logged" v-else>
             <div class="growth-value">
-              您目前的成长值为<span class="gold">10300</span>，您的会员等级为：
-              <span class="gold">腰缠万贯</span>
+              您目前的成长值为<span class="gold">{{dynamic.growth_value}}</span>，您的会员等级为：
+              <span class="gold">{{dynamic.privilege_name}}</span>
             </div>
             <div class="select-widget">
               <select name="" id="" @change="changeQuery(selected)" v-model="selected">
@@ -49,10 +49,10 @@
                 <td class="bg">详细说明</td>
               </tr>
               <tr v-for="item in growthList">
-                <td>{{item.time}}</td>
-                <td>{{item.value}}</td>
-                <td>{{item.where}}</td>
-                <td>{{item.desc}}</td>
+                <td>{{item.grow_time}}</td>
+                <td>{{item.grow_value}}</td>
+                <td>{{item.grow_source}}</td>
+                <td>{{item.grow_info}}</td>
               </tr>
             </table>
           </div>
@@ -62,6 +62,7 @@
   </div>
 </template>
 <script>
+  import {mapState} from 'vuex'
   export default{
     data(){
       return {
@@ -148,23 +149,47 @@
           {text: '最近三个月', value: 3},
           {text: '最近一年', value: 12}
         ],
-
       }
 
     },
     methods: {
       changeQuery: function (value) {
+        var _this = this
         this.$http.get('/cjx/Associator_center/getGrowthValueList.do', {
           params: {
-            user_id: 'admin',
+            user_id: this.userInfo.user_id,
             flag: value
           }
         }).then(response => {
-          console.log(response.body)
+          _this.growthList = response.body.list
         }, response => {
           console.log(response.status)
         })
+      },
+      requestTask(){
+        var _this = this
+        this.$http.get('/cjx/associatorTaskInfo/getUserTaskStatus.do', {
+          params: {
+            user_id: this.userInfo.user_id,
+          }
+        }).then(response => {
+          console.log(response.body)
+          //_this.growthList=response.body.list
+        }, response => {
+          //console.log(response.status)
+        })
       }
+    },
+    created(){
+      if (this.userInfo) {
+        this.changeQuery(1);
+        this.requestTask();
+      }
+    },
+    computed: {
+      ...mapState([
+        'userInfo', 'success', 'dynamic'
+      ])
     }
   }
 </script>

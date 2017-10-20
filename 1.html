@@ -3,8 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <style>
+    body {
+      height: 2000px;
+    }
+  </style>
 </head>
 <body>
-dsfdsafsdsdfsdfsdf
+<script>
+  var z = 10;
+  function foo() {
+    console.log(z)
+  }
+  (function (funArg) {
+    var z = 20;
+    console.log(z)
+  })(foo)
+</script>
 </body>
 </html>
