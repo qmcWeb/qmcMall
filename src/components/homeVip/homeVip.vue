@@ -9,8 +9,18 @@
           <span class="icon-Diamond-1"></span>
           等级与权益
         </div>
+        <!-- 图形 -->
         <div class="grade-course">
-
+          <img src="./grad-circle.png" width="770" height="430" alt="" class="grad-circle">
+          <div class="grad-shadow">
+            <div class="grad-LV-shadow" :class="['shadow-LV' + dynamic.level]"></div>
+          </div>
+          <div class="grade-award">
+            <div class="grade-award-item" v-for="(item,index) in  gradeAward">
+              <span data-v-7f04ebfa="" :class="[item.class,index <= award-1?'awardLight':'']"></span>
+              <p>{{item.content}}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -105,9 +115,23 @@
   import {mapActions} from 'vuex';
   import {mapState} from 'vuex';
   import  bannerVip from  '@/components/bannerVip/bannerVip'
+  const CLS_LIGHT = "haveAward";
+  const LENGTH = 9;
   export default{
     data(){
       return {
+        award: 4, //会员获得权益个数
+        gradeAward:[
+          {class:'icon-rockets',content:'仓豆加速'},
+          {class:'icon-cake',content:'生日好礼'},
+          {class:'icon-cup',content:'升级礼包'},
+          {class:'icon-gift',content:'节日福利'},
+          {class:'icon-microphone',content:'高端沙龙'},
+          {class:'icon-discount',content:'费率折扣'},
+          {class:'icon-customer-service',content:'专属客服'},
+          {class:'icon-Diamond-2',content:'专享订制标'},
+          {class:'icon-balloon',content:'活动福利'},
+        ],
         growUp:[
           {src: '../../../static/img/growUpTask/growUpTask-1.png',taskName: '新手任务',taskAward:'100'},
           {src: '../../../static/img/growUpTask/growUpTask-2.png',taskName: '互动任务',taskAward:'100'},
@@ -116,6 +140,19 @@
         ],
         beanMall: [],
       }
+    },
+    methods: {
+      //从本地获取userInfo
+      getInfo: function () {
+        if (this.userInfo) {
+          this.$store.dispatch('get_userInfo_dynamic', {user_id: this.userInfo.user_id})
+        }
+      }
+    },
+    computed: {
+      ...mapState([
+        'userInfo', 'success', 'dynamic', 'noLogged'
+      ]),
     },
     created(){
       this.$http.get('/cjx/commodity/showCenterList.do').then(response => {

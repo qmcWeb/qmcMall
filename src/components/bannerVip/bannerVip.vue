@@ -169,7 +169,6 @@
           spaceBetween: 10,
         },
         badgeType: false,
-        grade: 3,
         hasCrown: false,
         cards: [
           {
@@ -257,7 +256,7 @@
     computed: {
       badgeLight() {
         let result = [];
-        for (let i = 0; i < this.grade; i++) {
+        for (let i = 0; i < this.dynamic.level; i++) {
           result.push(CLS_Light);
         }
         while (result.length < LENGTH) {
@@ -274,7 +273,7 @@
       },
       ...mapState([
         'userInfo', 'success', 'dynamic', 'noLogged'
-      ])
+      ]),
     },
     created(){
       this.getInfo();
