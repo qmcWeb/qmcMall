@@ -125,7 +125,6 @@
       return {
         level: 1,
         award: 4, //会员获得权益个数
-
         gradeAward: [],
         growUp:[
           {src: '../../../static/img/growUpTask/growUpTask-1.png',taskName: '新手任务',taskAward:'100'},
