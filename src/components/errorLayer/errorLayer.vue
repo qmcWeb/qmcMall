@@ -1,11 +1,14 @@
 <template>
-  <div class="error-layer blackFixed" v-show="error">
+  <div class="error-layer blackFixed" v-if="error">
     <div class="error-wrap midWrap">
       <h3>温馨提示</h3>
       <i class="close" @click="closeErrorLayer">×</i>
       <div class="con" v-html="error.errorCon"></div>
       <div class="operate-widget">
-        <a href="javascript:;" class="iknow" @click="closeErrorLayer">知道了</a>
+        <router-link :to="{path:'/login',query:{redirect: this.$route.fullPath}}" v-if="error.errorType==='Nologged'"
+                     class="iknow">立即登录
+        </router-link>
+        <a href="javascript:;" class="iknow" @click="closeErrorLayer" v-else>知道了</a>
         <a href="https://www.qianmancang.com" class="goQMC" v-if="error.errorType==='lessBeans'">投资挣仓豆></a>
       </div>
     </div>

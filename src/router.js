@@ -12,28 +12,46 @@ import login from './components/login/login'
 export default [
   {
     path: '/homeMall',
-    component: homeMall
+    component: homeMall,
+    meta: {
+      title: '钱满仓_积分商城'
+    },
   },
   {
     path: '/homeVip',
-    component: homeVip
+    component: homeVip,
+    meta: {
+      title: '钱满仓_会员中心'
+    },
   },
   {
     path: '/taskVip',
-    component: taskVip
+    component: taskVip,
+    meta: {
+      title: '钱满仓_成长任务'
+    },
   },
   {
     path: '/levelVip',
-    component: levelVip
+    component: levelVip,
+    meta: {
+      title: '钱满仓_会员等级'
+    },
   },
   {
     path: '/rightVip',
-    component: rightVip
+    component: rightVip,
+    meta: {
+      title: '钱满仓_会员权益'
+    },
   },
   {
     path: '/detail',
     name: 'detail',
-    component: detail
+    component: detail,
+    meta: {
+      title: '钱满仓_商品详情'
+    },
   },
   {
     path: '/order',
@@ -42,21 +60,31 @@ export default [
     meta: {
       // 添加该字段，表示进入这个路由是需要登录的
       requireAuth: true,
+      title: '钱满仓_订单详情'
     },
   },
   {
     path: '/success',
     name: 'success',
-    component: success
+    component: success,
+    meta: {
+      title: '钱满仓_购买成功'
+    },
   },
   {
     path: '/goodsList',
     name: 'goodsList',
-    component: goodsList
+    component: goodsList,
+    meta: {
+      title: '钱满仓_商品列表'
+    },
   },
   {
     path: '/login',
     name: 'login',
-    component: login
+    component: login,
+    meta: {
+      title: '登录'
+    },
   }
 ]

@@ -8,7 +8,7 @@
             订单提交成功，商品即将到达...
           </p>
           <p class="hint2">我们将尽快发货，请您耐心等待^_^</p>
-          <p class="hint3">还有需求没说清？立即联系客服 ></p>
+          <p class="hint3">还有需求没说清？立即<span class="zhiCustomBtn">联系客服 ></span></p>
         </div>
         <div class="virtual-wrap" v-else>
           <p class="hint1">
@@ -26,13 +26,15 @@
     <div class="success-right right" v-if="lookData.length">
       <div class="see-more">
         <span class="left look">随便看看</span>
-        <span class="right batch">换一批</span>
+        <span class="right batch" @click="look">换一批</span>
       </div>
       <div class="lookAround">
         <div class="look-item left" v-for="item in lookData">
           <router-link :to="{path: '/detail', query: {product_id: item.product_id}}">
             <div class="item-wrapper">
-              <div class="look-pic"></div>
+              <div class="look-pic">
+                <img :src="item.picture_url" alt="">
+              </div>
               <div class="look-des">{{item.product_name}}</div>
               <div class="look-price"><span>{{item.product_price}}</span>仓豆</div>
             </div>
@@ -52,11 +54,22 @@
       }
     },
     created(){
-      this.$store.dispatch('get_userInfo_dynamic', {user_id: this.userInfo.user_id});
-      this.$http.get('/api/commodity/randCommodity.do', {params: {product_id: this.$route.query.product_id}}).then(response => {
-        this.lookData = response.body.list;
-        console.log(this.lookData)
-      });
+      this.$store.dispatch('checkLogin').then(
+        (res) => {
+          console.log(res)
+          if (res !== '验证成功') {
+            this.$router.push({path: '/homeMall'})
+          }
+        })
+      this.look();
+    },
+    methods: {
+      look(){
+        this.$http.get(this.api + '/commodity/randCommodity.do', {params: {product_id: this.$route.query.product_id}}).then(response => {
+          this.lookData = response.body.dataBody.goodsList;
+
+        });
+      }
     },
     computed: {
       ...mapState([

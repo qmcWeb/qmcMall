@@ -2,16 +2,14 @@
   <div class="header">
     <div class="header-wrapper">
       <div class="logo">
-        <a class="qmc" href="https://www.qianmancang.com">
+        <a class="qmc" href="http://121.42.209.253:28182">
           <img src="./logo.png" alt="" width="128" height="36">
         </a>
         <i class="seg"></i>
         <router-link :to="{ path: '/homeVip'}" class="cd">
           会员中心
-
         </router-link>
       </div>
-
       <ul class="nav">
         <li v-for="(item,index) in nav" class="item" @mouseover="mEnter(index)" @mouseout="mOut">
           <router-link :to="{ path: item.path}">
@@ -20,7 +18,7 @@
         </li>
         <li class="slider" :style="{left:slideLeft}" v-if="slideLeft.length"></li>
       </ul>
-      <a href="https://www.qianmancang.com/" class="back-qmc">返回官方首页</a>
+      <a href="http://121.42.209.253:28182/" class="back-qmc">返回官方首页</a>
     </div>
   </div>
 </template>
@@ -46,11 +44,7 @@
     },
     created() {
       this.changePath();
-      this.$store.dispatch('get_user_fromCk');
-      if (this.userInfo) {
-        console.log(1111)
-        this.$store.dispatch('get_userInfo_dynamic', {user_id: this.userInfo.user_id})
-      }
+
     },
     methods: {
       mEnter(index) {

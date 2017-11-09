@@ -5,6 +5,10 @@
       <swiper-slide v-for="str in listImg" :style="{ backgroundImage: 'url(' + str.picUrl + ')' }"
                     :key="str.id"></swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
+      <div class="swiper-button-prev" slot="button-prev">
+      </div>
+      <div class="swiper-button-next" slot="button-next">
+      </div>
     </swiper>
   </div>
 </template>
@@ -26,9 +30,8 @@
       }
     },
     created(){
-      this.$http.get('/cjx/banner/bannerList.do', {params: {product_id: this.$route.query.product_id}}).then(response => {
+      this.$http.get(this.cjx + '/banner/bannerList.do', {params: {product_id: this.$route.query.product_id}}).then(response => {
         this.listImg = response.body;
-        console.log(response.body)
       });
     }
   }

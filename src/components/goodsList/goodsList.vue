@@ -2,13 +2,19 @@
   <div class="list-wrapper">
     <v-crumbsBar></v-crumbsBar>
     <v-selector></v-selector>
-    <ul class="goodList-wrap">
-      <li v-for="item in list">
-        <v-good :item="item"></v-good>
-      </li>
-      <li class="clearBoth"></li>
-    </ul>
-    <v-paging></v-paging>
+    <div v-if="list.length">
+      <ul class="goodList-wrap">
+        <li v-for="item in list">
+          <v-good :item="item"></v-good>
+        </li>
+        <li class="clearBoth"></li>
+      </ul>
+      <v-paging></v-paging>
+    </div>
+    <div v-if="blank" class="blank">
+      未找到符合条件的商品
+
+    </div>
   </div>
 
 </template>
@@ -25,8 +31,12 @@
     },
     computed: {
       list() {
+        console.log(this.$store.state.listData)
         return this.$store.state.listData
-      }
+      },
+      blank() {
+        return this.$store.state.blank
+      },
     },
     created() {
 

@@ -13,12 +13,15 @@
         <div class="grade-course">
           <img src="./grad-circle.png" width="770" height="430" alt="" class="grad-circle">
           <div class="grad-shadow">
-            <div class="grad-LV-shadow" :class="['shadow-LV' + dynamic.level]"></div>
+            <!--
+                        <div class="top-lv"  @mousemove="mMove" @mouseout="mOut"></div>
+            -->
+            <div class="grad-LV-shadow" :class="'shadow-LV' + level"></div>
           </div>
           <div class="grade-award">
-            <div class="grade-award-item" v-for="(item,index) in  gradeAward">
-              <span data-v-7f04ebfa="" :class="[item.class,index <= award-1?'awardLight':'']"></span>
-              <p>{{item.content}}</p>
+            <div class="grade-award-item" v-for="(item,index) in gradeAward[level-1]">
+              <span data-v-7f04ebfa="" :class="[item.iconClass,item.status==='true'?'awardLight':'']"></span>
+              <p>{{item.name}}</p>
             </div>
           </div>
         </div>
@@ -59,10 +62,10 @@
         <div class="beanShow right">
           <ul class="beanMall-ul" v-if="beanMall.length">
             <li class="left" v-for="(goods,index) in beanMall">
-              <router-link :to="{path: '/detail', query: {product_id: goods.product_id}}">
+              <router-link :to="{path: '/detail', query: {product_id: goods.id}}">
                 <div class="remove beanMall-li-content shadow">
                   <div class="beanMall-li-item1">
-                    <img src="" alt="" width="270" height="210">
+                    <img :src="goods.picture_url" alt="" width="270" height="210">
                   </div>
                   <div class="beanMall-li-item2">
                     <p class="goodsName">{{goods.product_name}}</p>
@@ -113,25 +116,17 @@
   import LStorage from   '@/common/js/LStorage.js';
   import {setCookie, getCookie} from '../../common/js/cookie.js';
   import {mapActions} from 'vuex';
-  import {mapState} from 'vuex';
+  import {mapState, mapGetters} from 'vuex';
   import  bannerVip from  '@/components/bannerVip/bannerVip'
   const CLS_LIGHT = "haveAward";
   const LENGTH = 9;
   export default{
     data(){
       return {
+        level: 1,
         award: 4, //会员获得权益个数
-        gradeAward:[
-          {class:'icon-rockets',content:'仓豆加速'},
-          {class:'icon-cake',content:'生日好礼'},
-          {class:'icon-cup',content:'升级礼包'},
-          {class:'icon-gift',content:'节日福利'},
-          {class:'icon-microphone',content:'高端沙龙'},
-          {class:'icon-discount',content:'费率折扣'},
-          {class:'icon-customer-service',content:'专属客服'},
-          {class:'icon-Diamond-2',content:'专享订制标'},
-          {class:'icon-balloon',content:'活动福利'},
-        ],
+
+        gradeAward: [],
         growUp:[
           {src: '../../../static/img/growUpTask/growUpTask-1.png',taskName: '新手任务',taskAward:'100'},
           {src: '../../../static/img/growUpTask/growUpTask-2.png',taskName: '互动任务',taskAward:'100'},
@@ -139,7 +134,11 @@
           {src: '../../../static/img/growUpTask/growUpTask-4.png',taskName: '邀请任务',taskAward:'100+'}
         ],
         beanMall: [],
+
       }
+    },
+    mounted(){
+      this.lvImgAnimate()
     },
     methods: {
       //从本地获取userInfo
@@ -147,17 +146,36 @@
         if (this.userInfo) {
           this.$store.dispatch('get_userInfo_dynamic', {user_id: this.userInfo.user_id})
         }
+      },
+      lvImgAnimate(){
+        let self = this;
+        let lvTime = setInterval(function () {
+          if (self.level >= 8) {
+            self.level = 0
+          }
+          self.level++
+        }, 2000)
+      },
+      mMove(ev){
+      },
+      mOut(){
+
       }
     },
     computed: {
       ...mapState([
-        'userInfo', 'success', 'dynamic', 'noLogged'
+        'userInfo', 'dynamic', 'noLogged'
       ]),
+      ...mapGetters(['awardArr'])
     },
     created(){
-      this.$http.get('/cjx/commodity/showCenterList.do').then(response => {
+      this.$http.get(this.cjx + '/Privilege_type/getPrivilegeType.do').then(response => {
+        this.gradeAward = response.body.levels;
+        console.log(this.gradeAward)
+      });
+      this.$http.get(this.cjx + '/commodity/showCenterList.do').then(response => {
         this.beanMall = response.body.list;
-        console.log(response.body)
+        console.log(this.beanMall)
       });
     },
     components: {

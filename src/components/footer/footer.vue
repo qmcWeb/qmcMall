@@ -30,7 +30,7 @@
       </div>
       <div class="footer-right left">
         <h1>400-135-1766</h1>
-        <p>在线客服</p>
+        <p class="zhiCustomBtn">在线客服</p>
         <h3>客服热线（工作时间：09:00-21:00）</h3>
       </div>
       <div class="footer-bottom">
@@ -40,7 +40,6 @@
     </div>
   </div>
 </template>
-
 <script>
   export default{
     methods: {
@@ -52,7 +51,16 @@
           this.$refs.encryption.style.cssText = 'opacity:0;z-index:-1;';
         }, 3000);
       }
-    }
+    },
+    mounted() {
+      const s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.src = 'https://www.sobot.com/chat/frame/js/entrance.js?sysNum=621c96e39127438091fdaa6f75741e9b';
+      s.className = "zhiCustomBtn";
+      s.id = "zhichiScript";
+      s.setAttribute('data-args', 'customBtn=true')
+      document.body.appendChild(s);
+    },
   };
 </script>
 

@@ -67,13 +67,23 @@ img
       .grad-shadow
         position relative
         height 555px
+        .top-lv
+          position absolute
+          top 0
+          left 0
+          right 0
+          bottom: 0
+          z-index 200
+          background rgba(0, 0, 0, 0.3)
         .grad-LV-shadow
           position absolute
           top 0
           left 0
           width 125px
           height 492px
-          //border 1px solid red
+          transition all 0.3s
+
+        //border 1px solid red
           &.shadow-LV1
             left 0
             background url(./gradeShadow.png) 0px 13px no-repeat
@@ -170,7 +180,7 @@ img
     .beanAD
       width 330px
       height 615px
-      background url(./beanAD.png) no-repeat;
+      background url(../../../static/img/beanAD.png) no-repeat;
     .beanShow
       width 855px
       height 615px

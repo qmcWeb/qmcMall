@@ -10,15 +10,18 @@
   </style>
 </head>
 <body>
+sdfasdfasdfsaf
 <script>
-  var z = 10;
-  function foo() {
-    console.log(z)
-  }
-  (function (funArg) {
-    var z = 20;
-    console.log(z)
-  })(foo)
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '/api', flase);
+  xhr.onreadystatechange(function () {
+    if (readystate == 4) {
+      if (status == 200) {
+        alert(xhr.responseText)
+      }
+    }
+  })
+  xhr.send()
 </script>
 </body>
 </html>

@@ -27,7 +27,6 @@
             <div class="errorTips">
               {{errorTips}}
 
-
             </div>
             <div class="operate-btn-wrap">
               <a class="save" href="javascript:;" @click="saveAddress">保存</a>
@@ -76,9 +75,6 @@
               1.请您仔细核实商品订单信息，兑换成功后，除商品在运输途中发生损坏或本身存在残次问题外，恕不允许退货或换货。<br>
               2.兑换成功后，您的商品将在3个工作日内寄出，您可在 我的账户-仓豆商城账户-兑换记录中点击订单详情查询配送信息。
 
-
-
-
             </div>
             <div class="lastOperation">
               <a class="last-sure" href="javascript:;" @click="confirmOrder">确认支付</a>
@@ -97,11 +93,13 @@
             <div class="userCSite">
               {{item.province_value + item.city_value + item.county_value + item.detailed_address}}
 
+
             </div>
             <div class="modify" @click="modifySite(index)">修改</div>
             <div class="default-operation Default" v-if="item.default_status>0">默认地址</div>
             <div class="default-operation" v-else @click="setDefault(index)">
               设为默认
+
             </div>
           </li>
           <li class="item addNew" @click="addSite" v-if="addressList.length<3">
@@ -122,7 +120,7 @@
             <li>单价</li>
           </ul>
           <ul class="infos">
-            <li class="good-img-s"><img src="./fx.png" alt=""></li>
+            <li class="good-img-s"><img :src="imgSrc" alt=""></li>
             <li>{{name}}</li>
             <li>实体商品</li>
             <li class="count-widget"><span class="countIcon icon-reduce" @click="reduceNum()"></span>
@@ -136,6 +134,7 @@
           <transition name="addMessBtn" leave-active-class="animated fadeOutLeft">
             <div class="addMessBtn" v-if="addMessBtnShow"
                  @click="addMessBtnShow=!addMessBtnShow;addMessInputShow=!addMessInputShow">添加留言
+
             </div>
           </transition>
           <transition name="addMessInput" enter-active-class="animated shake">
@@ -145,6 +144,7 @@
         </div>
         <div class="totalBeans-wrap">
           需支付：<span class="orange">{{totalBeans}}</span>仓豆
+
         </div>
         <div class="order-sub-widget">
           <a href="javascript:;" class="cancel" @click="back">取消</a>
@@ -183,6 +183,7 @@
         price: '',
         inventory: '',
         totalBeans: '',
+        imgSrc: '',
         siteLayerTitle: '添加新地址',
         siteIndex: -1,
         errorTips: '',
@@ -199,39 +200,52 @@
       }
     },
     created() {
-      let good = this;
-      let queryData = this.$route.query;
-      var userID;
-      this.userInfo ? userID = this.userInfo.user_id : userID = ''
-      this.$store.dispatch('req_detailData', {proId: queryData.product_id, user: userID}).then(
-        (value) => {
-          //商品详情
-          console.log(value.detail)
-          good.goodInfoData = value.detail;
-          good.name = good.goodInfoData.product_name;
-          good.desc = good.goodInfoData.synopsis_info;
-          good.beans = good.goodInfoData.product_price;
-          good.price = good.goodInfoData.selling_price;
-          good.inventory = good.goodInfoData.inventory;
-          if (queryData.count) {
-            good.count = queryData.count;
+      this.$store.dispatch('checkLogin').then(
+        (res) => {
+          console.log(res)
+          if (res !== '验证成功') {
+            this.$router.push({path: '/login', query: {redirect: this.$route.fullPath}})
+          } else {
+            let good = this;
+            let queryData = this.$route.query;
+            var userID;
+            this.userInfo ? userID = this.userInfo.user_id : userID = ''
+            this.$store.dispatch('req_detailData', {proId: queryData.product_id, user: userID}).then(
+              (value) => {
+                //商品详情
+                console.log(value.detail)
+                good.goodInfoData = value.detail;
+                good.name = good.goodInfoData.product_name;
+                good.desc = good.goodInfoData.synopsis_info;
+                good.beans = good.goodInfoData.product_price;
+                good.price = good.goodInfoData.selling_price;
+                good.inventory = good.goodInfoData.inventory;
+                good.level_limits = good.goodInfoData.level_limits;
+                good.product_type = good.goodInfoData.product_type;
+                good.purchase_limitation = good.goodInfoData.purchase_limitation;
+                good.userPurchasedCount = good.goodInfoData.userPurchasedCount;
+                good.imgSrc = good.goodInfoData.picture_url;
+                if (queryData.count) {
+                  good.count = queryData.count;
+                }
+                if (queryData.product_type === 'entity') {
+                  good.entity = true
+                }
+                good.totalBeans = good.beans * good.count;
+              },
+              (err) => {
+                console.log(err)
+              }
+            )
+            //请求地址
+            this.req_site()
           }
-          if (queryData.product_type === 'entity') {
-            good.entity = true
-          }
-          good.totalBeans = good.beans * good.count;
-        },
-        (err) => {
-          console.log(err)
-        }
-      )
-      //请求地址
-      this.req_site()
-      //初始化设置地址id
+        })
+
     },
     computed: {
       ...mapState([
-        'userInfo', 'success', 'dynamic'
+        'userInfo', 'IsLogged', 'dynamic'
       ])
     },
     methods: {
@@ -246,7 +260,7 @@
           this.site_info = this.addressList[index].province_value + this.addressList[index].city_value + this.addressList[index].county_value + this.addressList[index].detailed_address + '   ' + this.addressList[index].user_name + '   ' + this.addressList[index].phone_number
       },
       req_site(){
-        this.$http.get('/cjx/clientinfolist/addressList.do', {params: {user_id: this.userInfo.user_id}}).then((res) => {
+        this.$http.get(this.cjx + '/clientinfolist/addressList.do', {params: {user_id: this.userInfo.user_id}}).then((res) => {
           this.addressList = res.body.list;
           //地址Dom 可以显示
           this.listDomFlag = true
@@ -295,10 +309,12 @@
         this.select.city = value;
       },
       selectArea(value) {
+        console.log(value)
         this.select.area = value;
       },
       saveAddress() {
         //表单检验
+        console.log(this.select)
         let phoneReg = /^1[34578]\d{9}$/;
         if (!this.user_name.length) {
           this.errorTips = '请填写收件人';
@@ -308,15 +324,15 @@
           this.errorTips = '请输入有效的手机号码';
           return false;
         }
-        if (!this.select.province.code) {
+        if (!this.select.province.value) {
           this.errorTips = '请选择省份';
           return false;
         }
-        if (!this.select.city.code) {
+        if (!this.select.city.value) {
           this.errorTips = '请选择市';
           return false;
         }
-        if (!this.select.area.code) {
+        if (!this.select.area.value) {
           this.errorTips = '请选择区县';
           return false;
         }
@@ -336,7 +352,7 @@
           this.addressList[index].province_value = this.select.province.value;
           this.addressList[index].city_value = this.select.city.value;
           this.addressList[index].county_value = this.select.area.value;
-          this.$http.get('/cjx/clientinfolist/modifyAddr.do', {params: {json: JSON.stringify(this.addressList[index])}}).then((res) => {
+          this.$http.get(this.cjx + '/clientinfolist/modifyAddr.do', {params: {json: JSON.stringify(this.addressList[index])}}).then((res) => {
           })
         } else {
           let data = {
@@ -354,7 +370,7 @@
             addr_number: '',
             postcode: ''
           }
-          this.$http.get('/cjx/clientinfolist/addAddr.do', {params: {json: JSON.stringify(data)}}).then((res) => {
+          this.$http.get(this.cjx + '/clientinfolist/addAddr.do', {params: {json: JSON.stringify(data)}}).then((res) => {
             if (res.body.message == '操作成功') {
               this.req_site()
             }
@@ -367,7 +383,8 @@
           this.addressList[i].default_status = 0
         }
         this.addressList[index].default_status = 1;
-        this.$http.get('/cjx/clientinfolist/changeAddr.do', {params: {json: JSON.stringify(this.addressList[index])}}).then((res) => {
+        this.$http.get(this.cjx + '/clientinfolist/changeAddr.do', {params: {json: JSON.stringify(this.addressList[index])}}).then((res) => {
+          console.log(res.body)
         })
       },
       modifySite(index) {
@@ -388,25 +405,50 @@
         this.$router.go(-1)
       },
       openOrderPop() {
-        if (this.totalBeans > this.dynamic.cd_money) {
-          this.$store.dispatch('set_error', {errorCon: '仓豆不够啦 >_<', errorType: 'lessBeans'})
+        if (!this.IsLogged) {
+          this.$store.dispatch('set_error', {errorCon: '请先登录， 即可兑换心仪商品', errorType: 'Nologged'})
           return false
         }
         this.orderLayerShow = !this.orderLayerShow
       },
       confirmOrder() {
+        if (this.count > this.inventory) {
+          this.$store.dispatch('set_error', {errorCon: '很抱歉，库存数量不足，我们将尽快补货 ^_^', errorType: 'normal'})
+          this.orderLayerShow = !this.orderLayerShow
+          return false
+        }
+        if (this.totalBeans > this.dynamic.cd_money) {
+          this.$store.dispatch('set_error', {errorCon: '仓豆不够啦 >_<', errorType: 'lessBeans'})
+          this.orderLayerShow = !this.orderLayerShow
+          return false
+        }
+        if ((this.userPurchasedCount - 0) + (this.count - 0) > this.purchase_limitation) {
+          this.$store.dispatch('set_error', {
+            errorCon: '该商品每人限兑 ' + this.purchase_limitation + ' 件哦 ^_^',
+            errorType: 'normal'
+          })
+          this.orderLayerShow = !this.orderLayerShow
+          return false
+        }
+        if (this.level_limits > this.dynamic.level) {
+          this.$store.dispatch('set_error', {
+            errorCon: 'Vx级以上会员才能兑换该商品哦，<a href="javascript:;" @click="goVip">快去看看如何升级吧</a>',
+            errorType: 'normal'
+          })
+          this.orderLayerShow = !this.orderLayerShow
+          return false
+        }
         let data = {
           user_id: this.userInfo.user_id,
           product_id: this.$route.query.product_id,
           purchase_count: this.count,
           customer_message: this.requirement,
           acquisition_addr: this.id,
-          totalBeans: this.totalBeans
+          totalBeans: this.totalBeans,
+          product_type: this.product_type
         }
-        console.log(this.requirement);
-        //good.recordInfo.product_type = good.goodInfoData.product_type;
-        this.$http.post('/api/orderAdminList/orderAdminListInsert.do', data).then((res) => {
-          console.log(res.body)
+        console.log(data)
+        this.$http.post(this.api + '/orderAdminList/orderAdminListInsert.do', data).then((res) => {
           if (res.body.message == '兑换成功') {
             this.$router.push({path: '/success', query: this.$route.query})
           }

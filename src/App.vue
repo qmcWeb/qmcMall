@@ -25,11 +25,7 @@
       'v-footer': footer,
     },
     created(){
-      //从本地cookie取ueseInfo
-      this.$store.dispatch('get_user_fromCk');
-      if (this.userInfo) {
-        this.$store.dispatch('get_userInfo_dynamic', {user_id: this.userInfo.user_id});
-      }
+      this.$store.dispatch('checkLogin');
     },
     computed: {
       headMallShow() {

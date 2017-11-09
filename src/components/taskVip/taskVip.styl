@@ -21,7 +21,6 @@
     .tabs-content-wrap
       padding: 0 46px 45px
       .content-wrap
-        overflow hidden
         .section
           margin-top 45px;
           .title
@@ -44,30 +43,52 @@
               background: #f2f2f2
               box-shadow: 0 10px 18px 0 rgba(0, 0, 0, 0.12);
               border-radius: 5px;
-              i
-                font-size: 33px;
-                color: #333333
-              .name
-                font-size: 16px;
-                margin-top: 21px;
-                color: #333333
-                font-weight: bold
-              .desc
-                font-size: 16px;
-                margin-top: 8px;
-                color: #808080;
-                height 60px;
-                line-height 1.4
-              .btn
-                width: 154px;
-                margin: auto
+              height: 252px;
+              &.app:hover .img-wrap
                 display: block
-                line-height: 48px;
-                border-radius: 5px;
-                color: #fff
-                background: #d9d9d9
-                &.No-complete
-                  background: #be9f59
+              &.app:hover .card-wrap
+                display: none
+              &.app .card-wrap .btn
+                display: none
+              .img-wrap
+                display none
+                p
+                  color: #be9f59
+                  font-size 16px;
+                  color: #be9f59;
+                  font-size: 16px;
+                  margin-top: 29px;
+              .card-wrap
+                i
+                  font-size: 33px;
+                  color: #333333
+                .name
+                  font-size: 16px;
+                  margin-top: 21px;
+                  color: #333333
+                  font-weight: bold
+                .desc
+                  font-size: 16px;
+                  margin-top: 8px;
+                  color: #808080;
+                  height 60px;
+                  line-height 1.4
+                .signTxt
+                  color: #be9f59
+                  font-size 16px;
+                  margin: 0 -15px;
+                .btn
+                  width: 154px;
+                  margin: auto
+                  display: block
+                  line-height: 48px;
+                  border-radius: 5px;
+                  color: #fff
+                  background: #d9d9d9
+                  &.No-complete
+                    background: #be9f59
+                    &:hover
+                      background: #a08037
 
         &.growth
           .growth-value

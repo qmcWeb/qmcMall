@@ -4,7 +4,8 @@
     <div class="computed-wrap section">
       <h3 class="title">如何计算等级？</h3>
       <p class="content">
-        钱满仓会员中心包含8个会员等级，会员等级由用户的成长值决定，当累计成长值达到升级条件时，立即升级。成长值越多，等级越高，享受到的权益越多。用户可通过投资等行为获得大量成长值。<span class="gold">查看我的成长值</span>
+        钱满仓会员中心包含8个会员等级，会员等级由用户的成长值决定，当累计成长值达到升级条件时，立即升级。成长值越多，等级越高，享受到的权益越多。用户可通过投资等行为获得大量成长值。
+        <router-link :to="{path:'/taskVip'}" class="gold">查看我的成长值</router-link>
       </p>
       <table align="center" valign="middle">
         <tr>

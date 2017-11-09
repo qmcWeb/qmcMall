@@ -54,7 +54,6 @@
                 <span class="icon-right"></span>
                 签到成功！成长值＋2
 
-
               </div>
               <div class="sign-app-2wm">
                 <img src="./qmc-wx-2wm.png" width="110" height="110" alt="app二维码">
@@ -65,14 +64,15 @@
                 钱满仓APP签到每日成长值+2，连续签到有惊喜哦~
 
 
+
               </div>
             </div>
             <div class="login-title">
               <span class="left userName">Hi,{{userInfo.realname}}</span>
-              <p class="right signIn" @click="signPopUpShow" v-if="noSign">
+              <p class="right signIn" @click="signPopUpShow" v-if="whetherSign.noSign">
                 <span class="icon-sign"></span>签到赢福利
             </p>
-              <p class="right signIn signOver" v-else>
+              <p class="right signIn signOver" v-if="whetherSign.signed">
                 <span class="icon-sign"></span>今日已签到
             </p>
             </div>
@@ -132,9 +132,11 @@
             <swiper-slide v-for="item in dynamic.privileges" :key="item.id">
               <i :class="item.iconClass"></i>
               <h3 class="name">{{item.privilege_name_ty}}</h3>
-              <p class="rightText" v-if="item.privilege_name_ty==='仓豆加速'">{{dynamic.cdjs}}倍</p>
-              <p class="rightText" v-if="item.privilege_name_ty==='生日好礼'">{{dynamic.srhl}}%</p>
-              <p class="rightText" v-if="item.privilege_name_ty==='升级礼包'">{{dynamic.sjlb}}成长值</p>
+              <!-- <p class="rightText" v-if="item.privilege_name_ty==='仓豆加速'">{{dynamic.cdjs}}倍</p>
+               <p class="rightText" v-if="item.privilege_name_ty==='生日好礼'">{{dynamic.srhl}}%</p>
+               <p class="rightText" v-if="item.privilege_name_ty==='升级礼包'">{{dynamic.sjlb}}成长值</p>-->
+              <p class="rightText">{{item.p_value}}</p>
+
               <p class="desc">{{item.privilege_info}}</p>
             </swiper-slide>
           </swiper>
@@ -240,11 +242,19 @@
         }
       },
       signPopUpShow(){
-        this.signShow = true;
+        this.$http.get(this.cjx + '/Associator_center/signDay.do', {params: {user_id: this.userInfo.user_id}}).then(response => {
+          if (response.body.message !== '成功') {
+            this.signShow = true;
+            this.noSign = false;
+          }
+          console.log(response.body);
+        });
+
       },
       signPopUpHide(){
         this.signShow = false;
-        this.noSign = false;
+        this.whetherSign.signed = true;
+        this.whetherSign.noSign = false;
       },
       //从本地获取userInfo
       getInfo: function () {
@@ -272,8 +282,19 @@
         }
       },
       ...mapState([
-        'userInfo', 'success', 'dynamic', 'noLogged'
+        'userInfo', 'IsLogged', 'dynamic', 'noLogged'
       ]),
+      whetherSign(){
+        let obj = {signed: false, noSign: false}
+        if (this.dynamic.sign === '已签到') {
+          obj.signed = true;
+          obj.noSign = false;
+        } else {
+          obj.signed = false;
+          obj.noSign = true;
+        }
+        return obj
+      }
     },
     created(){
       this.getInfo();

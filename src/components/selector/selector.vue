@@ -7,13 +7,13 @@
             商品类别：
           </div>
           <a href="javascript:;" v-for="(item,index) in type" :class="{active:item.select}"
-             @click="router(item.call,'type',index)">{{item.con}}</a>
+             @click="router(item.call,'type')">{{item.con}}</a>
         </div>
         <div class="byPrice">
           <div class="title">
             商品价格：
           </div>
-          <a href="javascript:;" v-for="(item,index) in price" @click="router(item.call,'price',index)"
+          <a href="javascript:;" v-for="(item,index) in price" @click="router(item.call,'price')"
              :class="[{active:item.select},{'marginR-10':item.call==='convertible'}]">{{item.con}}</a>
           <div class="widget">
             <i>￥</i>
@@ -32,22 +32,17 @@
           排序：
         </div>
         <a href="javascript:;" v-for="(item,index) in sort" :class="{active:item.select}"
-           @click="router(item.call,'sort',index)">{{item.con}}</a>
+           @click="router(item.call,'sort')">{{item.con}}</a>
       </div>
     </div>
   </div>
 </template>
 <script>
-  import LStorage from '@/common/js/LStorage'
+  import {mapState} from 'vuex'
   export default{
     data (){
       return {
-        type: [{con: "全部", select: true, call: 'all'},
-          {con: "热兑商品", select: false, call: 1},
-          {con: "健康美食", select: false, call: 2},
-          {con: "优惠卡券", select: false, call: 3},
-          {con: "家电数码", select: false, call: 4},
-          {con: "日常护理", select: false, call: 5}],
+        type: [{con: "全部", select: true, call: 'all'}],
         price: [
           {con: '全部', select: true, call: 'all'},
           {con: '我可兑换', select: false, call: 'convertible'}
@@ -62,11 +57,15 @@
         priceMax: [],
         route: '',
         pageNo: [],
-        pageSize: []
+        pageSize: [],
+        user_id: []
       }
 
     },
     computed: {
+      ...mapState([
+        'userInfo'
+      ]),
 
     },
     watch: {
@@ -74,17 +73,34 @@
       '$route': 'RefreshDom'
     },
     created() {
-      this.RefreshDom();
-      this.route = this.$route.query
+      this.route = this.$route.query;
+
+      this.$store.dispatch('req_goodTypeData').then((res) => {
+        for (var i = 0; i < res.length; i++) {
+          var obj = {con: res[i].name, select: false, call: res[i].id}
+          this.type.push(obj)
+        }
+        this.$nextTick(function () {
+          this.RefreshDom();
+        })
+      });
     },
     methods: {
-      router(call, selected, index){
+      router(call, selected){
         if (call === 'priceUp') {
           this.sort[3].call = 'priceDown';
           call = 'priceDown'
         } else if (call === 'priceDown') {
           this.sort[3].call = 'priceUp'
           call = 'priceUp'
+        }
+        if (call === 'convertible') {
+          if (this.userInfo) {
+            this.route.user_id = this.userInfo.user_id
+            console.log(this.route)
+          }
+        } else {
+          delete this.route.user_id;
         }
         this.route[selected] = call;
         this.setParams()
@@ -109,7 +125,8 @@
             price: route.price,
             sort: route.sort,
             priceMin: route.priceMin,
-            priceMax: route.priceMax
+            priceMax: route.priceMax,
+            user_id: route.user_id
           }
         })
       },

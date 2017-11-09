@@ -2,6 +2,8 @@
  * Created by sks on 2017/9/6.
  */
 import Vue from 'vue'
+let api = '/api';
+let cjx = '/cjx';
 import {setCookie, getCookie} from '@/common/js/cookie.js';
 export default {
   state: {
@@ -16,40 +18,56 @@ export default {
     success: false,
     dynamic: '',
     noLogged: false,
-    pageNumber: ''
+    IsLogged: false,
+    pageNumber: '',
+    blank: false
   },
   actions: {
-
     //请求商品种类
     req_goodTypeData: function ({commit}) {
-      Vue.http.get('/api/commodity/queryCommodityType.do').then(response => {
-        commit('SET_type_data', {data: response.body.list});
+      return new Promise(function (resolve, reject) {
+        Vue.http.get(api + '/commodity/queryCommodityType.do').then(response => {
+          resolve(response.body)
+          console.log(response.body)
+          commit('SET_type_data', {data: response.body});
+        }, response => {
+          reject(response.status)
+        })
       })
     },
-    //设置用户信息
-    req_userInfo: function ({commit}, infoData) {
-      commit('SET_userInfo_data', {data: infoData});
-    },
     //从cookie获取用户信息
-    get_user_fromCk: function ({commit}) {
-      var userInfo;
-      if (getCookie('user_info')) {
-        userInfo = JSON.parse(getCookie('user_info'))
-        //有cookie  就是登录的
-        commit('SET_NoLogged', false);
-      } else {
-        userInfo = '';
-        //判断没有登录
-        commit('SET_NoLogged', true);
-      }
-      commit('SET_userInfo_data', {data: userInfo});
+    checkLogin: function ({commit}) {
+      return new Promise(function (resolve, reject) {
+        var userInfo;
+        if (getCookie('user_info')) {
+          userInfo = JSON.parse(getCookie('user_info'));
+          let checkParams = {user_id: userInfo.user_id, token: userInfo.token}
+          Vue.http.post(api + '/associatorUser/initCheckRespose.do', checkParams).then(response => {
+            console.log(response.body);
+            resolve(response.body.message)
+            if (response.body.message === '验证成功') {
+              commit('SET_checkLogin', true);
+              Vue.http.post(cjx + '/Associator_center/getAssociatorNewInfo.do', {user_id: userInfo.user_id}).then(response => {
+                commit('SET_userInfo_dynamic', {data: response.body});
+              })
+            } else {
+              commit('SET_checkLogin', false);
+            }
+          }, response => {
+            reject(response.status)
+          })
+        } else {
+          resolve('失败')
+          commit('SET_checkLogin', false);
+        }
+        commit('SET_userInfo_data', {data: userInfo});
+      })
     },
     //请求动态用户信息level，仓豆
     get_userInfo_dynamic: function ({commit}, userID) {
       return new Promise(function (resolve, reject) {
-        Vue.http.get('/cjx/Associator_center/getAssociatorNewInfo.do', {params: userID}).then(response => {
+        Vue.http.get(cjx + '/Associator_center/getAssociatorNewInfo.do', {params: userID}).then(response => {
           commit('SET_userInfo_dynamic', {data: response.body});
-          console.log(response.body)
           resolve(response.body)
         }, response => {
           reject(response.status)
@@ -59,17 +77,22 @@ export default {
     },
     //请求首页列表数据
     req_indexData: function ({commit}) {
-      Vue.http.get('/cjx/commodity/showIndexList.do').then(response => {
+      Vue.http.get(cjx + '/commodity/showIndexList.do').then(response => {
         commit('SET_indexData', {data: response.body});
       });
     },
     //请求不同的列表页
     req_listData: function ({commit}, reqparams) {
       return new Promise(function (resolve, reject) {
-        Vue.http.get('/api/commodity/screenOrderCommodityList.do', {params: reqparams}).then(response => {
+        Vue.http.get(api + '/commodity/screenOrderCommodityList.do', {params: reqparams}).then(response => {
           commit('SET_listData', {data: response.body.dataBody});
-          commit('SET_pageNumber', {data: response.body.pageNumber});
           console.log(response.body)
+          if (response.body.dataBody.length) {
+            commit('SET_blank', false);
+          } else {
+            commit('SET_blank', true);
+          }
+          commit('SET_pageNumber', {data: response.body.pageNumber});
           resolve(response.body)
         }, response => {
           reject(response.status)
@@ -82,7 +105,7 @@ export default {
     },
     req_detailData: function ({commit}, {proId, user}) {
       return new Promise(function (resolve, reject) {
-        Vue.http.get('/api/commodity/productDetails.do', {
+        Vue.http.get(api + '/commodity/productDetails.do', {
           params: {
             product_id: proId,
             user_id: user
@@ -115,19 +138,29 @@ export default {
       }
       return new_list
     },
-    /*new_type_data:state => {
-     let new_type=[{con: '全部', select: true, call: 'all'}]
-     let type_Arr_data = state.goodTypeData;
-     for (let i = 0; i < type_Arr_data.length; i++) {
-     new_type.push({con: type_Arr_data[i].name, select: false, call: type_Arr_data[i].id})
-     }
-     return new_type
-     },*/
+    awardArr: state => {
+      if (state.dynamic.privileges.length > 0) {
+        let arr = [];
+        let award = state.dynamic.privileges;
+        for (let i = 0; i < award.length; i++) {
+          arr.push(award[i].privilege_name_ty)
+        }
+        return arr
+      }
+
+    },
   },
   mutations: {
     //设置state
-    SET_NoLogged: (state, bool) => {
-      state.noLogged = bool
+    SET_blank: (state, bool) => {
+      state.blank = bool
+    },
+    SET_checkLogin: (state, bool) => {
+      state.IsLogged = bool
+      state.noLogged = !bool
+    },
+    SET_IsLogged: (state, bool) => {
+      state.IsLogged = bool
     },
     SET_type_data: (state, {data}) => {
       state.goodTypeData = data

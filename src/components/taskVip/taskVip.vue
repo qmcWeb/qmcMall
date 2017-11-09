@@ -7,31 +7,48 @@
       </div>
       <div class="tabs-content-wrap">
         <div class="content-wrap task" v-show="taskShow">
-          <div class="noLogin" v-if="!userInfo">
+          <div class="noLogin" v-if="noLogged">
             <img src="./noLogin-Avatar.png" alt="" class="award">
             <p class="text">登录查看会员任务</p>
             <router-link :to="{path: '/login',query:{where:'Vip'}}" class="btn">立即登录</router-link>
           </div>
-          <div class="section" v-for="item in tasks" v-else>
-            <h3 class="title">{{item.title}}</h3>
+          <div class="section" v-for="item in tasks" v-if="IsLogged">
+            <h3 class="title">{{item.privilege_type}}</h3>
             <ul class="task-list">
-              <li class="item" v-for="task in item.list">
-                <i :class="task.iconClass"></i>
-                <h3 class="name">{{task.name}}</h3>
-                <p class="desc">{{task.desc}}</p>
-                <a href="JavaScript:;" v-if="task.complete" class="btn">已完成</a>
-                <a href="javascript:;" class="btn No-complete" v-else>去完成</a>
+              <li :class="['item',task.task_name==='APP端签到'?'app':'']" v-for="task in item.privilege_list">
+                <div v-if="task.task_name==='APP端签到'" class="img-wrap">
+                  <div class="img-wrap">
+                    <img src="./2wm.png" alt="">
+                    <p>手机扫描下载钱满仓APP</p>
+                  </div>
+                </div>
+                <div class="card-wrap">
+                  <i :class="task.className"></i>
+                  <h3 class="name">{{task.task_name}}</h3>
+                  <p class="desc" v-if="task.task_name!=='好友投资' && task.task_name!=='投资任意一个项目'">成长值：+ {{task.task_value}}</p>
+                  <p class="desc" v-if="task.task_name==='好友投资'">投资资金越多，时间越长成长值越多</p>
+                  <p class="desc" v-if="task.task_name==='投资任意一个项目'">投资资金越多，时间越长成长值越多</p>
+                  <a href="JavaScript:;" v-if="task.complete && task.task_name!=='好友投资'" class="btn">已完成</a>
+                  <router-link :to="{path: '/homeVip'}" class="btn No-complete"
+                               v-if="!task.complete && task.task_name==='PC端签到'">去完成
+                  </router-link>
+                  <a :href="linkName(task.task_name)" v-if="!task.complete && task.task_name!=='PC端签到'"
+                     class="btn No-complete">去完成</a>
+                  <p class="signTxt" v-if="task.task_name==='APP端签到'">
+                    连续签满5天／7天有惊喜哦～
+                  </p>
+                </div>
               </li>
             </ul>
           </div>
         </div>
         <div class="content-wrap growth" v-show="!taskShow">
-          <div class="noLogin" v-if="!userInfo">
+          <div class="noLogin" v-if="noLogged">
             <img src="./noLogin-Avatar.png" alt="" class="award">
             <p class="text">登录查看我的成长值</p>
             <router-link :to="{ path: '/login',query:{where:'Vip'}}" class="btn">立即登录</router-link>
           </div>
-          <div class="logged" v-else>
+          <div class="logged" v-if="IsLogged">
             <div class="growth-value">
               您目前的成长值为<span class="gold">{{dynamic.growth_value}}</span>，您的会员等级为：
               <span class="gold">{{dynamic.privilege_name}}</span>
@@ -66,42 +83,14 @@
   export default{
     data(){
       return {
-        tasks: [
-          {
-            title: '新手任务',
-            list: [
-              {iconClass: 'icon-real-name', name: '实名认证', desc: '成长值：＋100', complete: false},
-              {iconClass: 'icon-recharge', name: '首次充值', desc: '成长值：＋100', complete: false},
-              {iconClass: 'icon-measurement', name: '风险测评', desc: '成长值：＋100', complete: false},
-            ]
-          },
-          {
-            title: '投资任务',
-            list: [
-              {iconClass: 'icon-invest', name: '首次投资', desc: '成长值：＋n', complete: false},
-              {
-                iconClass: 'icon-project', name: '投资任意一个项目', desc: '投资资金越多，时间越长' +
-              '成长值越多', complete: false
-              },
-            ]
-          },
-          {
-            title: '邀请任务',
-            list: [
-              {iconClass: 'icon-inviteFriends', name: '邀请好友注册并实名认证', desc: '成长值：＋50', complete: false},
-              {
-                iconClass: 'icon-invite-invest', name: '好友投资', desc: '投资资金越多，时间越长' +
-              '成长值越多', complete: false
-              },
-            ]
-          },
-          {
-            title: '互动任务',
-            list: [
-              {iconClass: 'icon-sign', name: 'PC端签到', desc: '成长值：＋1', complete: false},
-              {iconClass: 'icon-sign', name: 'App端签到', desc: '成长值：＋2', complete: false}
-            ]
-          }
+        tasks: [],
+        qmcLink: [
+          'http://121.42.209.253:28182/shiming',
+          'http://121.42.209.253:28182/user/recharge',
+          'http://121.42.209.253:28182/user/riskEvaluation',
+          'http://121.42.209.253:28182/loan-list',
+          'http://121.42.209.253:28182/loan-list',
+          'http://121.42.209.253:28182/user/invitation_prize',
         ],
         growthList: [
           {
@@ -155,12 +144,13 @@
     methods: {
       changeQuery: function (value) {
         var _this = this
-        this.$http.get('/cjx/Associator_center/getGrowthValueList.do', {
+        this.$http.get(this.cjx + '/Associator_center/getGrowthValueList.do', {
           params: {
             user_id: this.userInfo.user_id,
             flag: value
           }
         }).then(response => {
+          console.log(response.body)
           _this.growthList = response.body.list
         }, response => {
           console.log(response.status)
@@ -168,16 +158,39 @@
       },
       requestTask(){
         var _this = this
-        this.$http.get('/cjx/associatorTaskInfo/getUserTaskStatus.do', {
+        this.$http.get(this.cjx + '/associatorTaskInfo/getUserTaskStatus.do', {
           params: {
             user_id: this.userInfo.user_id,
           }
         }).then(response => {
+          this.tasks = response.body.taskInfo
           console.log(response.body)
           //_this.growthList=response.body.list
         }, response => {
           //console.log(response.status)
         })
+      },
+      linkName(name){
+        switch (name) {
+          case '实名认证':
+            return this.qmcLink[0]
+            break;
+          case '首次充值':
+            return this.qmcLink[1]
+            break;
+          case '风险测评':
+            return this.qmcLink[2]
+            break;
+          case '首次投资':
+            return this.qmcLink[3]
+            break;
+          case '投资任意一个项目':
+            return this.qmcLink[4]
+            break;
+          case '邀请好友注册并实名认证':
+            return this.qmcLink[5]
+            break;
+        }
       }
     },
     created(){
@@ -188,8 +201,9 @@
     },
     computed: {
       ...mapState([
-        'userInfo', 'success', 'dynamic'
-      ])
+        'userInfo', 'IsLogged', 'dynamic', 'noLogged'
+      ]),
+
     }
   }
 </script>

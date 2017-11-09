@@ -28,6 +28,10 @@
         padding: 21px;
         &.default
           border-color: #FB6C45
+        &:hover .modify
+          display block
+        &:hover .default-operation
+          display block
         .modify
           color: #92979B;
           position: absolute;
@@ -36,6 +40,7 @@
           cursor pointer
           line-height: 20px;
           -webkit-user-select none
+          display none
         .default-operation
           -webkit-user-select none
           color: #92979B;
@@ -48,11 +53,13 @@
           text-align: center;
           width: 66px;
           background: #fff
+          display none
           &.Default
             background: #FAB19E;
             border-radius: 100px;
             color #fff
             font-size 12px
+            display block
         &:hover
           border-color: #FB6C45
         &:nth-child(3n)
@@ -126,7 +133,6 @@
             border-radius: 5px;
         textarea
           display: block;
-          font-family: MicrosoftYaHei;
           font-size: 14px;
           color: #92979B;
           -webkit-box-sizing: border-box

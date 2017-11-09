@@ -1,6 +1,9 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
+//定义api
+Vue.prototype.api = '/api';
+Vue.prototype.cjx = '/cjx';
 import App from './App';
 import VueRouter from 'vue-router';
 import routerMap from './router';
@@ -29,9 +32,11 @@ router.afterEach((to, from, next) => {
 });
 // 全局导航钩子
 router.beforeEach((to, from, next) => {
-  store.dispatch('get_user_fromCk');
+  //store.dispatch('get_user_fromCk');
   // 判断该路由是否需要登录权限
-  if (to.meta.requireAuth) {
+  window.document.title = to.meta.title;
+  next()
+  /* if (to.meta.requireAuth) {
     // 通过vuex state获取当前的token是否存在
     // console.log(isEmptyObject(store.state.user))
     if (!isEmptyObj(store.state.userInfo)) {
@@ -45,7 +50,8 @@ router.beforeEach((to, from, next) => {
   }
   else {
     next();
-  }
+   }*/
+
 });
 Vue.http.options.emulateJSON = true;
 // 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。

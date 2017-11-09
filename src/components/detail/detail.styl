@@ -30,7 +30,6 @@ img
       height 440px
       margin-top 5px
       margin-left 5px
-      border 1px solid royalblue
       img
         width 100%
         height 100%
@@ -48,9 +47,20 @@ img
         line-height 19px
         padding-bottom 19px
       .goods-features
+        background url(./intro.png) center
         width 100%
         height 110px
         margin-bottom 14px
+        line-height: 110px;
+        color #264C65 100%
+        span:nth-child(1)
+          margin-left 106px;
+        span:nth-child(2)
+          margin-left 102px;
+        span:nth-child(3)
+          margin-left 104px;
+        span:nth-child(4)
+          margin-left 104px;
       .goods-price
         color: #264C65
         span
@@ -84,14 +94,18 @@ img
         line-height 50px
         text-align center
         font-size 16px
-        background #FB6C45
-        box-shadow 0 10px 16px 0 rgba(251, 108, 69, 0.50)
-        border-radius 100px
         a
           display block
           width 100%
           height 100%
           color #FFFFFF
+          background #FB6C45
+          box-shadow 0 10px 16px 0 rgba(251, 108, 69, 0.50)
+          border-radius 100px
+          &.soldOut
+            background: #CCCCCC;
+            box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.12);
+            cursor default
       .goods-tips
         padding-top 19px
         font-size 12px
@@ -122,9 +136,9 @@ img
       display block
       width 300px
       height auto
-      padding 0 10px
       .recommended-title
         width 100%
+        padding 0 10px
         display flex
         .line
           position relative
@@ -142,13 +156,16 @@ img
         height 124px
         display flex
         align-items center
+        padding 0 10px;
         &:hover
           box-shadow 0 0 22px 0 rgba(0, 0, 0, 0.16);
         .recommended-img
           width 90px
           height 90px
-          border 1px solid royalblue
           margin-right 6px
+          border-radius: 5px;
+          overflow hidden
+          background: #f9f9f9
           img
             width 100%
             height 100%
@@ -194,6 +211,7 @@ img
           border-radius 5px
           .wrap
             height: 100%
+            border-radius: 0 0 5px 5px;
             &:hover
               box-shadow 0 10px 18px 0 rgba(0, 0, 0, 0.12)
             .item-pic
@@ -215,7 +233,6 @@ img
               text-align center
             .item-price
               text-align center
-              border-radius: 0 0 5px 5px;
               span
                 font-size 22px
                 color #DA5140
