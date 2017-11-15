@@ -26,7 +26,7 @@
     methods: {
       query(num){
         console.log(num)
-        let _query = Object.assign(this.$route.query, {pageNo: num, pageSize: 2});
+        let _query = Object.assign(this.$route.query, {pageNo: num, pageSize: 12});
         console.log(_query)
         //神奇的傻逼
         this.$router.push({

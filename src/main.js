@@ -3,7 +3,7 @@
 import Vue from 'vue';
 //定义api
 Vue.prototype.api = '/api';
-Vue.prototype.cjx = '/cjx';
+Vue.prototype.cjx = '/api';
 import App from './App';
 import VueRouter from 'vue-router';
 import routerMap from './router';
@@ -22,6 +22,7 @@ Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 Vue.use(VueRouter)
+
 // 并且配置路由规则
 const router = new VueRouter({
   routes: routerMap,
@@ -32,25 +33,43 @@ router.afterEach((to, from, next) => {
 });
 // 全局导航钩子
 router.beforeEach((to, from, next) => {
-  //store.dispatch('get_user_fromCk');
-  // 判断该路由是否需要登录权限
+
   window.document.title = to.meta.title;
-  next()
-  /* if (to.meta.requireAuth) {
-    // 通过vuex state获取当前的token是否存在
-    // console.log(isEmptyObject(store.state.user))
-    if (!isEmptyObj(store.state.userInfo)) {
-      next();
+  if (to.meta.requireAuth) {
+    if (store.state.IsLogged) {
+      if (to.path === '/login') {
+        next({path: '/'});
+      } else {
+        store.dispatch('checkLogin')
+        next();
+      }
     } else {
-      next({
-        path: '/login',
-        query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
-      })
+      store.dispatch('checkLogin').then(
+        (res) => {
+          console.log(res)
+          if (res === '验证成功') {
+            if (to.path === '/login') {
+              next({path: '/'});
+            } else {
+              next()
+            }
+          } else {
+            if (to.name === 'success') {
+              next({path: '/'});
+            } else {
+              next({
+                path: '/login',
+                query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
+              })
+            }
+
+          }
+        })
     }
   }
   else {
-    next();
-   }*/
+    next()
+  }
 
 });
 Vue.http.options.emulateJSON = true;

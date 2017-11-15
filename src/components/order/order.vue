@@ -5,7 +5,7 @@
       <!--新地址浮层-->
       <div class="newAddress-layer blackFixed" v-show="newAddressLayer">
         <div class="fill-wrap midWrap">
-          <i class="close" @click="closeSiteLayer">×</i>
+          <i class="close icon-close" @click="closeSiteLayer"></i>
           <h3>{{siteLayerTitle}}</h3>
           <div class="fill-content">
             <div class="s-title">寄送地址</div>
@@ -16,7 +16,7 @@
               <input type="tel" name="phone" class="phone" maxlength="11" v-model="phone_number">
             </div>
             <div class="select-widget">
-              <div>收获地址</div>
+              <div class="add-t-txt">收货地址</div>
               <v-distpicker @province="selectProvince" @city="selectCity" @area="selectArea"
                             :province="select.province.value" :city="select.city.value"
                             :area="select.area.value">
@@ -38,7 +38,7 @@
       <!--订单确认浮层-->
       <div class="orderSure-layer blackFixed" v-show="orderLayerShow">
         <div class="orderSure-wrap midWrap">
-          <i class="close" @click="closeOrderLayer">×</i>
+          <i class="close icon-close" @click="closeOrderLayer"></i>
           <h3>订单信息</h3>
           <div class="orderSure-content">
             <div class="s-title">订单信息</div>
@@ -120,10 +120,15 @@
             <li>单价</li>
           </ul>
           <ul class="infos">
-            <li class="good-img-s"><img :src="imgSrc" alt=""></li>
+            <li class="good-img-s">
+              <div>
+                <img :src="imgSrc" alt="">
+              </div>
+            </li>
             <li>{{name}}</li>
             <li>实体商品</li>
-            <li class="count-widget"><span class="countIcon icon-reduce" @click="reduceNum()"></span>
+            <li class="count-widget"><span :class="['countIcon','icon-reduce',min?'min':'']"
+                                           @click="reduceNum()"></span>
               <span class="number">{{ count }}</span>
               <span class="countIcon icon-add" @click="addNum()"></span></li>
             <li>{{inventory}}</li>
@@ -133,13 +138,16 @@
         <div class="requireFill">
           <transition name="addMessBtn" leave-active-class="animated fadeOutLeft">
             <div class="addMessBtn" v-if="addMessBtnShow"
-                 @click="addMessBtnShow=!addMessBtnShow;addMessInputShow=!addMessInputShow">添加留言
-
+                 @click="addMessBtnShow=!addMessBtnShow;addMessInputShow=!addMessInputShow">
+              <span class="icon-addMessage"></span>
+              添加留言
             </div>
           </transition>
-          <transition name="addMessInput" enter-active-class="animated shake">
-            <input type="text" v-model="requirement" v-if="addMessInputShow" placeholder="请您简要描述您的需求（限50字，非必填）"
-                   class="addMessInput">
+          <transition name="addMessInput" enter-active-class="animated bounceInRight">
+            <div v-if="addMessInputShow" class="input-widget">
+              <span class="icon-addMessage"></span>
+              <input type="text" v-model="requirement" placeholder="请您简要描述您的需求（限50字，非必填）" class="addMessInput">
+            </div>
           </transition>
         </div>
         <div class="totalBeans-wrap">
@@ -167,7 +175,7 @@
         result: 1,
         addressList: [],
         newAddressLayer: false,
-        select: {province: {code: '', value: ''}, city: {code: '', value: ''}, area: {code: '', value: ''}},
+        select: {province: {value: ''}, city: {value: ''}, area: {value: ''}},
         user_name: '',
         phone_number: '',
         detailed_address: '',
@@ -200,12 +208,7 @@
       }
     },
     created() {
-      this.$store.dispatch('checkLogin').then(
-        (res) => {
-          console.log(res)
-          if (res !== '验证成功') {
-            this.$router.push({path: '/login', query: {redirect: this.$route.fullPath}})
-          } else {
+
             let good = this;
             let queryData = this.$route.query;
             var userID;
@@ -224,7 +227,7 @@
                 good.product_type = good.goodInfoData.product_type;
                 good.purchase_limitation = good.goodInfoData.purchase_limitation;
                 good.userPurchasedCount = good.goodInfoData.userPurchasedCount;
-                good.imgSrc = good.goodInfoData.picture_url;
+                good.imgSrc = good.goodInfoData.pictureSmall;
                 if (queryData.count) {
                   good.count = queryData.count;
                 }
@@ -239,14 +242,20 @@
             )
             //请求地址
             this.req_site()
-          }
-        })
+
 
     },
     computed: {
       ...mapState([
         'userInfo', 'IsLogged', 'dynamic'
-      ])
+      ]),
+      min(){
+        if (this.count <= 1) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     },
     methods: {
       //选择送货地址
@@ -289,9 +298,7 @@
         this.user_name = '';
         this.phone_number = '';
         this.detailed_address = '';
-        this.select.province = ''
-        this.select.city = ''
-        this.select.area = ''
+        this.select = {province: {value: ''}, city: {value: ''}, area: {value: ''}},
         this.newAddressLayer = !this.newAddressLayer
 
       },
@@ -328,11 +335,11 @@
           this.errorTips = '请选择省份';
           return false;
         }
-        if (!this.select.city.value) {
+        if (this.select.city.value === '市') {
           this.errorTips = '请选择市';
           return false;
         }
-        if (!this.select.area.value) {
+        if (this.select.area.value === '区') {
           this.errorTips = '请选择区县';
           return false;
         }
@@ -346,9 +353,6 @@
           this.addressList[index].user_name = this.user_name;
           this.addressList[index].phone_number = this.phone_number;
           this.addressList[index].detailed_address = this.detailed_address;
-          this.addressList[index].province = this.select.province.code;
-          this.addressList[index].city = this.select.city.code;
-          this.addressList[index].county = this.select.area.code;
           this.addressList[index].province_value = this.select.province.value;
           this.addressList[index].city_value = this.select.city.value;
           this.addressList[index].county_value = this.select.area.value;
@@ -359,9 +363,6 @@
             user_name: this.user_name,
             phone_number: this.phone_number,
             detailed_address: this.detailed_address,
-            province: this.select.province.code,
-            city: this.select.city.code,
-            county: this.select.area.code,
             province_value: this.select.province.value,
             city_value: this.select.city.value,
             county_value: this.select.area.value,
@@ -389,15 +390,15 @@
       },
       modifySite(index) {
         this.siteIndex = index;
+        console.log(this.addressList, this.select)
         this.user_name = this.addressList[index].user_name;
         this.phone_number = this.addressList[index].phone_number;
         this.detailed_address = this.addressList[index].detailed_address;
-        this.select.province.code = this.addressList[index].province;
-        this.select.city.code = this.addressList[index].city;
-        this.select.area.code = this.addressList[index].county;
-        this.select.province.value = this.addressList[index].province_value;
-        this.select.city.value = this.addressList[index].city_value;
-        this.select.area.value = this.addressList[index].county_value;
+        this.select = {
+          province: {value: this.addressList[index].province_value},
+          city: {value: this.addressList[index].city_value},
+          area: {value: this.addressList[index].county_value}
+        }
         this.siteLayerTitle = '修改地址';
         this.newAddressLayer = !this.newAddressLayer
       },

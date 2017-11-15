@@ -54,13 +54,6 @@
       }
     },
     created(){
-      this.$store.dispatch('checkLogin').then(
-        (res) => {
-          console.log(res)
-          if (res !== '验证成功') {
-            this.$router.push({path: '/homeMall'})
-          }
-        })
       this.look();
     },
     methods: {
@@ -77,7 +70,7 @@
       ]),
       type(){
         let queryData = this.$route.query;
-        if (queryData.product_type === 'entity') {
+        if (queryData.product_type !== 'virtual') {
           return 1
         } else {
           return 0

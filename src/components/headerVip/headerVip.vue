@@ -2,7 +2,7 @@
   <div class="header">
     <div class="header-wrapper">
       <div class="logo">
-        <a class="qmc" href="http://121.42.209.253:28182">
+        <a class="qmc" href="https://www.qianmancang.com">
           <img src="./logo.png" alt="" width="128" height="36">
         </a>
         <i class="seg"></i>
@@ -18,7 +18,7 @@
         </li>
         <li class="slider" :style="{left:slideLeft}" v-if="slideLeft.length"></li>
       </ul>
-      <a href="http://121.42.209.253:28182/" class="back-qmc">返回官方首页</a>
+      <a href="https://www.qianmancang.com/" class="back-qmc">返回官方首页</a>
     </div>
   </div>
 </template>

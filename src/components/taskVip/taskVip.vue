@@ -65,11 +65,14 @@
                 <td class="bg">来源</td>
                 <td class="bg">详细说明</td>
               </tr>
-              <tr v-for="item in growthList">
+              <tr v-for="item in growthList" v-if="growthList.length">
                 <td>{{item.grow_time}}</td>
                 <td>{{item.grow_value}}</td>
                 <td>{{item.grow_source}}</td>
                 <td>{{item.grow_info}}</td>
+              </tr>
+              <tr v-if="growthList.length===0">
+                <td colspan="4">暂时未有成长值记录</td>
               </tr>
             </table>
           </div>
@@ -85,51 +88,14 @@
       return {
         tasks: [],
         qmcLink: [
-          'http://121.42.209.253:28182/shiming',
-          'http://121.42.209.253:28182/user/recharge',
-          'http://121.42.209.253:28182/user/riskEvaluation',
-          'http://121.42.209.253:28182/loan-list',
-          'http://121.42.209.253:28182/loan-list',
-          'http://121.42.209.253:28182/user/invitation_prize',
+          'https://www.qianmancang.com/shiming',
+          'https://www.qianmancang.com/user/recharge',
+          'https://www.qianmancang.com/user/riskEvaluation',
+          'https://www.qianmancang.com/loan-list',
+          'https://www.qianmancang.com/loan-list',
+          'https://www.qianmancang.com/user/invitation_prize',
         ],
-        growthList: [
-          {
-            time: '2017-04-09 17:11:05',
-            value: '+480',
-            where: '投资成功',
-            desc: '投资项目：典贷宝2017-023号；投资金额：20000元'
-          }, {
-            time: '2017-04-09 17:11:05',
-            value: '+480',
-            where: '投资成功',
-            desc: '投资项目：典贷宝2017-023号；投资金额：20000元'
-          }, {
-            time: '2017-04-09 17:11:05',
-            value: '+480',
-            where: '投资成功',
-            desc: '投资项目：典贷宝2017-023号；投资金额：20000元'
-          }, {
-            time: '2017-04-09 17:11:05',
-            value: '+480',
-            where: '投资成功',
-            desc: '投资项目：典贷宝2017-023号；投资金额：20000元'
-          }, {
-            time: '2017-04-09 17:11:05',
-            value: '+480',
-            where: '投资成功',
-            desc: '投资项目：典贷宝2017-023号；投资金额：20000元'
-          }, {
-            time: '2017-04-09 17:11:05',
-            value: '+480',
-            where: '投资成功',
-            desc: '投资项目：典贷宝2017-023号；投资金额：20000元'
-          }, {
-            time: '2017-04-09 17:11:05',
-            value: '+480',
-            where: '投资成功',
-            desc: '投资项目：典贷宝2017-023号；投资金额：20000元'
-          },
-        ],
+        growthList: [],
         taskShow: true,
         logged: true,
         selected: 1,

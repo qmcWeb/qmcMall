@@ -3,11 +3,9 @@
      <a href="javascript:;" class="introduce-img" @click="routerLink">
        <div class="soldOut" v-if="item.inventory===0">
          已售罄
-
        </div>
        <img :src="item.picture_url" alt="">
      </a>
-
      <!--<p class="introduce-sellout" v-if="">已售罄</p>-->
        <div class="good-introduce">
          <p class="goods-name">

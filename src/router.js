@@ -11,6 +11,13 @@ import success from './components/success/success'
 import login from './components/login/login'
 export default [
   {
+    path: '/',
+    component: homeMall,
+    meta: {
+      title: '钱满仓_积分商城'
+    },
+  },
+  {
     path: '/homeMall',
     component: homeMall,
     meta: {
@@ -68,7 +75,8 @@ export default [
     name: 'success',
     component: success,
     meta: {
-      title: '钱满仓_购买成功'
+      title: '钱满仓_购买成功',
+      requireAuth: true,
     },
   },
   {
@@ -84,7 +92,7 @@ export default [
     name: 'login',
     component: login,
     meta: {
-      title: '登录'
+      title: '登录',
     },
   }
 ]

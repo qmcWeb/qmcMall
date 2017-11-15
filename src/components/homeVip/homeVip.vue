@@ -13,14 +13,11 @@
         <div class="grade-course">
           <img src="./grad-circle.png" width="770" height="430" alt="" class="grad-circle">
           <div class="grad-shadow">
-            <!--
-                        <div class="top-lv"  @mousemove="mMove" @mouseout="mOut"></div>
-            -->
             <div class="grad-LV-shadow" :class="'shadow-LV' + level"></div>
           </div>
           <div class="grade-award">
             <div class="grade-award-item" v-for="(item,index) in gradeAward[level-1]">
-              <span data-v-7f04ebfa="" :class="[item.iconClass,item.status==='true'?'awardLight':'']"></span>
+              <span :class="[item.iconClass,item.status==='true'?'awardLight':'']"></span>
               <p>{{item.name}}</p>
             </div>
           </div>
@@ -118,8 +115,6 @@
   import {mapActions} from 'vuex';
   import {mapState, mapGetters} from 'vuex';
   import  bannerVip from  '@/components/bannerVip/bannerVip'
-  const CLS_LIGHT = "haveAward";
-  const LENGTH = 9;
   export default{
     data(){
       return {
@@ -154,11 +149,6 @@
           }
           self.level++
         }, 2000)
-      },
-      mMove(ev){
-      },
-      mOut(){
-
       }
     },
     computed: {

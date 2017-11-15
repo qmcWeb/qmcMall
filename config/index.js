@@ -36,7 +36,7 @@ module.exports = {
         }
       },
       '/cjx': {
-        target: 'http://192.168.15.212:8081',
+        target: 'http://121.42.209.253:38182',
         changeOrigin: true,
         pathRewrite: {
           '^/cjx': ''

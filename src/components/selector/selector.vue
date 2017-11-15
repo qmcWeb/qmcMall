@@ -17,12 +17,12 @@
              :class="[{active:item.select},{'marginR-10':item.call==='convertible'}]">{{item.con}}</a>
           <div class="widget">
             <i>￥</i>
-            <input type="number" v-model="route.priceMin">
+            <input type="number" v-model="route.priceMin" min="0">
           </div>
           <i class="to">-</i>
           <div class="widget">
             <i>￥</i>
-            <input type="number" v-model="route.priceMax">
+            <input type="number" v-model="route.priceMax" min="0">
           </div>
           <a href="javascript:;" class="sure" @click="priceQuery">确定</a>
         </div>

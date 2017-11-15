@@ -2,7 +2,7 @@
   <div class="error-layer blackFixed" v-if="error">
     <div class="error-wrap midWrap">
       <h3>温馨提示</h3>
-      <i class="close" @click="closeErrorLayer">×</i>
+      <i class="close icon-close" @click="closeErrorLayer"></i>
       <div class="con" v-html="error.errorCon"></div>
       <div class="operate-widget">
         <router-link :to="{path:'/login',query:{redirect: this.$route.fullPath}}" v-if="error.errorType==='Nologged'"

@@ -3,7 +3,7 @@
  */
 import Vue from 'vue'
 let api = '/api';
-let cjx = '/cjx';
+let cjx = '/api';
 import {setCookie, getCookie} from '@/common/js/cookie.js';
 export default {
   state: {
@@ -37,6 +37,7 @@ export default {
     },
     //从cookie获取用户信息
     checkLogin: function ({commit}) {
+
       return new Promise(function (resolve, reject) {
         var userInfo;
         if (getCookie('user_info')) {
@@ -48,6 +49,7 @@ export default {
             if (response.body.message === '验证成功') {
               commit('SET_checkLogin', true);
               Vue.http.post(cjx + '/Associator_center/getAssociatorNewInfo.do', {user_id: userInfo.user_id}).then(response => {
+                console.log(11111)
                 commit('SET_userInfo_dynamic', {data: response.body});
               })
             } else {

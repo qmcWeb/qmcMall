@@ -20,9 +20,9 @@
             售价：<span class="goods-cangdou">{{beans}}</span>仓豆<span>市场价：{{price}}元</span>
           </div>
           <div class="goods-number">
-            数量：<span class="goods-amount icon-reduce" @click="reduceNum()"></span>
+            数量：<span :class="['goods-amount','icon-reduce',min?'min':'']" @click="reduceNum()"></span>
             {{ count }}
-            <span class="goods-amount icon-add" @click="addNum()"></span>
+            <span :class="['goods-amount','icon-add']" @click="addNum()"></span>
             <span>库存<b>{{inventory}}</b>件</span>
 
           </div>
@@ -30,7 +30,7 @@
             <a href="javascript:;" @click="exchange" v-if="inventory>0">立即兑换</a>
             <a href="javascript:;" class="soldOut" v-else>已售罄</a>
           </div>
-          <div class="goods-tips">该商品由京东自营负责发货，并提供售后服务。</div>
+          <div class="goods-tips">该商品由{{merchantName}}提供</div>
         </div>
       </div>
       <div class="preview-center">
@@ -39,7 +39,7 @@
           <div class="details-pic" v-html="details_info"></div>
           <div class="details-tips">
             <p class="tips-title">兑换须知</p>
-            <div v-html="conversion_info"></div>
+            <div v-html="conversion_info" class="convertibleTxt"></div>
           </div>
         </div>
         <div class="preview-recommended right" v-if="promotion.length">
@@ -99,6 +99,7 @@
         desc: '',
         beans: '',
         price: '',
+        merchantName: '',
         inventory: '',
         totalBeans: '',
         level_limits: '',
@@ -111,7 +112,14 @@
     computed: {
       ...mapState([
         'userInfo', 'IsLogged', 'dynamic'
-      ])
+      ]),
+      min(){
+        if (this.count <= 1) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     },
     watch: {
       // 如果路由有变化，执行该方法
@@ -139,6 +147,7 @@
             good.promotion = value.promotion;
             console.log(value.promotion)
             good.name = good.goodInfoData.product_name;
+            good.merchantName = good.goodInfoData.merchantName;
             good.level_limits = good.goodInfoData.level_limits;
             good.product_synopsis = good.goodInfoData.product_synopsis;
             good.beans = good.goodInfoData.product_price;
@@ -159,14 +168,11 @@
       },
       reduceNum() {
         if (this.count <= 1) {
-          return false;
+          return
         }
         this.count--;
       },
       addNum() {
-        /*if (this.count >= this.inventory) {
-          return false;
-         }*/
         this.count++;
       },
       goVip(){
@@ -229,6 +235,11 @@
 
 <style lang="stylus" rel="stylesheet/stylus" scoped="">
   @import "detail.styl";
+</style>
+<style lang="stylus" rel="stylesheet/stylus">
+  .convertibleTxt
+    color: #92979B
+    line-height 26px;
 </style>
 
 

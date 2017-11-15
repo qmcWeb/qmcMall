@@ -33,7 +33,7 @@
             <a href="javascript:;" @click="loginCode()">立即登录</a>
           </div>
           <div class="registration">
-            <a href="http://121.42.209.253:28182/zhuce">没有账号？注册享投资好礼></a>
+            <a href="https://www.qianmancang.com/zhuce">没有账号？注册享投资好礼></a>
           </div>
         </div>
         <!--验证码登录-图形验证浮层-->
@@ -45,7 +45,7 @@
             </div>
             <div class="figure-code-content">
               <div class="figure-code-item">
-                <input type="number" placeholder="图片验证码" :maxlength="4" v-model="codPic" @click="clear">
+                <input type="number" placeholder="图片验证码" maxlength="4" v-model.number="codPic" @click="clear">
                 <img :src="imgSrc" class="right" @click="requestImgCode"></img>
                 <p class="formValidation phoneValidation">{{hintPicCode}}</p>
               </div>
@@ -65,20 +65,19 @@
           </div>
           <div class="item item2">
             <label for="logincode" class="login-label icon-suo login-label2"></label>
-            <input type="password" name="txtPassword" style="display:none">
             <input type="password" id="logincode" name="txtPassword" placeholder="登录密码" @keyup.enter="loginPwd"
                    @click="clear" v-model="pwd">
           </div>
           <div class="remember-me">
             <label><input class="login-check" type="checkbox" checked="checked" v-model="remember"><span>记住手机号
 </span></label>
-            <a class="right" href="http://121.42.209.253:28182/find_login-password">忘记密码？</a>
+            <a class="right" href="https://www.qianmancang.com/find_login-password">忘记密码？</a>
           </div>
           <div class="immediately-login">
             <a href="javascript:;" @click="loginPwd">立即登录</a>
           </div>
           <div class="registration">
-            <a href="http://121.42.209.253:28182/zhuce">没有账号？注册享投资好礼></a>
+            <a href="https://www.qianmancang.com/zhuce">没有账号？注册享投资好礼></a>
           </div>
         </div>
       </div>

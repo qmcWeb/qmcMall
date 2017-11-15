@@ -1,3 +1,5 @@
+input
+  font-size 14px;
 .order-wrap
   -webkit-box-sizing: border-box
   -moz-box-sizing: border-box
@@ -124,6 +126,8 @@
           height: 40px
           align-items: center;
           margin: 20px 0;
+          .add-t-txt
+            margin-right 4px;
           select
             flex: 0 0 90px;
             box-sizing border-box
@@ -135,16 +139,16 @@
           display: block;
           font-size: 14px;
           color: #92979B;
-          -webkit-box-sizing: border-box
-          -moz-box-sizing: border-box
           box-sizing: border-box
           resize none
           border: 1px solid #E4E4E4;
           border-radius: 5px;
           width: 686px;
           height: 60px;
-          margin-left: 66px;
+          margin-left: 68px;
           padding: 10px;
+          font-family: '微软雅黑'
+          color: #000
         .errorTips
           color: #FB6C45
           text-align: center;
@@ -200,14 +204,26 @@
           color: #264C65;
           &.good-img-s
             padding-left 24px
+            & > div
+              width 90px;
+              height: 90px;
+              margin auto
+              background #F2F2F2
+              border-radius: 5px;
+
             img
               width 90px;
               height: 90px;
+              border-radius: 5px;
+
           .countIcon
             font-size: 36px;
             display: inline-block;
             vertical-align: -11px;
             cursor pointer
+            color #92979B
+            &.min
+              color: #E4E4E4
           &.count-widget
             user-select none
             .number
@@ -217,10 +233,18 @@
       margin-top: 26px;
       height: 40px
       position: relative
+      overflow hidden
+      & > .input-widget
+        width: 100%
+        height: 40px;
+        .icon-addMessage
+          position absolute
+          left 20px
+          top 10px
+          font-size 19px;
+          color: #92979B
       .addMessInput
         display: block
-        -webkit-box-sizing: border-box
-        -moz-box-sizing: border-box
         box-sizing: border-box
         width: 100%
         border: 1px solid #E7E7E7;
@@ -228,14 +252,9 @@
         height: 40px;
         background: #F9F9F9;
         outline none;
-        position: absolute
-        left: 0;
-        top: 0;
-        width: 100%;
-        padding-left 100px
-        color: #979CA0;
-        opacity: 1
-
+        padding-left 55px
+        font-size 14px
+        color #979CA0
       .addMessBtn
         line-height 40px;
         position: absolute
@@ -285,6 +304,7 @@
     z-index: 222;
     .orderSure-wrap
       width: 800px;
+      height: 526px;
       .orderSure-content
         padding: 36px 24px 50px;
         .s-title
@@ -316,7 +336,8 @@
         .attention
           color: #92979B;
           line-height: 30px;
-          margin-top: 21px;
+          margin-top: 16px;
+          font-size 14px;
         .lastOperation
           width: 380px;
           margin: 40px auto 0;
@@ -337,3 +358,9 @@
             border: 1px solid #E4E4E4;
             color #969B9F
             float right
+
+.icon-addMessage
+  font-size 20px;
+  margin-right: 10px
+  vertical-align: -3px;
+

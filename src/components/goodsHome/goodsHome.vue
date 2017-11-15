@@ -1,7 +1,7 @@
 <template>
   <div class="goods-wrapper">
     <ul class="content-wrapper" v-if="index_list.length>0">
-      <li class="goods-item" v-for="(item,index) in index_list">
+      <li :class="['goods-item',index===0?'first':'']" v-for="(item,index) in index_list">
         <div class="title-wrapper">
           <div class="title-icon">
             <img :src="imgNum[index]" alt="floorNum" width="32" height="44">
@@ -71,3 +71,15 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped="">
   @import "goodsHome.styl";
 </style>
+<style lang="stylus" rel="stylesheet/stylus">
+  .goods-item
+    &.first .goods li:first-child .good-wrap .introduce-img
+      background: #C3E6FA;
+    &.first .goods li:nth-child(2) .good-wrap .introduce-img
+      background: #FFDADA;
+    &.first .goods li:nth-child(3) .good-wrap .introduce-img
+      background: #BDEEF7;
+    &.first .goods li:nth-child(4) .good-wrap .introduce-img
+      background: #FFF0A1;
+</style>
+
