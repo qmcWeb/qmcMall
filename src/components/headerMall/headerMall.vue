@@ -43,9 +43,11 @@
             </div>
             <ul class="sidebar">
               <li>
-                <a href="#">我可兑的商品
-                <i class="icon-rightArrow"></i>
-                </a>
+                <router-link
+                  :to="{path: '/goodsList',query:{type: 'all',price: 'convertible',sort: 'default',priceMin: 0,priceMax: 100000,pageNo:1,pageSize:12}}">
+                  我可兑的商品
+                  <i class="icon-rightArrow"></i>
+                </router-link>
               </li>
               <li>
                 <a href="#">我的兑换记录<i class="icon-rightArrow"></i></a>

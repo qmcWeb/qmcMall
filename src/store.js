@@ -53,7 +53,9 @@ export default {
                 commit('SET_userInfo_dynamic', {data: response.body});
               })
             } else {
+              console.log(2222)
               commit('SET_checkLogin', false);
+              commit('SET_userInfo_dynamic', {data: ''});
             }
           }, response => {
             reject(response.status)
@@ -201,6 +203,7 @@ export default {
       state.success = data
     },
     SET_userInfo_dynamic: (state, {data}) => {
+      console.log(data)
       state.dynamic = data
     },
     SET_pageNumber: (state, {data}) => {

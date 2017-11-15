@@ -217,7 +217,6 @@
             }
             this.$store.commit('SET_checkLogin', true)
             this.$store.dispatch('checkLogin');
-            //this.$store.dispatch('get_userInfo_dynamic', {user_id: result.user_id});
             if (this.$route.query) {
               this.$router.push(this.$route.query.redirect);
             }

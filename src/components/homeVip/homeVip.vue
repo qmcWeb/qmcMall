@@ -136,11 +136,7 @@
     },
     methods: {
       //从本地获取userInfo
-      getInfo: function () {
-        if (this.userInfo) {
-          this.$store.dispatch('get_userInfo_dynamic', {user_id: this.userInfo.user_id})
-        }
-      },
+
       lvImgAnimate(){
         let self = this;
         let lvTime = setInterval(function () {

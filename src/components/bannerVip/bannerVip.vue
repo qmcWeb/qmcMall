@@ -255,12 +255,6 @@
         this.signShow = false;
         this.whetherSign.signed = true;
         this.whetherSign.noSign = false;
-      },
-      //从本地获取userInfo
-      getInfo: function () {
-        if (this.userInfo) {
-          this.$store.dispatch('get_userInfo_dynamic', {user_id: this.userInfo.user_id})
-        }
       }
     },
     computed: {
@@ -295,9 +289,6 @@
         }
         return obj
       }
-    },
-    created(){
-      this.getInfo();
     }
   }
 </script>
